@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prévia · pastas (aba 2–5, mobile)</title>
+<style>
+:root{--bg:#0c0d10;--line:#23262e;--fg:#f2f3f5;--muted:#9aa0ac;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#141621,#0c0d10 60%);color:var(--fg);
+  min-height:100vh;padding:32px 16px 64px}
+.head{max-width:820px;margin:0 auto 30px;text-align:center}
+.head h1{font-size:22px;margin:0 0 6px;letter-spacing:-.02em}
+.head p{color:var(--muted);font-size:14px;margin:0;line-height:1.55}
+.head code{color:#cdd2db;background:#1b1d22;padding:1px 6px;border-radius:6px}
+.stage{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+
+.phone{width:390px;max-width:100%;border-radius:36px;border:1px solid var(--line);
+  background:var(--bg);padding:18px 14px 26px;box-shadow:0 40px 90px -30px #000}
+.phone .cap{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  text-align:center;margin:0 0 18px}
+.stack{display:flex;flex-direction:column;gap:22px}
+
+/* linha simples da aba 01 (fica como está) */
+.row01{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;
+  border:1px solid var(--line);border-radius:14px;background:#131418}
+.row01 b{font-weight:600;font-size:16px}
+.row01 span{color:var(--muted);font-size:13px}
+
+/* ============================================================
+   PASTA — aba 2 a 5
+   ============================================================ */
+.folder{position:relative;display:block;width:100%;border:0;background:transparent;
+  padding:0;cursor:pointer;color:var(--accent);text-align:left;filter:drop-shadow(0 14px 26px rgba(0,0,0,.55))}
+.folder::before{content:"";position:absolute;inset:-6% -4% -2%;z-index:-1;border-radius:26px;
+  background:radial-gradient(60% 55% at 50% 45%,color-mix(in srgb,var(--accent) 26%,transparent),transparent 70%);
+  filter:blur(6px)}
+.fsvg{width:100%;height:auto;display:block;
+  filter:drop-shadow(0 0 7px color-mix(in srgb,var(--accent) 55%,transparent))}
+.num{position:absolute;right:7%;bottom:6%;font-size:clamp(44px,17vw,64px);font-weight:700;line-height:1;
+  letter-spacing:-.03em;color:color-mix(in srgb,var(--accent) 92%,#fff);
+  text-shadow:0 0 20px color-mix(in srgb,var(--accent) 55%,transparent),0 2px 2px rgba(0,0,0,.4)}
+.eye{position:absolute;left:8%;top:40%;font-size:11px;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--accent) 82%,#fff);max-width:60%}
+.title{position:absolute;left:8%;bottom:14%;font-size:clamp(18px,5.4vw,23px);font-weight:600;
+  letter-spacing:-.01em;color:var(--fg);max-width:62%;line-height:1.05}
+.lock{position:absolute;left:8%;top:52%;font-size:11px;color:var(--muted)}
+
+/* aberta */
+.panel{margin-top:-6px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));
+  border-top:2px solid var(--accent);border-radius:0 0 16px 16px;
+  background:linear-gradient(180deg,#101114,#0c0d10);padding:18px;color:var(--muted);
+  font-size:14px;line-height:1.55}
+.panel .kw{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.panel .kw span{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Prévia — pastas (aba 2 → 5, só mobile)</h1>
+  <p>Cada pasta na cor da sua seção, com o brilho/3D da referência: aba no topo, papéis espiando, contorno que brilha e o numeral.
+     A <b>aba 01 “Quem sou eu”</b> continua como está. Nada aplicado no <code>index.html</code> — é só prévia. Toque pra abrir.</p>
+</div>
+
+<div class="stage">
+
+  <div class="phone">
+    <p class="cap">Fechadas (01 fica como está)</p>
+    <div class="stack" id="closed">
+      <div class="row01"><b>01 · Quem sou eu</b><span>Apresentação →</span></div>
+      <!-- pastas injetadas via JS -->
+    </div>
+  </div>
+
+  <div class="phone">
+    <p class="cap">Uma aberta (exemplo)</p>
+    <div class="stack" id="open"></div>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+  {num:'02', accent:'#5fd49a', eye:'Estratégia · Design · Resultados', title:'Cases de sucesso'},
+  {num:'03', accent:'#eea25c', eye:'Exploração · Ideias',            title:'Outros projetos'},
+  {num:'04', accent:'#ec6a7f', eye:'Jogos · Interação',              title:'Game design', lock:'🔒 Em breve'},
+  {num:'05', accent:'#a98bf0', eye:'Conexões · Novos desafios',      title:'Vamos conversar?'},
+];
+
+const BODY = "M24,110 Q24,92 42,92 L176,92 Q190,92 196,80 L210,52 Q216,40 232,40 L336,40 Q356,40 356,60 L356,262 Q356,280 338,280 L42,280 Q24,280 24,262 Z";
+
+function folderSVG(i){
+  return `<svg class="fsvg" viewBox="0 0 380 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="b${i}" x1="0" y1="40" x2="0" y2="280" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#262932"/><stop offset=".5" stop-color="#121317"/><stop offset="1" stop-color="#090a0c"/>
+      </linearGradient>
+      <linearGradient id="s${i}" x1="30" y1="46" x2="270" y2="290" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#fff" stop-opacity=".24"/>
+        <stop offset=".26" stop-color="#fff" stop-opacity=".05"/>
+        <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+      </linearGradient>
+      <clipPath id="c${i}"><path d="${BODY}"/></clipPath>
+    </defs>
+    <g transform="rotate(-5 300 30)">
+      <rect x="252" y="16" width="102" height="30" rx="7" fill="#efe9d7"/>
+      <rect x="264" y="9"  width="90"  height="30" rx="7" fill="#ddd4bd"/>
+    </g>
+    <path d="${BODY}" fill="url(#b${i})" stroke="currentColor" stroke-width="2.5"/>
+    <path d="${BODY}" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="1"
+          transform="translate(0 1.4)" clip-path="url(#c${i})"/>
+    <rect x="0" y="0" width="380" height="300" fill="url(#s${i})" clip-path="url(#c${i})"/>
+  </svg>`;
+}
+
+function folder(s,i){
+  const el=document.createElement(s.lock?'div':'button');
+  el.className='folder'; el.style.setProperty('--accent',s.accent);
+  el.innerHTML = folderSVG(i)
+    + `<span class="eye">${s.eye}</span>`
+    + `<span class="title">${s.title}</span>`
+    + (s.lock?`<span class="lock">${s.lock}</span>`:'')
+    + `<span class="num">${s.num}</span>`;
+  return el;
+}
+
+const closed=document.getElementById('closed');
+SECTIONS.forEach((s,i)=>closed.appendChild(folder(s,i)));
+
+const open=document.getElementById('open');
+const wrap=document.createElement('div');
+wrap.appendChild(folder(SECTIONS[0],10));
+const panel=document.createElement('div');
+panel.className='panel'; panel.style.setProperty('--accent',SECTIONS[0].accent);
+panel.innerHTML='Três cases onde design virou resultado — plataforma multimarca BPX, automação de capas com IA e o hub de Promoções.'
+  +'<div class="kw"><span>Feedback ORG</span><span>Produtos Web · BPX</span><span>App São João 2025</span></div>';
+wrap.appendChild(panel);
+open.appendChild(wrap);
+open.appendChild(folder(SECTIONS[1],11));
+open.appendChild(folder(SECTIONS[3],12));
+</script>
+</body>
+</html>

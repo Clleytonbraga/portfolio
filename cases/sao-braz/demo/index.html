@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>São Braz — Desafio da Memória</title>
+<style>
+  /* Recriação jogável do totem "Desafio da Memória" (São Braz · São João 2024).
+     Assets são a arte original da campanha. Self-contained, sem libs. */
+  :root{ --navy:#0d1330; --navy2:#1a2354; --blue:#0b46c9; --orange:#f28c1e; --red:#e23b3b; }
+  *{ box-sizing:border-box; margin:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:"Trebuchet MS", system-ui, sans-serif; color:#fff;
+    background:
+      radial-gradient(120% 80% at 50% 0%, #26307a 0%, var(--navy2) 45%, var(--navy) 100%);
+    min-height:100%; display:flex; flex-direction:column; align-items:center;
+    padding:24px 16px 40px; overflow-x:hidden;
+  }
+  /* bandeirolas de fundo */
+  body::before{
+    content:""; position:fixed; inset:0 0 auto 0; height:60px; z-index:0; opacity:.9;
+    background:repeating-linear-gradient(90deg,
+      var(--red) 0 28px, transparent 28px 56px, var(--blue) 56px 84px, transparent 84px 112px, var(--orange) 112px 140px, transparent 140px 168px);
+    -webkit-mask:radial-gradient(14px 20px at 14px 0, #000 98%, transparent) repeat-x 0 0/28px 22px;
+    mask:radial-gradient(14px 20px at 14px 0, #000 98%, transparent) repeat-x 0 0/28px 22px;
+  }
+  .logo{ width:min(300px,70vw); z-index:1; margin-top:28px; filter:drop-shadow(0 6px 14px rgba(0,0,0,.4)); }
+  .hud{
+    z-index:1; display:flex; gap:14px; margin:16px 0 20px; font-weight:bold; font-size:15px;
+  }
+  .hud span{ background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.25);
+    padding:7px 16px; border-radius:999px; }
+  .board{
+    z-index:1; display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+    width:min(460px,94vw); perspective:1000px;
+  }
+  .card{
+    aspect-ratio:3/4; cursor:pointer; position:relative; transform-style:preserve-3d;
+    transition:transform .4s ease; border-radius:12px;
+  }
+  .card.flipped,.card.matched{ transform:rotateY(180deg); }
+  .card .side{
+    position:absolute; inset:0; border-radius:12px; backface-visibility:hidden;
+    background-size:cover; background-position:center; box-shadow:0 4px 12px rgba(0,0,0,.35);
+    border:3px solid rgba(255,255,255,.15);
+  }
+  .card .back{ }
+  .card .face{ transform:rotateY(180deg); background-color:#fff; background-size:contain; background-repeat:no-repeat; }
+  .card.matched .side{ animation:pop .4s ease; border-color:var(--orange); }
+  @keyframes pop{ 50%{ transform:scale(1.08) rotateY(180deg); } }
+  .win{
+    z-index:2; position:fixed; inset:0; display:none; place-items:center;
+    background:rgba(5,8,26,.82); backdrop-filter:blur(3px); text-align:center; padding:24px;
+  }
+  .win.show{ display:grid; }
+  .win h2{ font-size:34px; color:var(--orange); text-shadow:0 3px 0 rgba(0,0,0,.3); }
+  .win p{ margin:10px 0 22px; font-size:18px; }
+  .btn{
+    border:0; cursor:pointer; font-weight:bold; font-size:16px; color:#fff;
+    background:var(--orange); padding:12px 30px; border-radius:999px;
+    box-shadow:0 5px 0 #c46a0e; transition:transform .1s;
+  }
+  .btn:active{ transform:translateY(3px); box-shadow:0 2px 0 #c46a0e; }
+</style>
+</head>
+<body>
+  <img class="logo" src="../assets/logo-game.png" alt="Desafio da Memória — São Braz">
+  <div class="hud"><span id="moves">Jogadas: 0</span><span id="pairs">Pares: 0/6</span></div>
+  <div class="board" id="board"></div>
+
+  <div class="win" id="win">
+    <div>
+      <h2>Boa! 🎉</h2>
+      <p id="winTxt">Você encontrou todos os pares.</p>
+      <button class="btn" onclick="start()">Jogar de novo</button>
+    </div>
+  </div>
+
+<script>
+  const FACES = ['cafe','flocao','milho','bolo','pipos','canjica'];
+  const board = document.getElementById('board');
+  const elMoves = document.getElementById('moves');
+  const elPairs = document.getElementById('pairs');
+  let first=null, lock=false, moves=0, pairs=0;
+
+  const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+
+  function start(){
+    document.getElementById('win').classList.remove('show');
+    first=null; lock=false; moves=0; pairs=0;
+    elMoves.textContent='Jogadas: 0'; elPairs.textContent='Pares: 0/6';
+    board.innerHTML='';
+    shuffle([...FACES,...FACES]).forEach(name=>{
+      const c=document.createElement('div');
+      c.className='card'; c.dataset.name=name;
+      c.innerHTML=`<div class="side back" style="background-image:url(../assets/back.png)"></div>
+                   <div class="side face" style="background-image:url(../assets/${name}.png)"></div>`;
+      c.addEventListener('click',()=>flip(c));
+      board.appendChild(c);
+    });
+  }
+
+  function flip(c){
+    if(lock || c.classList.contains('flipped') || c.classList.contains('matched')) return;
+    c.classList.add('flipped');
+    if(!first){ first=c; return; }
+    moves++; elMoves.textContent='Jogadas: '+moves;
+    if(first.dataset.name===c.dataset.name){
+      first.classList.add('matched'); c.classList.add('matched');
+      first=null; pairs++; elPairs.textContent='Pares: '+pairs+'/6';
+      if(pairs===6) setTimeout(win,500);
+    } else {
+      lock=true;
+      const a=first; first=null;
+      setTimeout(()=>{ a.classList.remove('flipped'); c.classList.remove('flipped'); lock=false; },800);
+    }
+  }
+
+  function win(){
+    document.getElementById('winTxt').textContent='Completou em '+moves+' jogadas.';
+    document.getElementById('win').classList.add('show');
+  }
+
+  start();
+</script>
+</body>
+</html>

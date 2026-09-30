@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automação de capas com IA · Produto web | Cleyton Braga</title>
+<meta name="description" content="Pipeline com IA que cria e publica as capas do catálogo: de 904 capas em 6 meses para mais de 3.000 em uma semana.">
+<link rel="stylesheet" href="../../styles.css?v=42">
+<style>:root{ --accent:#5fd49a; }</style>
+<style>
+.tldr{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);background:var(--panel);padding:18px 20px;margin:28px 0 0}
+.tldr b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.tldr p{margin:0;color:var(--fg);font-size:16.5px;line-height:1.6}
+.stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+.stat{flex:1 1 170px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--fg)}
+.stat span{font-size:13px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
+.flow{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
+.flow li{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 16px;background:var(--panel);counter-increment:s}
+.flow li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:12.5px;font-weight:700}
+.flow b{display:block;margin-top:10px;font-size:14.5px;line-height:1.35}
+.flow span{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:4px}
+@media(max-width:860px){.flow{grid-template-columns:1fr}}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.cmp div{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.cmp div:last-child{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.cmp h3{margin:0 0 8px}
+.cmp ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px;line-height:1.6}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}}
+.next{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <span class="brand">
+    <a class="name" href="../../index.html">Cleyton Braga</a>
+    <span class="dash">|</span>
+    <a class="role" href="../../sobre/index.html">Product Designer</a>
+  </span>
+  <nav>
+    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
+  </nav>
+</div></header>
+<nav class="crumbs" aria-label="Você está em"><div class="wrap">
+  <a class="crumb-back" href="../produto-web/index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <ol class="crumb-trail">
+    <li><a href="../../index.html">Início</a></li>
+    <li><a href="../produto-web/index.html">Produto web</a></li>
+    <li aria-current="page">Automação de capas com IA</li>
+  </ol>
+</div></nav>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">02 · Produto web · Automação</div>
+    <h1>De 904 capas em 6 meses para mais de 3.000 em uma semana</h1>
+    <p class="lede">Um pipeline com IA que encontra as capas fora do padrão, gera as novas e publica no backoffice.</p>
+    <dl class="meta">
+      <div><dt>Meu papel</dt><dd>Ideia, desenho do fluxo e implementação</dd></div>
+      <div><dt>Ferramentas</dt><dd>Claude Code · Figma · Magnific</dd></div>
+      <div><dt>Produto</dt><dd>Catálogo do site, 4 marcas</dd></div>
+      <div><dt>Período</dt><dd>2026</dd></div><!-- REVISAR: confirmar período -->
+    </dl>
+    <div class="tldr"><b>Resumo</b><p>O catálogo tinha mais de 3.500 capas para atualizar em quatro formatos. No processo manual, quatro pessoas entregaram 904 em seis meses. Desenhei uma automação que produz cerca de 1.000 capas por dia e publica sozinha. O operacional passou de quatro pessoas para uma.</p></div>
+  </div>
+
+  <section>
+    <h2>O problema</h2>
+    <p class="muted">Cada título do catálogo precisa de capa no padrão das marcas, em quatro formatos: 3:4, 1:1, 9:16 e 16:9. Eram mais de 3.500 títulos com capa desatualizada.</p>
+    <p class="muted">O trabalho era todo manual. Três designers montavam as capas, e uma pessoa de apoio subia cada título no backoffice pelo menos três vezes, uma por formato. Em seis meses, saíram 904 capas. Nesse ritmo, zerar a fila levaria quase dois anos.</p>
+  </section>
+
+  <section>
+    <h2>Antes e depois</h2>
+    <div class="cmp">
+      <div><h3>Manual</h3><ul><li>3 designers e 1 pessoa de apoio</li><li>Upload repetido por formato</li><li>904 capas em 6 meses</li></ul></div>
+      <div><h3>Com o pipeline</h3><ul><li>1 pessoa no operacional</li><li>Publicação direta no backoffice</li><li>Cerca de 1.000 capas por dia</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>O pipeline</h2>
+    <p class="muted">Montei o fluxo com o Claude Code, usando o Figma como mesa de montagem e o Magnific para gerar imagem.</p>
+    <ol class="flow">
+      <li><b>Varre o catálogo</b><span>Encontra as capas que estão fora do padrão.</span></li>
+      <li><b>Busca referências</b><span>Puxa a arte original no site de cada estúdio.</span></li>
+      <li><b>Separa as camadas</b><span>A IA extrai as 3 camadas essenciais de cada composição.</span></li>
+      <li><b>Monta no Figma</b><span>Organiza as capas por estúdio, nos quatro formatos.</span></li>
+      <li><b>Publica</b><span>Sobe tudo no backoffice, sem upload manual.</span></li>
+    </ol>
+    <!-- REVISAR (Cleyton): esta é a seção que mais mostra senioridade. Conte quem revisa as capas, o que é recusado e por quê, e um erro da IA que você teve de corrigir. -->
+    <!-- REVISAR: imagem. A atual (auto-thumbs.webp) mostra capas reconhecíveis do catálogo; trocar por uma versão neutra antes de publicar. -->
+  </section>
+
+  <section>
+    <h2>Resultado</h2>
+    <div class="stats">
+      <div class="stat"><b>904 → 3.000+</b><span>capas em 6 meses, contra mais de 3.000 em uma semana</span></div>
+      <div class="stat"><b>4 → 1</b><span>pessoas no operacional</span></div>
+      <div class="stat"><b>4 formatos</b><span>gerados e publicados de uma vez</span></div>
+    </div>
+    <p class="muted" style="margin-top:18px">O objetivo era devolver esse tempo ao time, para criação e estratégia.</p>
+    <!-- REVISAR: o currículo fala em "3.500+ capas, de 6 meses para 3 semanas". O post do LinkedIn fala em "3.000+ em uma semana". Alinhar os dois números antes de publicar. -->
+  </section>
+
+  <section>
+    <h2>O que vem</h2>
+    <p class="muted next">Um segundo projeto de automação está em andamento, com o mesmo princípio: tirar do time o trabalho repetitivo.</p>
+    <p style="margin-top:28px"><a href="../hub-promocoes/index.html">Próximo: Hub de Promoções →</a></p>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+</div></footer>
+</body>
+</html>

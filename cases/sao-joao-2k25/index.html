@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App São João 2K25 · Mobile UX · Cleyton Braga</title>
+<link rel="stylesheet" href="../../styles.css?v=42">
+<style>:root{ --accent:#ff9d3b; }</style>
+<style>
+.fold--dim::before{filter:brightness(.42) saturate(.9)}
+.fold--dim::after{background:linear-gradient(180deg,rgba(12,13,16,.2) 0%,rgba(12,13,16,.5) 50%,#0c0d10 100%)}
+.phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:28px 0}
+.phones figure{margin:0}
+.phones img{border-radius:22px}
+.scrollshot{max-height:620px;overflow:auto;border:1px solid var(--line);border-radius:22px;background:#000}
+.scrollshot img{width:100%;display:block;border:0;border-radius:0}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin:28px 0;align-items:start}
+.duo figure{margin:0}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <span class="brand">
+    <a class="name" href="../../index.html">Cleyton Braga</a>
+    <span class="dash">|</span>
+    <a class="role" href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">UX/UI Designer</a>
+  </span>
+  <nav>
+    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
+  </nav>
+</div></header>
+<nav class="crumbs" aria-label="Você está em"><div class="wrap">
+  <a class="crumb-back" href="../../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <ol class="crumb-trail">
+    <li><a href="../../index.html">Início</a></li>
+    <li aria-current="page">App São João 2K25</li>
+  </ol>
+</div></nav>
+
+
+<section class="fold fold--dim" style="--bg:url(cases/sao-joao-2k25/assets/hero-magnific.webp)">
+  <div class="fold-inner wrap">
+    <span class="eyebrow">02 · Cases de sucesso · App</span>
+    <h1>App São João 2K25</h1>
+    <p class="fold-sub">O app do São João de Campina Grande 2025: programação, mapa, missões e notícias.</p>
+    <dl class="fold-info">
+      <div><dt>Escopo</dt><dd>UX · UI · Componentes</dd></div>
+      <div><dt>Meu papel</dt><dd>Product Designer</dd></div>
+      <div><dt>Ano</dt><dd>2025</dd></div>
+      <div><dt>Plataforma</dt><dd>App mobile</dd></div>
+    </dl>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <section>
+    <h2>O app</h2>
+    <p class="muted">O São João de Campina Grande dura o mês de junho inteiro e tem vários palcos.
+      Em 2024 o evento teve um site com as informações básicas. Para 2025 desenhei um app com a programação dia a dia, uma página para cada atração,
+      o mapa do evento com hotéis, restaurantes e bares por perto, missões com conquistas, notícias e patrocinadores.</p>
+    <!-- REVISAR (Cleyton): o app foi publicado nas lojas? Quem desenvolveu? Se tiver número de downloads, entra aqui. -->
+    <figure><img src="assets/hero.jpg" alt="Três telas do app: mapa, home e programação"></figure>
+  </section>
+
+  <section>
+    <h2>Wireframe</h2>
+    <p class="muted">A home, as notícias, os parceiros e o cadastro têm uma versão em wireframe cinza, sem a identidade do evento.</p>
+    <figure style="max-width:560px"><img src="assets/wireframes.jpg" alt="Wireframes do app"></figure>
+  </section>
+
+  <section>
+    <h2>Home</h2>
+    <p class="muted">A home abre com o selo do evento e um acesso rápido para programação do SJCG 2025, conheça a cidade e transmissão. Depois vêm o calendário, os destaques do dia, notícias e patrocinadores. Role dentro do quadro.</p>
+    <div class="duo">
+      <div class="scrollshot"><img src="assets/home-full.jpg" alt="Home completa"></div>
+      <div class="scrollshot"><img src="assets/dark-full.jpg" alt="Home completa em modo escuro"></div>
+    </div>
+    <p class="muted" style="margin-top:-12px;font-size:13px">Tema claro e escuro.</p>
+  </section>
+
+  <section>
+    <h2>Programação e atrações</h2>
+    <p class="muted">A programação é um calendário de junho. Ao escolher o dia aparecem os destaques e a lista de atrações separada por palco. Cada atração tem data, hora, palco e sugestões de outras atrações.</p>
+    <div class="phones">
+      <figure><img src="assets/programacao.jpg" alt="Programação"><figcaption>Programação</figcaption></figure>
+      <figure><img src="assets/programacao-b.jpg" alt="Página de atração"><figcaption>Atração</figcaption></figure>
+      <figure><img src="assets/mapa.jpg" alt="Mapa do evento"><figcaption>Mapa com hotéis, restaurantes, bares, cafeterias e museus</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Missões</h2>
+    <p class="muted">A parte de jogo. Na missão "Explorador Junino", a pessoa visita pelo menos três locais indicados no mapa, tira uma foto e ganha um selo no perfil. As conquistas ficam numa grade, com as bloqueadas em cinza.</p>
+    <div class="phones">
+      <figure><img src="assets/missoes.jpg" alt="Detalhe da missão Explorador Junino"><figcaption>Como participar</figcaption></figure>
+      <figure><img src="assets/missoes-b.jpg" alt="Tela de missões e conquistas"><figcaption>Missões e conquistas</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Outras telas</h2>
+    <div class="phones">
+      <figure><img src="assets/login.jpg" alt="Login"><figcaption>Login com Google, Apple e Facebook</figcaption></figure>
+      <figure><img src="assets/registro.jpg" alt="Cadastro"><figcaption>Cadastro</figcaption></figure>
+      <figure><img src="assets/noticia.jpg" alt="Notícia"><figcaption>Notícia</figcaption></figure>
+      <figure><img src="assets/patrocinadores.jpg" alt="Patrocinador"><figcaption>Patrocinador</figcaption></figure>
+      <figure><img src="assets/menu.jpg" alt="Menu"><figcaption>Menu</figcaption></figure>
+    </div>
+  </section>
+
+
+</main>
+
+<footer><div class="wrap">
+  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+</div></footer>
+
+</body>
+</html>

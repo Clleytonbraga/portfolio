@@ -1,0 +1,565 @@
+/* Portfólio Cleyton Braga — folha compartilhada. Editorial, escuro, sem dependências. */
+:root {
+  --bg: #0c0d10;
+  --panel: #15171c;
+  --line: #23262e;
+  --fg: #f2f3f5;
+  --muted: #9aa0ac;
+  --accent: #6cff8f;            /* troque por marca do case se quiser */
+  --max: 860px;
+  --r: 14px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --dur: .5s;
+  --pad-col: clamp(28px, 2.6vw, 44px);
+  --kw: rgba(255,255,255,.5);
+  --kw-on: rgba(255,255,255,.75);
+  font-synthesis: none;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 -apple-system, "Inter", "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+/* topo */
+.topbar { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); z-index: 10; }
+/* header full-bleed (24px de margem lateral) em TODAS as páginas, não preso ao max-width */
+.topbar .wrap { display: flex; justify-content: space-between; align-items: center; height: 56px; max-width: none; }
+.topbar .name { font-weight: 600; letter-spacing: -.01em; }
+/* home: nome neutro (a home tem várias cores, não uma só).
+   internas: o nome herda o --accent da seção (a { color: var(--accent) }). */
+body.home .topbar .brand .name { color: var(--fg); }
+.topbar nav a { color: var(--muted); margin-left: 20px; font-size: 14px; }
+
+/* Breadcrumbs das subpáginas — discreto: texto muted, sem pill nem borda */
+.crumbs .wrap { display: flex; align-items: center; gap: 12px; min-height: 38px; margin-top: 6px; max-width: none; flex-wrap: wrap; }
+.crumb-back { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); transition: border-color .2s, color .2s, background .2s; }
+.crumb-back svg { width: 15px; height: 15px; }
+.crumb-back:hover { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); text-decoration: none; }
+.crumb-trail { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; list-style: none; margin: 0; padding: 0; font-size: 12.5px; }
+.crumb-trail li { display: flex; align-items: center; gap: 7px; }
+.crumb-trail li + li::before { content: "/"; color: var(--line); }
+.crumb-trail a { color: var(--muted); transition: color .2s; }
+.crumb-trail a:hover { color: var(--accent); text-decoration: none; }
+.crumb-trail [aria-current="page"] { color: color-mix(in srgb, var(--muted) 70%, var(--fg)); }
+
+/* nome + cargo juntos no header */
+.brand { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.brand .dash { color: var(--line); }
+.brand .role { color: var(--muted); font-size: 13px; letter-spacing: .01em; white-space: nowrap; }
+a.role { text-decoration: none; transition: color .2s ease; }
+a.role:hover, a.role:focus-visible { color: var(--fg); text-decoration: none; }
+@media (max-width: 560px) { .brand .dash, .brand .role { display: none; } }
+
+/* botão de download do currículo */
+.btn-cv {
+  color: var(--fg) !important;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-weight: 600;
+  transition: border-color .15s, color .15s;
+}
+.btn-cv:hover { border-color: var(--accent); color: var(--accent) !important; text-decoration: none; }
+
+/* hero do case */
+.hero { padding: 72px 0 40px; }
+.eyebrow { color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; letter-spacing: -.03em; margin: 12px 0 16px; }
+.lede { font-size: 20px; color: var(--muted); max-width: 62ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+.tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.meta { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.meta div { font-size: 14px; }
+.meta dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.meta dd { margin: 4px 0 0; font-weight: 500; }
+
+/* seções */
+section { padding: 40px 0; }
+h2 { font-size: 26px; letter-spacing: -.02em; margin: 0 0 16px; }
+h3 { font-size: 18px; margin: 28px 0 8px; }
+p { max-width: 68ch; }
+.muted { color: var(--muted); }
+
+/* demo interativa */
+.demo { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.demo-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.demo-bar .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.demo iframe { width: 100%; border: 0; display: block; background: #000; }
+
+/* antes/depois (slider nativo, zero JS de lib) */
+.ba { position: relative; border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/10; }
+.ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ba .after { clip-path: inset(0 0 0 var(--split, 50%)); }
+.ba input[type=range] { position: absolute; inset: auto 0 0 0; width: 100%; }
+
+/* imagens */
+figure { margin: 28px 0; }
+figure img { width: 100%; border-radius: var(--r); border: 1px solid var(--line); display: block; }
+figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+/* grid de cases (index) */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding: 40px 0 80px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color .15s, transform .15s; }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card a { color: inherit; text-decoration: none; }
+.card .thumb { aspect-ratio: 16/10; background: #000 center/cover; }
+.card .body { padding: 16px; }
+.card h3 { margin: 0 0 6px; font-size: 16px; }
+.card p { font-size: 14px; color: var(--muted); margin: 0; }
+
+footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; text-align: center; }
+
+/* ============================================================
+   MARQUEE de marcas — linha única, scroll contínuo direita→esquerda
+   ============================================================ */
+.brands-strip { padding: 8px 0 64px; }
+.marquee {
+  margin-top: 28px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee-track {
+  display: flex; align-items: center; width: max-content;
+  animation: marquee 48s linear infinite;   /* 0 → -50% = exatamente 1 conjunto (loop sem emenda) */
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track img {
+  flex: 0 0 auto;
+  height: 26px; width: auto; max-width: 132px; object-fit: contain;
+  margin: 0 36px;
+  filter: grayscale(1) invert(1) brightness(1.15);        /* todos viram monocromo claro, mesmo peso */
+  opacity: .7;
+  transition: opacity .3s ease;
+}
+.marquee-track img:hover { opacity: 1; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* ============================================================
+   PÁGINA INTERNA — dobra cheia + seções
+   ============================================================ */
+.fold { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
+.fold::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--bg) center/cover no-repeat;
+}
+.fold::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-fold, #0c0d10) 20%, transparent) 0%,
+              transparent 30%, color-mix(in srgb, #0c0d10 92%, transparent) 100%);
+}
+.fold-inner { position: relative; z-index: 1; width: 100%; padding-bottom: 56px; padding-top: 96px; }
+.fold-inner h1 { font-size: clamp(40px, 9vw, 96px); line-height: .95; letter-spacing: -.04em; margin: 0; }
+.fold-sub { font-size: clamp(15px, 2.2vw, 20px); color: var(--accent); font-weight: 600; margin: 12px 0 0; }
+.fold-info { display: flex; gap: 40px; flex-wrap: wrap; margin: 32px 0 0; padding-top: 24px; border-top: 1px solid color-mix(in srgb, var(--fg) 18%, transparent); }
+.fold-info dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.fold-info dd { margin: 4px 0 0; font-weight: 500; font-size: 15px; }
+
+/* vídeo placeholder 16:9 */
+.video-embed { position: relative; aspect-ratio: 16/9; border-radius: var(--r); border: 1px solid var(--line); background: var(--thumb, none) center/cover no-repeat, var(--panel); display: grid; place-content: center; overflow: hidden; }
+.video-embed::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
+.video-embed .yt-play { position: relative; display: grid; place-content: center; width: 68px; height: 48px; border-radius: 14px; background: #ff0000; color: #fff; font-size: 22px; }
+.video-embed iframe, .video-embed video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* marcas */
+.brands { display: flex; flex-wrap: wrap; gap: 12px; }
+.brand-chip { border: 1px solid var(--line); border-radius: 999px; padding: 10px 20px; font-weight: 600; color: var(--fg); }
+
+/* galeria (grid masonry-ish) */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.gallery figure { margin: 0; aspect-ratio: 1 / 1; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--r); border: 1px solid var(--line); display: block; }
+
+/* carrossel (scroll-snap nativo, sem lib) */
+.carousel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; -webkit-overflow-scrolling: touch; }
+.carousel .slide { margin: 0; flex: 0 0 min(80%, 560px); scroll-snap-align: start; }
+.carousel .slide img { width: 100%; border-radius: var(--r); border: 1px solid var(--line); display: block; }
+.carousel .slide figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+/* ============================================================
+   HOME — colunas expansíveis (hover/foco). Só CSS, sem JS.
+   ============================================================ */
+body.home { height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+body.home .topbar { flex: 0 0 auto; }
+/* header full-bleed com 24px de margem lateral (não preso ao max-width de 860) */
+body.home .topbar .wrap { max-width: none; }
+body.home .topbar nav { display: flex; align-items: center; gap: 20px; }
+body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: .01em; }
+
+.cols { flex: 1 1 auto; display: flex; min-height: 0; }
+
+.col {
+  position: relative;
+  flex: 1 1 0;                       /* base igual; hover muda o grow */
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--pad-col);
+  color: var(--fg);
+  text-decoration: none;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+  cursor: pointer;
+  transition: flex-grow var(--dur) var(--ease);
+}
+.col:first-child { border-left: 0; }
+.col:hover, .col:focus-visible { text-decoration: none; }
+
+/* imagem/atmosfera de fundo por coluna */
+/* fundo: escuro e contido por padrão; ganha luz no hover/foco */
+.col::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--img) center/cover no-repeat,
+              linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 22%, transparent));
+  opacity: .22;
+  filter: grayscale(.5) brightness(.8);
+  transition: opacity var(--dur) var(--ease), filter var(--dur) var(--ease);
+}
+/* véu escuro pra legibilidade do texto */
+.col::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 30%, transparent) 0%, var(--bg) 100%);
+  opacity: .9;
+  transition: opacity var(--dur) var(--ease);
+}
+.col > * { position: relative; z-index: 1; }
+
+/* expandir a coluna em foco, comprimir as outras */
+.cols:hover .col { flex-grow: .5; }              /* vizinhas encolhem */
+.cols .col:hover, .cols .col:focus-visible, .cols .col:has(:focus-visible) { flex-grow: 5; }
+
+/* slot 01 aberto por padrão (proporção balanceada: 01 grande, vizinhos normais) */
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed { flex-grow: 5; }
+/* passar o mouse no 01 já aberto não deve mexer nos vizinhos (sem salto) */
+.cols:has(.col.fixed:hover) .col:not(.fixed),
+.cols:has(.col.fixed:focus-visible) .col:not(.fixed) { flex-grow: 1; }
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed .col-label { opacity: 0; }
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed .col-more { opacity: 1; transform: none; }
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed::before { opacity: .6; filter: grayscale(0); }
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed::after { opacity: .7; }
+
+.col:hover::before, .col:focus-visible::before, .col:has(:focus-visible)::before { opacity: .6; filter: grayscale(0); }
+.col:hover::after,  .col:focus-visible::after,  .col:has(:focus-visible)::after  { opacity: .7; }
+
+
+/* rótulo vertical no estado colapsado — parte inferior, acima da seta */
+.col-label {
+  position: absolute; left: calc(var(--pad-col) - 2px); bottom: calc(var(--pad-col) + 84px);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(20px, 1.9vw, 30px);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--fg) 82%, transparent);
+  transition: opacity .35s var(--ease), color var(--dur) var(--ease);
+}
+.col:hover .col-label, .col:focus-visible .col-label, .col:has(:focus-visible) .col-label { opacity: 0; }
+
+/* slot 01 "Quem sou eu": foto real controlada por estado (fechado x aberto) */
+.col.fixed::before { display: none; }              /* a foto é o <img>, não o bg */
+/* fechado: bloco quadrado no topo (rosto + ombros) fundindo no escuro embaixo */
+.col-photo {
+  position: absolute; top: 0; left: 0; right: 0;
+  width: 100%; height: 50%;                          /* metade da altura da coluna */
+  object-fit: cover; object-position: center top;
+  z-index: 0;                                      /* atrás do véu ::after e do texto */
+  filter: grayscale(.55); opacity: .6;
+  -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+  transition: width .5s ease, opacity .5s ease, filter .5s ease;
+}
+/* aberto (01 é o slot em foco): foto full-height à direita, esquerda livre pro texto */
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed .col-photo,
+.col.fixed:hover .col-photo,
+.col.fixed:focus-visible .col-photo {
+  top: 0; bottom: 0; left: auto; right: 0;
+  width: 56%; height: 100%; aspect-ratio: auto;
+  object-position: center;
+  opacity: .92; filter: grayscale(0);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 62%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 62%);
+}
+
+/* bloco horizontal revelado ao expandir */
+.col-more {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .4s ease .1s, transform .4s ease .1s;
+  max-width: 440px;
+}
+/* categoria (eyebrow) + cargo dentro do painel aberto */
+.col-cat { display: block; color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+.col-more .role { display: block; color: var(--fg); font-weight: 600; font-size: 15px; margin: -4px 0 12px; }
+.col-lede { color: var(--fg) !important; font-size: 16px !important; font-weight: 500; margin: 0 0 18px !important; max-width: 40ch !important; }
+.tags-label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin: 16px 0 8px; }
+.col-more .tags { margin: 0; }
+/* Cases de sucesso: lista inline dos 3 cases no painel 02 (sem hub) */
+.case-list { display: flex; flex-direction: column; margin: 20px 0 0; }
+.case-row { display: flex; align-items: center; gap: 18px; padding: 16px 0; border-top: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+.case-row:first-child { border-top: 0; }
+.case-row:hover { text-decoration: none; }
+.case-thumb { flex: none; width: 132px; height: 80px; border-radius: 12px; background-size: cover; background-position: center; border: 1px solid var(--line); transition: border-color .2s, transform .25s var(--ease); }
+.case-row:hover .case-thumb { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); transform: scale(1.02); }
+.case-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.case-t { font-size: 16px; font-weight: 600; color: var(--fg); letter-spacing: -.01em; transition: color .2s; }
+.case-d { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.case-go { flex: none; color: var(--muted); font-size: 18px; transition: transform .2s var(--ease), color .2s; }
+.case-row:hover .case-t { color: var(--accent); }
+.case-row:hover .case-go { color: var(--accent); transform: translateX(4px); }
+/* aba 2: a lista ocupa a largura toda do painel (sem o teto de 440px) */
+.col--cases .col-more { max-width: none; }
+/* aba 2 usa uma capa colorida (jornada) → mais véu p/ contraste do texto */
+.col--cases::before { opacity: .14; }
+.col--cases::after  { opacity: .97; }
+.col--cases .case-list { margin-top: 24px; }
+.col--cases .case-row { padding-left: 14px; padding-right: 14px; margin-left: -14px; margin-right: -14px; border-radius: 12px; transition: background .2s; }
+.col--cases .case-row:hover { background: rgba(255,255,255,.04); }
+/* mobile: capa menor pra não espremer o texto (desktop mantém 132×80) */
+@media (max-width: 720px) { .case-thumb { width: 68px; height: 52px; } .case-row { gap: 12px; } .col--form .col-cat { display: none; } }
+/* aba 3 (Outros projetos): mais respiro antes de "Marcas atendidas" */
+.col-more--wide .tags-label { margin-top: 40px; }
+.col-info { color: var(--muted); font-size: 12px; margin: 34px 0 0; }
+/* vence o .col-more p (0,1,1) que zerava o topo → afasta o "Brasil · Remoto…" dos chips */
+.col-more .col-info { margin-top: 36px; }
+.col:hover .col-more, .col:focus-visible .col-more, .col:has(:focus-visible) .col-more { opacity: 1; transform: none; }
+/* guarda: quando o 01 (fixed) recebe hover, os vizinhos colapsam de verdade —
+   mesmo que um input interno ainda esteja focado (evita o conteúdo espremido) */
+.cols:has(.col.fixed:hover) .col:not(.fixed):not(:hover) .col-more { opacity: 0; }
+/* slot Contato: conteúdo centralizado verticalmente e mais largo (form) */
+.col--form { justify-content: center; }
+.col--form .col-more { max-width: 760px; }
+.col--form .col-more p { max-width: 62ch; }        /* intro do contato em linha cheia, ~2 linhas */
+.col-more h2 { font-size: clamp(28px, 3vw, 44px); line-height: 1.02; letter-spacing: -.03em; margin: 0 0 10px; }
+.col-more p  { color: var(--muted); font-size: 15px; margin: 0 0 18px; max-width: 34ch; }
+.col-cta {
+  display: inline-block; margin-top: 22px; font-size: 14px; font-weight: 600;
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  padding-bottom: 2px;
+}
+
+/* aba 5: botões sociais (LinkedIn · Instagram · WhatsApp) */
+.contact-socials { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
+.social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; color: var(--fg); font-size: 14px; font-weight: 600; transition: border-color .2s, color .2s, background .2s; }
+.social-btn svg { width: 18px; height: 18px; flex: none; }
+.social-btn:hover { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); text-decoration: none; }
+/* telas pequenas: só a bolinha com o ícone (sem label), pra não desequilibrar */
+@media (max-width: 560px) {
+  .social-btn { width: 46px; height: 46px; padding: 0; gap: 0; justify-content: center; }
+  .social-label { display: none; }
+}
+.ferr { color: #ff6b6b; font-size: 13px; margin: 12px 0 0; }
+.ferr[hidden] { display: none; }
+
+/* form de contato (slot 05) — caixas pill, typeform-style */
+.cta-form { width: 100%; }
+/* input + botão na MESMA linha (label ocupa a linha inteira acima) */
+.fstep { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.cta-form label { flex: 1 1 100%; display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 0; }
+.cta-form input, .cta-form textarea {
+  flex: 1 1 auto; min-width: 0;
+  width: auto; background: transparent; color: var(--fg);
+  border: 1px solid var(--line); border-radius: 999px;
+  height: 44px; padding: 0 18px; font: inherit; outline: none;
+  transition: border-color .2s;
+}
+.cta-form textarea { height: auto; min-height: 92px; padding: 12px 18px; border-radius: 20px; resize: none; }
+.cta-form input:focus, .cta-form textarea:focus { border-color: var(--accent); }
+.cta-form input::placeholder, .cta-form textarea::placeholder { color: color-mix(in srgb, var(--muted) 70%, transparent); }
+.cta-form button {
+  flex: 0 0 auto; white-space: nowrap;
+  margin-top: 0; background: transparent; cursor: pointer;
+  color: var(--accent); font: 600 14px/1 inherit;
+  border: 1px solid var(--accent);
+  border-radius: 999px; padding: 11px 18px;
+  transition: background .15s, color .15s;
+}
+.cta-form button:hover { background: var(--accent); color: var(--bg); }
+.fstep[hidden] { display: none; }
+
+
+/* ─── Cabeçalho editorial de seção (componente) ────────────────────────────
+   número → linha → 3 palavras-chave. Renderizado por home.js a partir de
+   data/sections.js; cor vem do --accent de cada painel.                    */
+.sec-head {
+  position: absolute; top: var(--pad-col); left: var(--pad-col); right: var(--pad-col);
+  z-index: 2; display: flex; flex-direction: column; align-items: flex-start;
+  pointer-events: none;
+}
+.sec-num {
+  font-size: 15px; font-weight: 600; letter-spacing: .04em; line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.sec-line {
+  display: block; width: 24px; height: 1px; margin: 22px 0 18px;
+  background: color-mix(in srgb, var(--accent) 45%, rgba(255,255,255,.35));
+  transition: width var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.sec-kw {
+  display: flex; flex-direction: column; gap: 3px;
+  font-size: 10.5px; font-weight: 600; line-height: 1.35;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--kw);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+
+/* seta/CTA no rodapé do painel (links) */
+.col-go {
+  display: inline-grid; place-items: center; flex: 0 0 auto;
+  width: 48px; height: 48px; margin-top: 24px;
+  border-radius: 999px; border: 1px solid rgba(255,255,255,.28);
+  color: rgba(255,255,255,.7);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease),
+              background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.col--form .col-go { position: absolute; left: var(--pad-col); bottom: var(--pad-col); }
+
+.col-more    { transition: opacity .4s var(--ease) .1s, transform .4s var(--ease) .1s; }
+
+/* estado ativo (hover + teclado) */
+.col:is(:hover, :focus-visible, :has(:focus-visible)) .sec-line { width: 40px; background: var(--accent); }
+.col:is(:hover, :focus-visible, :has(:focus-visible)) .sec-kw   { opacity: 0; visibility: hidden; }
+.col:is(:hover, :focus-visible, :has(:focus-visible)) .col-label { color: var(--fg); }
+.col:is(:hover, :focus-visible, :has(:focus-visible)) .col-go {
+  border-color: var(--accent); color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  transform: translateX(4px);
+}
+.col:is(:hover, :focus-visible, :has(:focus-visible))::before { opacity: .5; filter: grayscale(0) brightness(.95); }
+.col:is(:hover, :focus-visible, :has(:focus-visible))::after  { opacity: .82; }
+/* 01 aberto por padrão também mostra o cabeçalho "ativo" */
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed .sec-kw { color: var(--kw-on); }
+.cols:not(:hover):not(:has(:focus-visible)) .col.fixed .sec-line { width: 40px; }
+
+/* anel de foco visível e discreto */
+.col:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+
+/* conteúdo expandido não pode colidir com o cabeçalho */
+.col .col-more { margin-top: 150px; }
+.col--form .col-more { margin-top: 0; }
+
+/* tablet: mesma ideia, tipografia e respiros menores */
+@media (max-width: 1100px) and (min-width: 721px) {
+  :root { --pad-col: 22px; }
+  .sec-num { font-size: 13px; }
+  .sec-line { margin: 16px 0 14px; width: 18px; }
+  .sec-kw { font-size: 9px; letter-spacing: .14em; }
+  .col-go { width: 40px; height: 40px; }
+  .col-label { bottom: calc(var(--pad-col) + 70px); }
+}
+
+/* movimento reduzido: sem transições de largura/opacidade */
+@media (prefers-reduced-motion: reduce) {
+  .col, .col::before, .col::after, .col-more, .col-label, .sec-line, .sec-kw, .col-go { transition: none !important; }
+  .col:is(:hover, :focus-visible) .col-go { transform: none; }
+}
+
+/* painel com faixa de marcas: conteúdo ocupa a largura do painel e a faixa vai de borda a borda */
+.col-more--wide { max-width: none; }
+.col-more--wide .marquee { margin: 8px calc(-1 * var(--pad-col)) 0; }
+.col-more--wide .marquee-track img { height: 22px; margin: 0 28px; }
+
+/* painel trancado */
+.col--locked { cursor: default; }
+.col-soon {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 22px;
+  font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent);
+}
+.col--locked:is(:hover, :focus-visible) .col-go { transform: none; }
+
+.noscript-nav { display: flex; flex-direction: column; gap: 12px; padding: 40px 24px; }
+
+/* mobile: pilha vertical em acordeon. "Quem sou eu" (.fixed) fica sempre aberto;
+   os outros mostram só a chamada (.col-label) e expandem no tap (classe .open via JS). */
+@media (max-width: 720px) {
+  body.home { height: auto; overflow: auto; }
+  .cols { flex-direction: column; }
+  .col {
+    flex: none; min-height: 0;
+    border-left: 0; border-top: 1px solid var(--line);
+    justify-content: flex-start;
+    padding: 22px 24px;
+    transition: none;
+  }
+  /* cabeçalho editorial entra no fluxo, no topo do card */
+  .sec-head { position: static; margin-bottom: 18px; }
+  .sec-line { margin: 12px 0 10px; }
+  .sec-kw { flex-direction: row; flex-wrap: wrap; gap: 4px 14px; font-size: 10px; letter-spacing: .24em; }
+  .col.open .sec-kw { display: none; }
+  .col .col-more { margin-top: 0; }
+  .col-go { position: absolute !important; right: 24px; left: auto !important; top: 22px; bottom: auto !important; margin: 0; width: 40px; height: 40px; }
+  .col.open .col-go { border-color: var(--accent); color: var(--accent); transform: rotate(90deg); }
+  .col:not(.fixed)::before, .col:not(.fixed):is(:hover, :focus-visible)::before { opacity: .16; }
+  .col:not(.fixed)::after { opacity: .92 !important; }
+  .col-label { color: var(--fg); }
+  /* a chamada (label) sempre visível e no sentido normal */
+  .col-label {
+    position: static; top: auto; left: auto;
+    writing-mode: horizontal-tb; transform: none; margin: 0; opacity: 1;
+    font-size: 22px; bottom: auto;
+  }
+  /* no mobile o label é o título; esconde o h2 do col-more (menos o hero 01) */
+  .col:not(.fixed) .col-more h2 { display: none; }
+  /* form: input com texto centralizado e botão full-width (conforme Figma) */
+  .cta-form input { text-align: center; }
+  .cta-form button { width: 100%; text-align: center; }
+  /* conteúdo oculto por padrão; abre com altura animada */
+  .col-more {
+    opacity: 1; transform: none; margin: 0;
+    max-height: 0; overflow: hidden;
+    transition: max-height .45s cubic-bezier(.22,.61,.36,1), margin .45s ease;
+  }
+  /* ponytail: teto alto cobre bio + tags + info; se um painel passar disso, subir aqui */
+  .col.open .col-more { max-height: 640px; margin-top: 14px; }
+  /* 01 é sempre aberto: sem teto (evita clipar o conteúdo mais alto) */
+  .col.fixed .col-more { max-height: none; margin-top: 10px; }
+  /* fixo: a chamada some porque o título (h2) já identifica */
+  .col.fixed .col-label { display: none; }
+  /* no mobile a chamada fica sempre visível (anula o "some no hover" do desktop) */
+  .col:hover .col-label, .col:focus-within .col-label { opacity: 1; }
+
+  /* slot 01 no mobile: foto full-bleed à direita, texto sobre a esquerda (igual desktop aberto) */
+  .col.fixed { min-height: 620px; position: relative; justify-content: flex-end; }
+  /* foto centralizada, full-bleed; rosto livre no topo.
+     TODOS os estados listados (inclusive o default de alta especificidade do desktop)
+     p/ anular o layout ancorado do desktop no mobile — sem "pulo" no load nem no scroll */
+  .cols:not(:hover):not(:has(:focus-visible)) .col.fixed .col-photo,
+  .col.fixed:hover .col-photo,
+  .col.fixed:focus-within .col-photo,
+  .col.fixed .col-photo {
+    position: absolute; top: 0; left: 0; right: 0; bottom: auto;
+    width: 100%; height: 54%; margin: 0;
+    object-fit: cover; object-position: center 22%;
+    opacity: .95; filter: grayscale(.12);
+    /* base da foto funde no escuro; texto fica abaixo, livre do rosto */
+    -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+  }
+  .col.fixed::after { display: none; }   /* texto fica sobre o fundo escuro, sem véu */
+  .col.fixed .sec-head { position: absolute; top: 22px; left: 24px; margin: 0; z-index: 2; }
+  .col.fixed .col-more { position: relative; z-index: 1; max-height: none; margin: 0; }
+
+  /* header mobile: nome à esquerda, Currículo à direita; LinkedIn oculto por ora */
+  .topbar nav a:not(.btn-cv) { display: none; }
+
+  /* Dilis: galeria em tiles landscape (1 coluna) + footer centralizado */
+  .gallery figure { aspect-ratio: 16 / 9; }
+  footer { text-align: center; }
+}

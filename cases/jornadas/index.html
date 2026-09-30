@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jornadas de conversão · Produto web | Cleyton Braga</title>
+<meta name="description" content="Cadastro, verificação, depósito e primeiro acesso num produto web que atende quatro marcas.">
+<link rel="stylesheet" href="../../styles.css?v=42">
+<style>:root{ --accent:#5fd49a; }</style>
+<style>
+.tldr{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);background:var(--panel);padding:18px 20px;margin:28px 0 0}
+.tldr b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.tldr p{margin:0;color:var(--fg);font-size:16.5px;line-height:1.6}
+.stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+.stat{flex:1 1 170px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--fg)}
+.stat span{font-size:13px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
+.flow{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
+.flow li{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 16px;background:var(--panel);counter-increment:s}
+.flow li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:12.5px;font-weight:700}
+.flow b{display:block;margin-top:10px;font-size:14.5px;line-height:1.35}
+.flow span{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:4px}
+@media(max-width:860px){.flow{grid-template-columns:1fr}}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.cmp div{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.cmp div:last-child{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.cmp h3{margin:0 0 8px}
+.cmp ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px;line-height:1.6}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}}
+.next{color:var(--muted)}
+.steps4{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:18px;counter-reset:j}
+.steps4 div{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:14px 16px;counter-increment:j}
+.steps4 div::before{content:counter(j);color:var(--accent);font-weight:700;font-size:13px}
+.steps4 b{display:block;margin-top:6px;font-size:15px}
+.steps4 span{display:block;color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:4px}
+.flowmap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:12px;margin-top:18px}
+.flowmap svg{display:block;min-width:680px;width:100%;height:auto}
+.flowmap text{font:12.5px -apple-system,Inter,system-ui,sans-serif;fill:var(--fg)}
+.flowmap .q{fill:var(--muted);font-size:11.5px}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <span class="brand">
+    <a class="name" href="../../index.html">Cleyton Braga</a>
+    <span class="dash">|</span>
+    <a class="role" href="../../sobre/index.html">Product Designer</a>
+  </span>
+  <nav>
+    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
+  </nav>
+</div></header>
+<nav class="crumbs" aria-label="Você está em"><div class="wrap">
+  <a class="crumb-back" href="../produto-web/index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <ol class="crumb-trail">
+    <li><a href="../../index.html">Início</a></li>
+    <li><a href="../produto-web/index.html">Produto web</a></li>
+    <li aria-current="page">Jornadas de conversão</li>
+  </ol>
+</div></nav>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">02 · Produto web · Conversão</div>
+    <h1>Do primeiro acesso ao primeiro depósito, com menos atrito</h1>
+    <p class="lede">Cadastro, verificação de identidade, depósito e primeiro acesso, desenhados uma vez para servir quatro marcas.</p>
+    <dl class="meta">
+      <div><dt>Meu papel</dt><dd>UX Designer, Produto Web</dd></div>
+      <div><dt>Produto</dt><dd>Produto web multimarca</dd></div>
+      <div><dt>Plataforma</dt><dd>Web desktop e mobile</dd></div>
+      <div><dt>Período</dt><dd>2025–2026</dd></div><!-- REVISAR: período e time por função (PM, devs, BI) -->
+    </dl>
+    <div class="tldr"><b>Resumo</b><p>Redesenhei as etapas em que o usuário mais desiste: cadastro, verificação, depósito e o primeiro acesso depois dele. O produto atende quatro marcas, então cada tela é desenhada uma vez e só o tema muda. Ainda não tenho número de conversão para publicar.</p></div>
+  </div>
+
+  <section>
+    <h2>O produto</h2>
+    <p class="muted">A BPX Group mantém um único produto web para quatro marcas: home, catálogo, promoções, carteira e perfil. Cada marca tem identidade própria, mas todas rodam sobre as mesmas telas. O design system troca cor, tipografia e peças de campanha. A estrutura fica igual.</p>
+  </section>
+
+  <section>
+    <h2>O problema</h2>
+    <p class="muted">A home junta muita coisa: destaques do catálogo, torneios, campanhas e promoções. O desafio era caber tudo sem virar poluição e levar a pessoa até o cadastro e o depósito, em quatro marcas, sem desenhar quatro vezes.</p>
+    <!-- REVISAR (Cleyton): qual etapa do funil era a pior e de onde veio esse diagnóstico (analytics, BI, atendimento). Um número de diagnóstico aqui já muda o case. -->
+  </section>
+
+  <section>
+    <h2>O caminho do usuário</h2>
+    <p class="muted">Mapeei a entrada separando quem chega sem conta, que precisa virar cadastro ou login, de quem já tem conta, que precisa de depósito, catálogo, promoções e carteira a um toque.</p>
+    <figure class="flowmap"><svg viewBox="0 0 860 400" role="img" aria-label="Caminho do usuário na home: deslogado vai para cadastro ou login; logado vai para depósito, catálogo, promoções ou carteira"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs><rect x="10" y="178" width="90" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="55.0" y="205" text-anchor="middle">Abre o site</text><path d="M100 200H130" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><polygon points="134,200 186,174 238,200 186,226" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="186" y="204" text-anchor="middle">Logado?</text><path d="M186 174V92H268" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><text class="q" x="194" y="130">não</text><path d="M186 226V308H268" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><text class="q" x="194" y="276">sim</text><rect x="270" y="70" width="150" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="345.0" y="89" text-anchor="middle">Home deslogada</text><text class="q" x="345.0" y="104" text-anchor="middle">banners + entrar/cadastrar</text><rect x="270" y="286" width="150" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="345.0" y="305" text-anchor="middle">Home logada</text><text class="q" x="345.0" y="320" text-anchor="middle">saldo e menu</text><path d="M420 92H445V32H478" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="480" y="10" width="150" height="44" rx="10" fill="color-mix(in srgb,var(--accent) 16%,transparent)" stroke="var(--accent)" stroke-width="1.2"/><text x="555.0" y="37" text-anchor="middle">Cadastro</text><path d="M420 92H445V88H478" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="480" y="66" width="150" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="555.0" y="93" text-anchor="middle">Login</text><path d="M420 92H445V144H478" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="480" y="122" width="150" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="555.0" y="149" text-anchor="middle">Explora catálogo</text><path d="M630 144H672" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><polygon points="674,144 726,118 778,144 726,170" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="726" y="148" text-anchor="middle">Pede login?</text><path d="M726 118V88H632" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><text class="q" x="734" y="104">sim</text><path d="M726 170V200" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><text class="q" x="734" y="190">não</text><text class="q" x="726" y="214" text-anchor="middle">continua navegando</text><path d="M420 308H445V260H478" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="480" y="238" width="150" height="44" rx="10" fill="color-mix(in srgb,var(--accent) 16%,transparent)" stroke="var(--accent)" stroke-width="1.2"/><text x="555.0" y="265" text-anchor="middle">Depósito</text><path d="M420 308H445V312H478" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="480" y="290" width="150" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="555.0" y="317" text-anchor="middle">Catálogo</text><path d="M420 308H445V364H478" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="480" y="342" width="150" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="555.0" y="369" text-anchor="middle">Promoções</text><path d="M445 308V372H710V336" fill="none" stroke="var(--muted)" stroke-width="1" marker-end="url(#ar)"/><rect x="640" y="290" width="140" height="44" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/><text x="710.0" y="317" text-anchor="middle">Carteira e perfil</text></svg></figure>
+    <figcaption>Fluxo da home, deslogado e logado. Em verde, as duas etapas de conversão.</figcaption>
+  </section>
+
+  <section>
+    <h2>As jornadas</h2>
+    <p class="muted">Cada etapa tem uma tarefa só. O critério foi o mesmo em todas: chegar ao fim com o menor número de toques.</p>
+    <div class="steps4">
+      <div><b>Cadastro</b><span>Levar quem chegou pela primeira vez até a conta criada.</span></div>
+      <div><b>Verificação de identidade</b><span>Pedir documento sem que a pessoa desista no meio.</span></div>
+      <div><b>Depósito</b><span>Chegar ao primeiro depósito com o menor número de toques.</span></div>
+      <div><b>Primeiro acesso</b><span>Mostrar o que fazer logo depois do depósito.</span></div>
+    </div>
+    <!-- REVISAR (Cleyton): uma decisão por etapa, com antes/depois. Ex.: campos cortados no cadastro, em que momento pedir documento, valores sugeridos e Pix no depósito. Telas com dados fictícios e sem conteúdo do catálogo. -->
+  </section>
+
+  <section>
+    <h2>Uma estrutura, quatro marcas</h2>
+    <p class="muted">Mesma grade, mesmos componentes, mesma hierarquia. O tema troca cor, tipografia e peças de campanha. Uma melhoria feita numa jornada chega às quatro marcas de uma vez.</p>
+    <!-- REVISAR: imagem comparando duas marcas, com logos e conteúdo do catálogo trocados por versões neutras. -->
+  </section>
+
+  <section>
+    <h2>Onde está hoje</h2>
+    <p class="muted">As marcas já rodam sobre a mesma estrutura de telas. Ainda não tenho métricas de conversão para publicar aqui.</p>
+    <!-- REVISAR: se puder, o indicador acompanhado e o sentido da mudança (ex.: conversão de cadastro, tempo até o primeiro depósito). -->
+    <p style="margin-top:28px"><a href="../automacao-ia/index.html">Próximo: Automação de capas com IA →</a></p>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+</div></footer>
+</body>
+</html>

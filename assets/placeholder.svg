@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Imagem em breve">
+  <rect width="800" height="600" fill="#15171c"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#23262e" stroke-width="2"/>
+  <g fill="#3a3f4a" font-family="-apple-system, system-ui, sans-serif" text-anchor="middle">
+    <text x="400" y="295" font-size="34" font-weight="600">Imagem em breve</text>
+    <text x="400" y="330" font-size="18" fill="#2b2f38">PREENCHER com asset real</text>
+  </g>
+</svg>

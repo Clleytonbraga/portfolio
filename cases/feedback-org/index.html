@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feedback ORG · Product Design · Cleyton Braga</title>
+<link rel="stylesheet" href="../../styles.css?v=42">
+<style>:root{ --accent:#6cff8f; }</style>
+<style>
+.fold--dim::before{filter:blur(2px) brightness(.4) saturate(.8);transform:scale(1.03)}
+.fold--dim::after{background:linear-gradient(180deg,rgba(12,13,16,.35) 0%,rgba(12,13,16,.55) 45%,#0c0d10 100%)}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:28px 0}
+.duo figure{margin:0}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:24px 0}
+.steps div{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:var(--panel)}
+.steps b{display:block;color:var(--accent);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.steps span{font-size:14px;color:var(--muted)}
+.phone{max-width:300px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <span class="brand">
+    <a class="name" href="../../index.html">Cleyton Braga</a>
+    <span class="dash">|</span>
+    <a class="role" href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">UX/UI Designer</a>
+  </span>
+  <nav>
+    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
+  </nav>
+</div></header>
+<nav class="crumbs" aria-label="Você está em"><div class="wrap">
+  <a class="crumb-back" href="../../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <ol class="crumb-trail">
+    <li><a href="../../index.html">Início</a></li>
+    <li aria-current="page">Feedback ORG</li>
+  </ol>
+</div></nav>
+
+
+<section class="fold fold--dim" style="--bg:url(cases/feedback-org/assets/feedback-hero.webp)">
+  <div class="fold-inner wrap">
+    <span class="eyebrow">02 · Cases de sucesso · SaaS B2B</span>
+    <h1>Feedback ORG</h1>
+    <p class="fold-sub">Dashboards para donos de empresa e RH lerem pesquisas de clima sem abrir planilha.</p>
+    <dl class="fold-info">
+      <div><dt>Meu papel</dt><dd>Planejamento e design do produto</dd></div>
+      <div><dt>Escopo</dt><dd>UX · UI · Pesquisas gamificadas · Marca</dd></div>
+      <div><dt>Com</dt><dd>Dilis</dd></div>
+      <div><dt>Status</dt><dd>Em comercialização</dd></div>
+    </dl>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <section>
+    <h2>O produto</h2>
+    <p class="muted">A Dilis atende empresas de vários setores e a liderança percebeu que muitos clientes tinham dados sobre os funcionários, mas não conseguiam ler esses dados nem agir a partir deles.
+      Fiquei com o planejamento e o design dos dashboards. A ideia era mostrar a donos e gestores de RH, sem precisar de um analista no meio, como estão a organização e as pessoas.</p>
+    <p class="muted">O produto saiu em duas etapas. Primeiro o <strong>Feedback XP</strong>, um MVP para avaliar atendimento em lojas. Depois o <strong>Feedback ORG</strong>, que usa a mesma base para olhar para dentro da empresa.</p>
+  </section>
+
+  <section>
+    <h2>Feedback XP, o MVP</h2>
+    <p class="muted">O Feedback XP mede o atendimento de várias lojas ou unidades. O cliente responde uma pesquisa curta e com cara de jogo, que também desenhei com a Dilis, e o gestor vê NPS e CSAT por unidade, por pergunta e por comentário.</p>
+    <div class="duo">
+      <figure><img src="assets/org-mobile.jpg" alt="Pesquisa gamificada no celular"><figcaption>A pesquisa no celular. Nota de 0 a 10 e um campo de comentário.</figcaption></figure>
+      <figure><img src="assets/xp-popup-nps.jpg" alt="Explicação do cálculo de NPS"><figcaption>O cálculo do NPS aparece dentro do produto, com um exemplo.</figcaption></figure>
+    </div>
+    <div class="duo">
+      <figure><img src="assets/xp-home.jpg" alt="Home do Feedback XP com nuvem de palavras"><figcaption>Nuvem de palavras e sentimento dos comentários.</figcaption></figure>
+      <figure><img src="assets/xp-unidades.jpg" alt="Busca por unidade no mapa"><figcaption>Busca de unidade pelo mapa.</figcaption></figure>
+    </div>
+    <p class="muted">Com o MVP pronto, a pergunta seguinte foi se a mesma lógica servia para medir o clima interno.</p>
+  </section>
+
+  <section>
+    <h2>Feedback ORG</h2>
+    <p class="muted">O Feedback ORG trata de clima, engajamento, onboarding, desligamento e riscos psicossociais, que a NR-01 passou a exigir. O objetivo é o RH perceber o problema antes de a pessoa pedir demissão.</p>
+    <div class="steps">
+      <div><b>1 · Pesquisa</b><span>Clima, pulso, onboarding, desligamento, desempenho.</span></div>
+      <div><b>2 · Análise</b><span>As respostas viram NPS interno e sentimento.</span></div>
+      <div><b>3 · Plano de ação</b><span>A IA sugere, o gestor decide.</span></div>
+      <div><b>4 · Evolução</b><span>Nova rodada para ver se melhorou.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>O problema de design</h2>
+    <p class="muted">Era muito dado, e o gestor de RH precisava entender a situação olhando a tela uma vez.</p>
+    <p class="muted">Algumas decisões que saíram disso. O NPS interno fica em destaque e o resto aparece quando a pessoa entra na pesquisa. A navegação desce sempre na mesma ordem, de empresa para unidade, pesquisa, pergunta e colaborador, com o filtro fixo no topo.
+      Os comentários abertos também viram dado, em nuvem de palavras e sentimento, e os casos que pedem atenção (como sinais de burnout) aparecem como alerta.
+      A IA sugere o que olhar e que plano tomar, mas quem decide é o gestor.</p>
+  </section>
+
+  <section>
+    <h2>Interface</h2>
+    <figure><img src="assets/org-filtro.jpg" alt="Dashboard do Feedback ORG"><figcaption>Dashboard com NPS interno, barômetro, ranking de pesquisas e satisfação dos colaboradores.</figcaption></figure>
+    <figure><img src="assets/org-relatorio-b.jpg" alt="Gestão de pesquisa com pontos de alerta"><figcaption>Uma pesquisa aberta, com perguntas, nuvem de palavras, comentários e pontos de alerta.</figcaption></figure>
+    <div class="duo">
+      <figure><img src="assets/org-relatorio.jpg" alt="Distribuição de respostas por nota"><figcaption>Distribuição das respostas por nota.</figcaption></figure>
+      <figure><img src="assets/org-modal-colaborador.jpg" alt="Visão por colaborador"><figcaption>Histórico de um colaborador.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Marca</h2>
+    <p class="muted">Desenhei também o logo e o guia de marca do Feedback ORG.</p>
+    <div class="duo">
+      <figure><img src="assets/org-marca-logo.jpg" alt="Logo Feedback ORG"></figure>
+      <figure><img src="assets/org-marca-cores.jpg" alt="Paleta de cores do Feedback ORG"></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Onde está hoje</h2>
+    <p class="muted">O Feedback ORG está sendo vendido e ainda busca os primeiros clientes. Não há dados de uso, então este case mostra o design e as decisões, sem resultado medido.</p>
+    <!-- REVISAR (Cleyton): sua resposta sobre o que funcionou veio cortada. A frase abaixo é minha suposição. -->
+    <p class="muted">Começar pelo MVP no atendimento ajudou. A lógica de pesquisa curta com um indicador claro já estava testada quando chegou ao RH.
+      O que eu faria diferente: o projeto começou quando IA e análise de dados ainda estavam no início. Hoje eu usaria modelos melhores para ler os comentários e sugerir os planos de ação.</p>
+  </section>
+
+</main>
+
+<footer><div class="wrap">
+  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+</div></footer>
+
+</body>
+</html>

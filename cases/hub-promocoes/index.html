@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hub de Promoções · Produto web | Cleyton Braga</title>
+<meta name="description" content="CMS e analytics de um hub interno: o time publica promoções sem depender de deploy e decide com dado de uso.">
+<link rel="stylesheet" href="../../styles.css?v=42">
+<style>:root{ --accent:#5fd49a; }</style>
+<style>
+.tldr{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);background:var(--panel);padding:18px 20px;margin:28px 0 0}
+.tldr b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.tldr p{margin:0;color:var(--fg);font-size:16.5px;line-height:1.6}
+.stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
+.stat{flex:1 1 170px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--fg)}
+.stat span{font-size:13px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
+.flow{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
+.flow li{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 16px;background:var(--panel);counter-increment:s}
+.flow li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:12.5px;font-weight:700}
+.flow b{display:block;margin-top:10px;font-size:14.5px;line-height:1.35}
+.flow span{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:4px}
+@media(max-width:860px){.flow{grid-template-columns:1fr}}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.cmp div{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.cmp div:last-child{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.cmp h3{margin:0 0 8px}
+.cmp ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px;line-height:1.6}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}}
+.next{color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px}
+.features div{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:14px 16px}
+.features b{display:block;font-size:15px}
+.features span{display:block;color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:4px}
+.q{color:var(--accent);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <span class="brand">
+    <a class="name" href="../../index.html">Cleyton Braga</a>
+    <span class="dash">|</span>
+    <a class="role" href="../../sobre/index.html">Product Designer</a>
+  </span>
+  <nav>
+    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
+  </nav>
+</div></header>
+<nav class="crumbs" aria-label="Você está em"><div class="wrap">
+  <a class="crumb-back" href="../produto-web/index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <ol class="crumb-trail">
+    <li><a href="../../index.html">Início</a></li>
+    <li><a href="../produto-web/index.html">Produto web</a></li>
+    <li aria-current="page">Hub de Promoções</li>
+  </ol>
+</div></nav>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">02 · Produto web · Ferramenta interna</div>
+    <h1>O time de Promoções publica sem esperar deploy</h1>
+    <p class="lede">Um CMS para criar e organizar as promoções do site, e um painel que mostra quais delas são vistas, clicadas e procuradas.</p>
+    <dl class="meta">
+      <div><dt>Meu papel</dt><dd>Concepção e design da página, do CMS e do analytics</dd></div>
+      <div><dt>Usuários</dt><dd>Time de Promoções e CRM</dd></div>
+      <div><dt>Plataforma</dt><dd>Web, 4 marcas</dd></div>
+      <div><dt>Status</dt><dd>Em uso</dd></div><!-- REVISAR: desde quando e quantas pessoas usam -->
+    </dl>
+    <div class="tldr"><b>Resumo</b><p>Toda promoção nova no site passava pelo desenvolvimento. Concebi a página de Promoções e o hub por trás dela: o time cria, edita, reordena, destaca e agenda os cards sozinho. Um painel de analytics mostra tráfego, ranking, buscas sem resultado e mapa de calor, e a escolha de quais promoções manter passou a ter dado por trás.</p></div>
+  </div>
+
+  <section>
+    <h2>Antes e depois</h2>
+    <div class="cmp">
+      <div><h3>Antes</h3><ul><li>Pedido do time para o desenvolvimento</li><li>Cada card novo dependia de código e deploy</li><li>Sem leitura de quais promoções funcionavam</li></ul></div>
+      <div><h3>Com o hub</h3><ul><li>O time publica e agenda sozinho</li><li>Mudança de ordem e destaque na hora</li><li>Painel com uso real de cada card</li></ul></div>
+    </div>
+    <!-- REVISAR (Cleyton): quanto tempo levava publicar uma promoção antes, e quantas por semana. Esse número vira o resultado do case. -->
+  </section>
+
+  <section>
+    <h2>O CMS</h2>
+    <p class="muted">No CMS, cada promoção é um card. A tela de edição mostra a prévia do card ao lado do formulário.</p>
+    <div class="features">
+      <div><b>Criar e editar</b><span>Título, texto, imagem e link de cada card.</span></div>
+      <div><b>Reordenar e destacar</b><span>Muda a ordem da vitrine e escolhe o card em destaque.</span></div>
+      <div><b>Agendar</b><span>Campanhas entram e saem do ar sozinhas.</span></div>
+    </div>
+    <!-- REVISAR: uma decisão de guarda-corpo (o que o time pode ou não mudar sem revisão). -->
+  </section>
+
+  <section>
+    <h2>O analytics</h2>
+    <p class="muted">Cada bloco do painel responde uma pergunta do time. Os dados vêm de eventos de visualização, clique e busca, que estruturei junto com o desenho das telas.</p>
+    <div class="features">
+      <div><span class="q">Quantos viram?</span><b>Acessos e usuários únicos</b><span>Com a tendência contra o período anterior.</span></div>
+      <div><span class="q">O que funciona?</span><b>Ranking de cards</b><span>Quais promoções recebem mais clique.</span></div>
+      <div><span class="q">De onde?</span><b>Distribuição por região</b><span>Onde estão os usuários de cada campanha.</span></div>
+      <div><span class="q">O que falta?</span><b>Buscas sem resultado</b><span>Termos que as pessoas procuram e não acham.</span></div>
+      <div><span class="q">Onde clicam?</span><b>Mapa de calor</b><span>Interação por área da página.</span></div>
+      <div><span class="q">E na reunião?</span><b>Exportação</b><span>Relatório em PDF e CSV.</span></div>
+    </div>
+    <!-- REVISAR: imagem. A atual (auto-promocoes.webp) mostra marca e conteúdo do site; trocar por uma versão com dados e marca neutros. -->
+  </section>
+
+  <section>
+    <h2>Resultado</h2>
+    <p class="muted">Publicar deixou de depender de código, e o CRM passou a escolher quais promoções manter olhando para o uso, não para opinião.</p>
+    <!-- REVISAR (Cleyton): um exemplo real de decisão que o painel mudou (uma promoção tirada, um termo buscado que virou campanha) e, se houver, publicações feitas sem dev ou tempo por publicação. -->
+    <p style="margin-top:28px"><a href="../jornadas/index.html">Próximo: Jornadas de conversão →</a></p>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+</div></footer>
+</body>
+</html>

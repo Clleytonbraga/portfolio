@@ -1,0 +1,5 @@
+_backup/
+Claude outputs/
+.impeccable/
+.DS_Store
+HANDOFF-*.md

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quem sou eu · Cleyton Braga | Product Designer</title>
+<meta name="description" content="Cleyton Braga, Product Designer: produto web, gamificação e game design. Trajetória, como trabalho e ferramentas.">
+<link rel="stylesheet" href="../styles.css?v=42">
+<style>:root{ --accent:#e3b341; }</style>
+<style>
+.hero{padding:64px 0 8px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:48px;align-items:center}
+.hero-photo{margin:0;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block;border:0;border-radius:0}
+.hero-text h1{font-size:clamp(36px,6vw,60px);line-height:1;letter-spacing:-.03em;margin:0}
+.hero-role{font-size:clamp(15px,2.2vw,19px);color:var(--accent);font-weight:600;margin:14px 0 0}
+.hero-lede{color:var(--fg);font-size:17px;line-height:1.55;margin:18px 0 0;max-width:46ch}
+.hero-info{display:flex;gap:28px;flex-wrap:wrap;margin:24px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.hero-info dt{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.hero-info dd{margin:4px 0 0;font-weight:500;font-size:15px}
+@media(max-width:720px){
+  .hero{padding:0}
+  .hero-grid{display:block}
+  .hero-photo{width:100vw;margin-left:calc(50% - 50vw);height:60vh;aspect-ratio:auto;border-radius:0;border:0;position:relative}
+  .hero-photo img{object-position:50% 16%}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(12,13,16,.4) 64%,#0c0d10 100%)}
+  .hero-text{position:relative;z-index:1;margin-top:-120px}
+  .hero-text h1{font-size:44px}
+}
+.now{display:grid;gap:12px;margin-top:16px}
+.now a{display:block;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px;color:var(--fg)}
+.now a:hover{border-color:var(--accent);text-decoration:none}
+.now b{display:block;font-size:16px}
+.now span{display:block;color:var(--muted);font-size:14.5px;line-height:1.5;margin-top:4px}
+.timeline{list-style:none;padding:0;margin:16px 0 0;border-left:1px solid var(--line)}
+.timeline li{position:relative;padding:0 0 22px 22px}
+.timeline li::before{content:"";position:absolute;left:-5px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--line);border:1px solid var(--muted)}
+.timeline li:first-child::before{background:var(--accent);border-color:var(--accent)}
+.timeline .when{font-size:12.5px;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+.timeline .what{font-weight:600;margin-top:2px}
+.timeline .line{color:var(--muted);font-size:15px;line-height:1.5;margin-top:2px}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
+.principles div{border-top:2px solid var(--accent);padding-top:12px}
+.principles b{display:block;font-size:16px}
+.principles p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:6px 0 0}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.cta-row a{border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--fg);font-size:14px}
+.cta-row a:hover{border-color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <span class="brand">
+    <a class="name" href="../index.html">Cleyton Braga</a>
+    <span class="dash">|</span>
+    <a class="role" href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Product Designer</a>
+  </span>
+  <nav>
+    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn-cv" href="../assets/curriculo.pdf" download>Currículo ↓</a>
+  </nav>
+</div></header>
+<nav class="crumbs" aria-label="Você está em"><div class="wrap">
+  <a class="crumb-back" href="../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <ol class="crumb-trail">
+    <li><a href="../index.html">Início</a></li>
+    <li aria-current="page">Quem sou eu</li>
+  </ol>
+</div></nav>
+
+<section class="hero"><div class="wrap hero-grid">
+  <figure class="hero-photo"><img src="../assets/cleyton.jpg" alt="Cleyton Braga" width="1254" height="1254"></figure>
+  <div class="hero-text">
+    <h1>Cleyton Braga</h1>
+    <p class="hero-role">Product Designer · produto web e game design</p>
+    <p class="hero-lede">Desenho jornadas de conversão, mecânicas de engajamento e ferramentas internas. Quando um processo trava o time, uso IA para tirar o gargalo.</p>
+    <dl class="hero-info">
+      <div><dt>Experiência</dt><dd>8+ anos em design digital</dd></div>
+      <div><dt>Local</dt><dd>Campina Grande, PB · remoto</dd></div><!-- REVISAR: remoto/híbrido e regime (CLT/PJ) -->
+      <div><dt>Idiomas</dt><dd>Português · inglês básico</dd></div>
+    </dl>
+  </div>
+</div></section>
+
+<main class="wrap">
+
+  <section>
+    <h2>O que faço hoje</h2>
+    <p class="muted">Sou UX Designer do produto web da BPX Group, um produto que atende quatro marcas no desktop e no mobile.</p>
+    <div class="now">
+      <a href="../cases/automacao-ia/index.html"><b>Automação de capas com IA</b><span>Um pipeline que cria e publica as capas do catálogo. De 904 capas em 6 meses para mais de 3.000 em uma semana.</span></a>
+      <a href="../cases/jornadas/index.html"><b>Jornadas de conversão</b><span>Cadastro, verificação, depósito e primeiro acesso, desenhados uma vez para servir as quatro marcas.</span></a>
+      <a href="../cases/hub-promocoes/index.html"><b>Hub de Promoções</b><span>Um CMS para o time publicar sem depender de deploy, e um painel que mostra o que é visto, clicado e buscado.</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Trajetória</h2>
+    <ol class="timeline">
+      <li><div class="when">abr/2026 – hoje</div><div class="what">UX Designer, Produto Web · BPX Group</div><div class="line">Jornadas de conversão, componentes de gamificação e ferramentas internas.</div></li>
+      <li><div class="when">jul/2025 – abr/2026</div><div class="what">Head of Design, CRM · BPX Group</div><div class="line">Liderei 2 designers. A produção de campanhas de gamificação passou de 1 para 5 por semana.</div></li>
+      <li><div class="when">jun/2024 – jul/2025</div><div class="what">Diretor de Arte · BPX Group</div><div class="line">Campanhas multicanal, da ideia à publicação.</div></li>
+      <li><div class="when">jun/2022 – abr/2025</div><div class="what">UX e interfaces · Dilis Studio (freelance)</div><div class="line">Produtos como HUB2 e Feedback ORG, e jogos e ativações para Pepsi, Petrobras, Brisanet, SESI-SP e São Braz.</div></li>
+      <li><div class="when">jun/2019 – jun/2022</div><div class="what">Diretor Criativo · Bravo Comunicação</div><div class="line">Equipe de 3 pessoas, branding e campanhas de performance.</div></li>
+      <li><div class="when">2016 – 2018</div><div class="what">Designer gráfico e diretor de arte freelancer</div><div class="line">Início de carreira.</div></li>
+    </ol>
+    <!-- REVISAR (Cleyton): uma frase sobre a mudança de Head de CRM para produto web (escolha, reorganização?). Ex.: "Em 2026 saí da liderança de CRM para trabalhar direto no produto." -->
+  </section>
+
+  <section>
+    <h2>Como trabalho</h2>
+    <div class="principles">
+      <div><b>Começo pelo gargalo</b><p>A automação de capas nasceu de uma fila de 3.500 imagens que três designers levariam quase dois anos para zerar no ritmo manual.</p></div>
+      <div><b>Ferramenta interna é produto</b><p>O hub de Promoções tem usuário, métrica e evolução como qualquer tela pública.</p></div>
+      <div><b>Uma estrutura, várias marcas</b><p>Desenho a tela uma vez. O tema troca cor e tipografia, e a estrutura fica igual nas quatro marcas.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Game design</h2>
+    <p class="muted">Estudei Game Design e Jogos Digitais na Unifacisa em 2018. Desde então levo mecânica de jogo para dentro de produto: missões, conquistas e ranking em apps, e jogos curtos para ativação de marca, como o Desafio da Memória da São Braz, que tem demo jogável aqui no site.</p>
+    <div class="cta-row"><a href="../cases/game-design/index.html">Ver Game design →</a></div>
+  </section>
+
+  <section>
+    <h2>Ferramentas e formação</h2>
+    <div class="tags">
+      <span class="tag">Figma</span><span class="tag">Claude Code</span><span class="tag">Magnific</span><span class="tag">Photoshop</span><span class="tag">Illustrator</span>
+    </div>
+    <p class="muted" style="margin-top:16px">Tecnólogo em Tecnologia da Informação, IFPB (2007–2009) · Game Design e Jogos Digitais, Unifacisa (2018) · Design Circuit (2023).</p>
+  </section>
+
+  <section>
+    <h2>Marcas atendidas</h2>
+    <p class="muted">Em jogos, ativações e campanhas, a maioria pela Dilis.</p>
+  </section>
+</main>
+
+<section class="brands-strip" aria-label="Marcas atendidas">
+  <div class="marquee"><div class="marquee-track">
+    <img src="../assets/brands/pepsi.png" alt="Pepsi"><img src="../assets/brands/redbull.png" alt="Red Bull"><img src="../assets/brands/boticario.png" alt="O Boticário"><img src="../assets/brands/oracle.png" alt="Oracle"><img src="../assets/brands/americanas.png" alt="Americanas"><img src="../assets/brands/sicredi.png" alt="Sicredi"><img src="../assets/brands/midea.png" alt="Midea"><img src="../assets/brands/brisanet.png" alt="Brisanet"><img src="../assets/brands/condor.png" alt="Condor"><img src="../assets/brands/spaten.png" alt="Spaten"><img src="../assets/brands/maizena.png" alt="Maizena"><img src="../assets/brands/saobraz.png" alt="São Braz"><img src="../assets/brands/dilis.png" alt="Dilis">
+    <img src="../assets/brands/pepsi.png" alt="" aria-hidden="true"><img src="../assets/brands/redbull.png" alt="" aria-hidden="true"><img src="../assets/brands/boticario.png" alt="" aria-hidden="true"><img src="../assets/brands/oracle.png" alt="" aria-hidden="true"><img src="../assets/brands/americanas.png" alt="" aria-hidden="true"><img src="../assets/brands/sicredi.png" alt="" aria-hidden="true"><img src="../assets/brands/midea.png" alt="" aria-hidden="true"><img src="../assets/brands/brisanet.png" alt="" aria-hidden="true"><img src="../assets/brands/condor.png" alt="" aria-hidden="true"><img src="../assets/brands/spaten.png" alt="" aria-hidden="true"><img src="../assets/brands/maizena.png" alt="" aria-hidden="true"><img src="../assets/brands/saobraz.png" alt="" aria-hidden="true"><img src="../assets/brands/dilis.png" alt="" aria-hidden="true">
+  </div></div>
+</section>
+
+<main class="wrap">
+  <section>
+    <div class="cta-row">
+      <a href="../assets/curriculo.pdf" download>Currículo ↓</a>
+      <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://wa.me/5583996026085" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+</div></footer>
+</body>
+</html>
