@@ -4,7 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cleyton Braga | UX/UI Designer</title>
-<link rel="stylesheet" href="styles.css?v=42">
+<link rel="stylesheet" href="styles.css?v=57">
+<style>
+  /* Linhas "em breve" (páginas que dependem de material) — não-clicáveis */
+  .case-row--soon { cursor: default; opacity: .5; }
+  .case-row--soon .case-thumb { background: repeating-linear-gradient(45deg, var(--panel), var(--panel) 8px, var(--line) 8px, var(--line) 9px); }
+  .case-soon { flex: none; font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+  .seeall { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin: 22px 0 0; padding: 9px 16px; border: 1px solid var(--accent); border-radius: 999px; font-size: 13.5px; font-weight: 700; letter-spacing: .02em; color: var(--accent); transition: background .15s, color .15s; }
+  .seeall:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+</style>
 </head>
 <body class="home">
 
@@ -22,11 +30,15 @@
 
 <noscript>
   <nav class="noscript-nav">
-      <a href="cases/bpx/index.html">BPX</a>
+      <a href="sobre/index.html">Quem sou eu</a>
+      <a href="cases/automacao-ia/index.html">Automação de capas com IA</a>
+      <a href="cases/jornadas/index.html">Jornadas de conversão</a>
+      <a href="cases/hub-promocoes/index.html">Hub de Promoções</a>
+      <a href="cases/sao-braz/index.html">Game design — São Braz</a>
+      <a href="cases/ecossistema/index.html">Ecossistema da Ativação</a>
+      <a href="cases/hub2/index.html">HUB2</a>
       <a href="cases/feedback-org/index.html">Feedback ORG</a>
       <a href="cases/sao-joao-2k25/index.html">App São João 2K25</a>
-      <a href="cases/outros-projetos/index.html">Outros projetos</a>
-      <a href="cases/game-design/index.html">Game design</a>
       <a href="mailto:cleyton.g.b@gmail.com">Contato</a>
     </nav>
 </noscript>
@@ -37,14 +49,14 @@
     <img class="col-photo" src="assets/cleyton.jpg" alt="Cleyton Braga">
     <div class="col-more">
       <h2>Cleyton Braga</h2>
-      <span class="role">UX/UI Designer</span>
-      <p class="col-lede">Desenho produtos digitais, dashboards e jogos para marcas. Hoje trabalho no produto das casas de apostas da BPX Group.</p>
+      <span class="role">UX/UI &amp; Product Designer · produto web e game design</span>
+      <p class="col-lede">Desenho jornadas de conversão, mecânicas de engajamento e ferramentas internas. Quando um processo trava o time, uso IA para tirar o gargalo.</p>
       <div class="tags">
         <span class="tag">Product Design</span>
-        <span class="tag">UX Strategy</span>
+        <span class="tag">Game Design</span>
         <span class="tag">UI Design</span>
         <span class="tag">Design Systems</span>
-        <span class="tag">Prototipagem</span>
+        <span class="tag">Automação com IA</span>
         <span class="tag">Gamificação</span>
       </div>
       <p class="col-info">Brasil · Remoto · Português / Inglês</p>
@@ -52,54 +64,65 @@
 </template>
 
 <template id="tpl-cases">
-    <div class="col-more">
-      <span class="col-cat">Desenvolvimento de produto</span>
-      <h2>Cases de sucesso</h2>
-      <p class="col-lede">Produtos digitais que desenhei desde a primeira tela.</p>
-      <nav class="case-list">
-        <a class="case-row" href="cases/feedback-org/index.html">
-          <span class="case-thumb" style="background-image:url(cases/feedback-org/assets/feedback-hero.webp)"></span>
-          <span class="case-info"><span class="case-t">Feedback ORG</span><span class="case-d">Pesquisa de clima organizacional</span></span>
+      <div class="col-more">
+        <span class="col-cat">Produto web · BPX Group</span>
+        <h2>Produto web</h2>
+        <p class="col-lede">Três frentes de um produto que atende quatro marcas.</p>
+        <nav class="case-list">
+        <a class="case-row" href="cases/automacao-ia/index.html">
+          <span class="case-thumb" style="background-image:url(cases/automacao-ia/assets/hero.webp)"></span>
+          <span class="case-info"><span class="case-t">Automação de capas com IA</span><span class="case-d">De 904 capas em 6 meses para 3.000+ em uma semana</span></span>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="case-row" href="cases/bpx/index.html">
-          <span class="case-thumb" style="background-image:url(cases/bpx/assets/jornada.webp)"></span>
-          <span class="case-info"><span class="case-t">Produtos Web - BPX Group</span><span class="case-d">Apostas · apps, UI e design system</span></span>
+        <a class="case-row" href="cases/hub-promocoes/index.html">
+          <span class="case-thumb" style="background-image:radial-gradient(120% 120% at 100% 0%,rgba(95,212,154,.45),#15171c 70%)"></span>
+          <span class="case-info"><span class="case-t">Hub de Promoções</span><span class="case-d">CMS e analytics: publicar sem deploy</span></span>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="case-row" href="cases/sao-joao-2k25/index.html">
-          <span class="case-thumb" style="background-image:url(cases/sao-joao-2k25/assets/hero-magnific.webp)"></span>
-          <span class="case-info"><span class="case-t">App para O Maior São João do Mundo 2025</span><span class="case-d">App de evento — programação e mapa</span></span>
+        </nav>
+      </div>
+    </template>
+
+<template id="tpl-games">
+      <div class="col-more">
+        <span class="col-cat">Advergames e gamificação</span>
+        <h2>Game design</h2>
+        <p class="col-lede">Jogos curtos com uma regra só, que terminam em cadastro, foto ou ranking.</p>
+        <nav class="case-list">
+        <a class="case-row" href="cases/sao-braz/index.html">
+          <span class="case-thumb" style="background-image:url(cases/sao-braz/assets/screens/capa.png)"></span>
+          <span class="case-info"><span class="case-t">São Braz: Desafio da Memória</span><span class="case-d">Memória em totem · demo jogável aqui no site</span></span>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <!-- HUB2 removido temporariamente — case preservado em cases/hub2/, sem link no site
+        </nav>
+        <a class="seeall" href="cases/projetos/index.html">Ver todos os projetos →</a>
+      </div>
+    </template>
+
+    <template id="tpl-saas">
+      <div class="col-more">
+        <span class="col-cat">Produtos do zero</span>
+        <h2>SaaS e apps</h2>
+        <p class="col-lede">Produtos que desenhei com a Dilis e para o São João de Campina Grande.</p>
+        <nav class="case-list">
         <a class="case-row" href="cases/hub2/index.html">
           <span class="case-thumb" style="background-image:url(cases/hub2/assets/dashboard.jpg)"></span>
           <span class="case-info"><span class="case-t">HUB2</span><span class="case-d">Gestão para agências · ordens de serviço</span></span>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        -->
-      </nav>
-    </div>
-</template>
-
-<template id="tpl-outros">
-    <div class="col-more">
-      <span class="col-cat">Direção visual & ativações</span>
-      <h2>Outros projetos</h2>
-      <p class="col-lede">Campanhas, totens e ativações de marca.</p>
-      <span class="tags-label">Marcas atendidas</span>
-    </div>
-</template>
-
-<template id="tpl-games">
-    <div class="col-more">
-      <span class="col-cat">Advergames & gamificação</span>
-      <h2>Game design</h2>
-      <p class="col-lede">Jogos curtos para ativação de marca em eventos.</p>
-      <p>Memória, roleta, caça-níquel e runner. Cada jogo tem uma regra só e termina com cadastro ou ranking.</p>
-    </div>
-</template>
+        <a class="case-row" href="cases/feedback-org/index.html">
+          <span class="case-thumb" style="background-image:url(cases/feedback-org/assets/feedback-hero.webp)"></span>
+          <span class="case-info"><span class="case-t">Feedback ORG</span><span class="case-d">Pesquisa de clima organizacional para RH</span></span>
+          <span class="case-go" aria-hidden="true">→</span>
+        </a>
+        <a class="case-row" href="cases/sao-joao-2k25/index.html">
+          <span class="case-thumb" style="background-image:url(cases/sao-joao-2k25/assets/hero-magnific.webp)"></span>
+          <span class="case-info"><span class="case-t">App São João 2K25</span><span class="case-d">App de evento: programação, mapa e missões</span></span>
+          <span class="case-go" aria-hidden="true">→</span>
+        </a>
+        </nav>
+      </div>
+    </template>
 
 <template id="tpl-contato">
     <div class="col-more">
@@ -138,8 +161,8 @@
     </div>
 </template>
 
-<script src="data/sections.js"></script>
-<script src="home.js"></script>
+<script src="data/sections.js?v=56"></script>
+<script src="home.js?v=56"></script>
 
 </body>
 </html>

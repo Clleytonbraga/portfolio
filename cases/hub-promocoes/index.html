@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hub de Promoções · Produto web | Cleyton Braga</title>
 <meta name="description" content="CMS e analytics de um hub interno: o time publica promoções sem depender de deploy e decide com dado de uso.">
-<link rel="stylesheet" href="../../styles.css?v=42">
+<link rel="stylesheet" href="../../styles.css?v=57">
 <style>:root{ --accent:#5fd49a; }</style>
 <style>
 .tldr{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);background:var(--panel);padding:18px 20px;margin:28px 0 0}
@@ -41,35 +41,37 @@
   <span class="brand">
     <a class="name" href="../../index.html">Cleyton Braga</a>
     <span class="dash">|</span>
-    <a class="role" href="../../sobre/index.html">Product Designer</a>
+    <span class="role">UX/UI Designer</span>
   </span>
   <nav>
-    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
     <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
-  <a class="crumb-back" href="../produto-web/index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <a class="crumb-back" href="../../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <ol class="crumb-trail">
     <li><a href="../../index.html">Início</a></li>
-    <li><a href="../produto-web/index.html">Produto web</a></li>
     <li aria-current="page">Hub de Promoções</li>
   </ol>
 </div></nav>
 
-<main class="wrap">
-  <div class="hero">
-    <div class="eyebrow">02 · Produto web · Ferramenta interna</div>
-    <h1>O time de Promoções publica sem esperar deploy</h1>
-    <p class="lede">Um CMS para criar e organizar as promoções do site, e um painel que mostra quais delas são vistas, clicadas e procuradas.</p>
-    <dl class="meta">
+<section class="fold" style="--bg:radial-gradient(120% 90% at 82% 6%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 62%)">
+  <div class="fold-inner wrap">
+    <span class="eyebrow">02 · Produto web · Ferramenta interna</span>
+    <h1>Hub de Promoções</h1>
+    <p class="fold-sub">O time de Promoções publica sem esperar deploy, e decide com dado de uso.</p>
+    <dl class="fold-info">
       <div><dt>Meu papel</dt><dd>Concepção e design da página, do CMS e do analytics</dd></div>
       <div><dt>Usuários</dt><dd>Time de Promoções e CRM</dd></div>
       <div><dt>Plataforma</dt><dd>Web, 4 marcas</dd></div>
       <div><dt>Status</dt><dd>Em uso</dd></div><!-- REVISAR: desde quando e quantas pessoas usam -->
     </dl>
-    <div class="tldr"><b>Resumo</b><p>Toda promoção nova no site passava pelo desenvolvimento. Concebi a página de Promoções e o hub por trás dela: o time cria, edita, reordena, destaca e agenda os cards sozinho. Um painel de analytics mostra tráfego, ranking, buscas sem resultado e mapa de calor, e a escolha de quais promoções manter passou a ter dado por trás.</p></div>
   </div>
+</section>
+
+<main class="wrap">
+  <div class="tldr"><b>Resumo</b><p>Toda promoção nova no site passava pelo desenvolvimento. Concebi a página de Promoções e o hub por trás dela: o time cria, edita, reordena, destaca e agenda os cards sozinho. Um painel de analytics mostra tráfego, ranking, buscas sem resultado e mapa de calor, e a escolha de quais promoções manter passou a ter dado por trás.</p></div>
 
   <section>
     <h2>Antes e depois</h2>
@@ -109,7 +111,30 @@
     <h2>Resultado</h2>
     <p class="muted">Publicar deixou de depender de código, e o CRM passou a escolher quais promoções manter olhando para o uso, não para opinião.</p>
     <!-- REVISAR (Cleyton): um exemplo real de decisão que o painel mudou (uma promoção tirada, um termo buscado que virou campanha) e, se houver, publicações feitas sem dev ou tempo por publicação. -->
-    <p style="margin-top:28px"><a href="../jornadas/index.html">Próximo: Jornadas de conversão →</a></p>
+  </section>
+
+  <section>
+    <h2>Telas</h2>
+    <p class="muted">O CMS e o painel, com marca e dados neutros.</p>
+    <div class="shots">
+      <div class="shot-ph"><b>CMS: edição de card</b>tela em breve</div>
+      <div class="shot-ph"><b>Painel de analytics</b>tela em breve</div>
+      <div class="shot-ph"><b>Card publicado no site</b>tela em breve</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Outros projetos</h2>
+    <div class="grid">
+      <div class="card"><a href="../automacao-ia/index.html">
+        <div class="thumb" style="background-image:url(../automacao-ia/assets/hero.webp)"></div>
+        <div class="body"><h3>Automação de capas com IA →</h3><p>Produto web · pipeline com IA</p></div>
+      </a></div>
+      <div class="card"><a href="../jornadas/index.html">
+        <div class="thumb" style="background-image:radial-gradient(120% 120% at 100% 0%,color-mix(in srgb,var(--accent) 40%,transparent),#15171c 70%)"></div>
+        <div class="body"><h3>Jornadas de conversão →</h3><p>Produto web · conversão</p></div>
+      </a></div>
+    </div>
   </section>
 </main>
 

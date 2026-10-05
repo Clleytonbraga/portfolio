@@ -8,9 +8,13 @@
 <link rel="stylesheet" href="../styles.css?v=57">
 <style>:root{ --accent:#e3b341; }</style>
 <style>
-/* largura padronizada pelo case 1: .wrap do shared (max 860 / gutter 24) */
+/* largura do Figma: conteúdo 1152 (wrap 1200 - 48 de padding) */
+.wrap{ max-width:1200px; }
+/* intros de seção acompanham a largura do conteúdo (não o teto de 68ch do p) */
+main section > p.muted{ max-width:none; }
 
 /* ---- HERO = dobra full-bleed com a imagem do Figma (padrão case 1) ---- */
+.crumbs{ background:transparent; border:0; }
 /* véu: topo leve (mostra o leque de thumbs), fundo escuro p/ legibilidade do texto */
 .fold::after{ background:linear-gradient(180deg,
   rgba(12,13,16,.34) 0%, rgba(12,13,16,.20) 28%,
@@ -30,6 +34,11 @@
 .hero-info{ display:flex; gap:28px; flex-wrap:wrap; margin:24px 0 0; padding-top:0; border-top:0; }
 .hero-info dt{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.05em; text-shadow:0 1px 10px rgba(0,0,0,.6); }
 .hero-info dd{ margin:4px 0 0; font-weight:500; font-size:15px; text-shadow:0 1px 12px rgba(0,0,0,.65); }
+/* slot do crachá 3D (substitui a foto) */
+.hero-badge{ position:relative; width:100%; height:560px; touch-action:none; user-select:none; -webkit-user-select:none; }
+.hero-badge svg{ display:block; width:100%; height:100%; }
+.hero-badge svg text{ user-select:none; -webkit-user-select:none; }
+@media(max-width:720px){ .hero-badge{ display:none; } }
 @media(max-width:720px){
   /* mobile (Figma): a própria foto full-bleed é o fundo — sem o leque de thumbs */
   .fold{ min-height:auto; }
@@ -70,10 +79,10 @@
 
 /* ---- Game design — cards horizontais ---- */
 .gcards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
-.gcard{display:grid;grid-template-columns:150px 1fr;align-items:center;border:1px solid var(--line);border-radius:var(--r-soft);background:var(--panel);overflow:hidden;color:var(--fg);box-shadow:var(--shadow-soft);transition:border-color .15s,transform .15s,box-shadow .15s}
+.gcard{display:grid;grid-template-columns:190px 1fr;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden;color:var(--fg);transition:border-color .15s,transform .15s}
 .gcard:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none}
-.gthumb{width:150px;height:150px;align-self:stretch;background:#000 center/cover}
-.gbody{padding:16px 20px}
+.gthumb{background:#000 center/cover}
+.gbody{padding:18px}
 .gbody b{display:block;font-size:17px}
 .gbody p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
 .gtags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
@@ -81,18 +90,17 @@
 .gbody .ver-case{display:block}
 @media(max-width:720px){.gcards{grid-template-columns:1fr}}
 
-/* ---- Formação e ferramentas (empilhado, como no Figma) ---- */
-.ff{display:flex;flex-direction:column;gap:24px;margin-top:24px}
-.ff-edu{display:flex;flex-direction:column;gap:16px}
+/* ---- Formação e ferramentas (faixa) ---- */
+.ff{display:flex;align-items:center;gap:40px;flex-wrap:wrap;margin-top:24px}
+.ff-edu{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
 .edu{display:flex;align-items:center;gap:16px}
 .edu svg{width:32px;height:32px;color:var(--muted);flex:none}
-.edu .lbl{display:block;color:var(--fg);font-weight:600;font-size:15px}
-.edu .deg{display:block;color:var(--muted);font-size:14px;margin:2px 0}
-.edu .yr{display:block;color:var(--muted);font-size:13px}
-.ff-rule{height:1px;background:var(--line)}
-/* linha única quando cabe; quebra sozinha só em tela estreita (mobile) */
-.ff-tools{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-start}
-.tool{width:72px;text-align:center}
+.edu .lbl{color:var(--muted);font-size:13px}
+.edu .deg{display:block;font-size:15px;margin:2px 0}
+.edu .yr{color:var(--muted);font-size:13px}
+.ff-div{width:1px;align-self:stretch;background:var(--line);margin:4px 0}
+.ff-tools{display:flex;gap:18px;flex-wrap:wrap;margin-left:auto}
+.tool{text-align:center}
 .tool-ic{width:48px;height:48px;border-radius:14px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;margin:0 auto}
 .tool-ic svg{width:22px;height:22px;color:var(--fg)}
 .tool-mark{font:800 18px/1 "Inter",system-ui,sans-serif;letter-spacing:-.03em;color:var(--fg)}
@@ -103,15 +111,9 @@
 .cta-row a{border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--fg);font-size:14px}
 .cta-row a:hover{border-color:var(--accent);text-decoration:none}
 
-/* ---- Marcas atendidas: logos maiores + menos respiro (título↔faixa↔próxima) ---- */
-main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" perto da faixa */
-.brands-strip{ padding:0 0 12px; }                        /* era 8 0 64 */
-.brands-strip .marquee{ margin-top:14px; }               /* era 28 */
-.brands-strip .marquee-track img{ max-height:44px; max-width:150px; }  /* maiores (era 32/110) */
-
 /* ---- Contato (painel, como no Figma) ---- */
 .contact{padding:40px 0 80px}
-.contact-card{border:1px solid var(--line);border-radius:var(--r-soft);padding:30px 34px}
+.contact-card{border:1px solid var(--line);border-radius:22px;padding:30px 34px}
 .contact h2{font-size:clamp(34px,5vw,58px);line-height:1.02;letter-spacing:-.03em;margin:0 0 14px}
 .contact-lede{color:var(--fg);font-size:clamp(17px,2vw,21px);line-height:1.5;margin:0 0 6px;max-width:600px}
 </style>
@@ -139,7 +141,7 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
 
 <section class="fold" style="--bg:url(sobre/assets/hero-bg.webp)">
   <div class="fold-inner wrap hero-grid">
-    <figure class="hero-photo"><img src="../assets/cleyton.jpg" alt="Cleyton Braga" width="1254" height="1254"></figure>
+    <div class="hero-badge" id="badge-stage" aria-label="Cleyton Braga"></div>
     <div class="hero-text">
       <h1>Cleyton Braga</h1>
       <p class="hero-role">UX/UI &amp; Product Designer · produto web e game design</p>
@@ -208,12 +210,13 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4"/><path d="M6 11.5V16c0 1.1 2.7 3 6 3s6-1.9 6-3v-4.5"/><path d="M20 9v5"/></svg>
           <div><span class="lbl">IFPB</span><span class="deg">Tecnólogo em Tecnologia da Informação</span><span class="yr">(2007–2009)</span></div>
         </div>
+        <div class="ff-div"></div>
         <div class="edu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4"/><path d="M6 11.5V16c0 1.1 2.7 3 6 3s6-1.9 6-3v-4.5"/><path d="M20 9v5"/></svg>
           <div><span class="lbl">Unifacisa</span><span class="deg">Game Design e Jogos Digitais</span><span class="yr">(2018)</span></div>
         </div>
       </div>
-      <div class="ff-rule"></div>
+      <div class="ff-div"></div>
       <div class="ff-tools">
         <div class="tool"><span class="tool-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg></span><span>Figma</span></div>
         <div class="tool"><span class="tool-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span><span>Claude Code</span></div>
@@ -313,6 +316,127 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
       .then(function (r) { if (!r.ok) throw 0; show(3); form.reset(); })
       .catch(function () { btn.disabled = false; btn.textContent = 'Enviar mensagem →'; if (err) err.hidden = false; });
   });
+})();
+</script>
+<script>
+/* Crachá "twang lanyard" — SVG + verlet (2 pernas em V, chicoteia e assenta). Desktop only. */
+(function(){
+  const PHOTO = "../assets/cleyton.jpg";
+  const stage = document.getElementById('badge-stage');
+  if(!stage || !matchMedia('(min-width:721px) and (pointer:fine)').matches) return;
+
+  const VB_W=300, VB_H=580;
+  const ACC="#ff4f18", INK="#121212", OFF="#f2efe8", MUT="#8c8c8c", LINE="#3a3a3a";
+  const CW=220, CH=362, R=22;                 // cartão
+  const AL={x:66,y:8}, AR={x:234,y:8};        // âncoras do cordão (topo)
+  const CLIP_GAP=36;                          // buckle: C → topo do cartão
+  const SEG=9, GRAV=0.55, DAMP=0.96, ITER=22;
+
+  // ---------- verlet ----------
+  const P=(x,y,pin)=>({x,y,ox:x,oy:y,pin:!!pin});
+  const C=P(150,150);                         // ponto do buckle (compartilhado pelas 2 pernas)
+  const T=P(150,150+CLIP_GAP);                // topo do cartão
+  const B=P(150,150+CLIP_GAP+CH);             // base do cartão (bastão rígido T–B)
+  function leg(a){ const arr=[P(a.x,a.y,true)]; for(let i=1;i<SEG;i++){ const t=i/SEG; arr.push(P(a.x+(C.x-a.x)*t, a.y+(C.y-a.y)*t)); } arr.push(C); return arr; }
+  const legL=leg(AL), legR=leg(AR);
+  const segL=legL.slice(0,-1).map((p,i)=>dist(p,legL[i+1]));
+  const segR=legR.slice(0,-1).map((p,i)=>dist(p,legR[i+1]));
+  const free=[...legL.slice(1,-1), ...legR.slice(1,-1), C, T, B];
+  function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
+  function link(a,b,len,stiff=1){ const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1e-4,f=(len-d)/d*0.5*stiff;
+    const ox=dx*f,oy=dy*f; if(!a.pin){a.x-=ox;a.y-=oy;} if(!b.pin){b.x+=ox;b.y+=oy;} }
+
+  // ---------- SVG ----------
+  const NS="http://www.w3.org/2000/svg";
+  stage.innerHTML = `
+  <svg viewBox="0 0 ${VB_W} ${VB_H}" style="width:100%;height:100%;overflow:visible;display:block" font-family="'Inter',system-ui,sans-serif">
+    <defs>
+      <path id="legLp"/><path id="legRp"/>
+      <clipPath id="photoClip"><rect x="${-CW/2+28}" y="92" width="${CW-56}" height="150" rx="12"/></clipPath>
+      <filter id="cardShadow" x="-40%" y="-20%" width="180%" height="160%">
+        <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.55"/>
+      </filter>
+    </defs>
+
+    <g id="straps">
+      <path id="legLb" fill="none" stroke="#0c0c0c" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="legRb" fill="none" stroke="#0c0c0c" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="legLe" fill="none" stroke="#242424" stroke-width="30" stroke-linecap="round" stroke-dasharray="1 7" opacity=".6"/>
+      <path id="legRe" fill="none" stroke="#242424" stroke-width="30" stroke-linecap="round" stroke-dasharray="1 7" opacity=".6"/>
+      <text font-size="9.5" font-weight="700" letter-spacing="2.5" fill="#efece5" style="text-transform:uppercase">
+        <textPath href="#legLp" startOffset="6%">CLEYTON&#160;BRAGA&#160;&#160;·&#160;&#160;UX/UI&#160;&#160;·&#160;&#160;CLEYTON&#160;BRAGA&#160;&#160;·&#160;&#160;UX/UI&#160;&#160;·&#160;&#160;</textPath>
+      </text>
+      <text font-size="9.5" font-weight="700" letter-spacing="2.5" fill="#efece5" style="text-transform:uppercase">
+        <textPath href="#legRp" startOffset="6%">CLEYTON&#160;BRAGA&#160;&#160;·&#160;&#160;UX/UI&#160;&#160;·&#160;&#160;CLEYTON&#160;BRAGA&#160;&#160;·&#160;&#160;UX/UI&#160;&#160;·&#160;&#160;</textPath>
+      </text>
+    </g>
+
+    <g id="card" filter="url(#cardShadow)" style="cursor:grab">
+      <!-- buckle (acima do topo do cartão) -->
+      <rect x="-22" y="-34" width="44" height="30" rx="7" fill="#161616" stroke="#2c2c2c"/>
+      <rect x="-14" y="-15" width="28" height="4.5" rx="2.5" fill="${ACC}"/>
+      <!-- holder -->
+      <rect x="${-CW/2}" y="0" width="${CW}" height="${CH}" rx="${R}" fill="${INK}" stroke="#262626"/>
+      <rect x="${-CW/2+9}" y="9" width="${CW-18}" height="${CH-18}" rx="${R-7}" fill="none" stroke="#000" opacity=".5"/>
+      <!-- header -->
+      <text x="${-CW/2+22}" y="40" font-size="13" font-weight="800" letter-spacing="1.5" fill="${OFF}">PORTFÓLIO</text>
+      <text x="${CW/2-22}" y="40" text-anchor="end" font-size="13" font-weight="800" letter-spacing="1.5" fill="${ACC}">UX/UI</text>
+      <line x1="${-CW/2+22}" y1="54" x2="${CW/2-22}" y2="54" stroke="${LINE}"/>
+      <!-- slot -->
+      <rect x="-26" y="66" width="52" height="7" rx="3.5" fill="#000" stroke="#2a2a2a"/>
+      <!-- foto -->
+      <rect x="${-CW/2+28}" y="92" width="${CW-56}" height="150" rx="12" fill="#2b2b2f"/>
+      <image href="${PHOTO}" x="${-CW/2+28}" y="92" width="${CW-56}" height="150" clip-path="url(#photoClip)" preserveAspectRatio="xMidYMid slice"/>
+      <!-- nome -->
+      <text x="${-CW/2+24}" y="286" font-size="38" font-weight="800" letter-spacing="-1.5" fill="${OFF}">Cleyton</text>
+      <text x="${-CW/2+24}" y="320" font-size="38" font-weight="800" letter-spacing="-1.5" fill="${OFF}">Braga</text>
+      <text x="${-CW/2+26}" y="342" font-size="14" font-weight="500" fill="${MUT}">UX/UI Designer</text>
+      <line x1="${-CW/2+22}" y1="${CH-40}" x2="${CW/2-22}" y2="${CH-40}" stroke="${LINE}"/>
+      <!-- footer -->
+      <text x="${-CW/2+24}" y="${CH-24}" font-size="9" letter-spacing="1" fill="${MUT}">ID</text>
+      <text x="${-CW/2+24}" y="${CH-10}" font-size="13" font-weight="800" letter-spacing="1" fill="${OFF}">CB</text>
+      <text x="4" y="${CH-24}" font-size="9" letter-spacing="1" fill="${MUT}">SITE</text>
+      <text x="4" y="${CH-10}" font-size="13" font-weight="800" letter-spacing="1" fill="${OFF}">URL DO PORTFÓLIO</text>
+    </g>
+  </svg>`;
+
+  const $=id=>stage.querySelector('#'+id);
+  const card=$('card'), legLp=$('legLp'), legRp=$('legRp');
+  const legLb=$('legLb'), legRb=$('legRb'), legLe=$('legLe'), legRe=$('legRe');
+  function pathStr(arr){ let d=`M ${arr[0].x} ${arr[0].y}`; for(let i=1;i<arr.length;i++){ const m={x:(arr[i-1].x+arr[i].x)/2,y:(arr[i-1].y+arr[i].y)/2}; d+=` Q ${arr[i-1].x} ${arr[i-1].y} ${m.x} ${m.y}`; } const l=arr[arr.length-1]; return d+` L ${l.x} ${l.y}`; }
+
+  // ---------- ponteiro ----------
+  let drag=false, gx=0, gy=0;
+  const toLocal=(cx,cy)=>{ const r=stage.getBoundingClientRect(), sx=VB_W/r.width, sy=VB_H/r.height; return {x:(cx-r.left)*sx, y:(cy-r.top)*sy}; };
+  let sway=0, swayT=0;
+  card.addEventListener('pointerdown', e=>{ const p=toLocal(e.clientX,e.clientY); const g={x:(T.x+B.x)/2,y:(T.y+B.y)/2};
+    if(Math.hypot(p.x-g.x,p.y-g.y) < CH*0.6){ drag=true; gx=p.x-T.x; gy=p.y-T.y; card.style.cursor='grabbing'; } });
+  addEventListener('pointermove', e=>{ const p=toLocal(e.clientX,e.clientY); swayT=Math.max(-1,Math.min(1,(p.x-150)/150))*10;
+    if(drag){ T.ox=T.x; T.oy=T.y; T.x=p.x-gx; T.y=p.y-gy; } });
+  addEventListener('pointerup', ()=>{ if(drag){ drag=false; card.style.cursor='grab'; } });
+
+  // ---------- loop ----------
+  function frame(){
+    sway += (swayT-sway)*0.04;
+    AL.x=66+sway; AR.x=234+sway;
+    for(const p of free){ if(p===T && drag) continue; const vx=(p.x-p.ox)*DAMP, vy=(p.y-p.oy)*DAMP; p.ox=p.x; p.oy=p.y; p.x+=vx; p.y+=vy+GRAV; }
+    for(let k=0;k<ITER;k++){
+      AL.x=66+sway; AL.y=8; AR.x=234+sway; AR.y=8;
+      for(let i=0;i<legL.length-1;i++) link(legL[i],legL[i+1],segL[i]);
+      for(let i=0;i<legR.length-1;i++) link(legR[i],legR[i+1],segR[i]);
+      link(C,T,CLIP_GAP);
+      link(T,B,CH,1);                 // bastão rígido do cartão
+    }
+    // transform do cartão: eixo-Y local = T→B
+    let ux=B.x-T.x, uy=B.y-T.y, ul=Math.hypot(ux,uy)||1e-4; ux/=ul; uy/=ul;
+    card.setAttribute('transform', `matrix(${uy} ${-ux} ${ux} ${uy} ${T.x} ${T.y})`);
+    const dl=pathStr(legL), dr=pathStr(legR);
+    legLp.setAttribute('d',dl); legRp.setAttribute('d',dr);
+    legLb.setAttribute('d',dl); legRb.setAttribute('d',dr);
+    legLe.setAttribute('d',dl); legRe.setAttribute('d',dr);
+    requestAnimationFrame(frame);
+  }
+  frame();
 })();
 </script>
 </body>

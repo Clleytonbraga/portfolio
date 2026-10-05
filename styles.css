@@ -8,6 +8,8 @@
   --accent: #6cff8f;            /* troque por marca do case se quiser */
   --max: 860px;
   --r: 14px;
+  --r-soft: 24px;                       /* "shape soft" (rounded-3xl) p/ cards */
+  --shadow-soft: 0 4px 14px rgba(0,0,0,.22);   /* sutil, estilo Figma */
   --ease: cubic-bezier(.22,.61,.36,1);
   --dur: .5s;
   --pad-col: clamp(28px, 2.6vw, 44px);
@@ -68,6 +70,13 @@ a.role:hover, a.role:focus-visible { color: var(--fg); text-decoration: none; }
   transition: border-color .15s, color .15s;
 }
 .btn-cv:hover { border-color: var(--accent); color: var(--accent) !important; text-decoration: none; }
+/* alinhamento consistente dos itens do topbar nas subpáginas (a home tem seu próprio gap:20) */
+.btn-cv { height: 34px; display: inline-flex; align-items: center; }
+body:not(.home) .topbar nav { gap: 8px; }
+body:not(.home) .topbar nav a { margin-left: 0; }
+/* alternador de idioma (bolinha EN) — por ora só UI */
+.btn-lang { width: 34px; height: 34px; display: inline-grid; place-items: center; color: var(--fg); background: transparent; border: 1px solid var(--line); border-radius: 50%; font: 600 13px/1 inherit; cursor: pointer; transition: border-color .15s, color .15s; }
+.btn-lang:hover { border-color: var(--accent); color: var(--accent); }
 
 /* hero do case */
 .hero { padding: 72px 0 40px; }
@@ -83,7 +92,7 @@ h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; letter-spacing: -.03e
 
 /* seções */
 section { padding: 40px 0; }
-h2 { font-size: 26px; letter-spacing: -.02em; margin: 0 0 16px; }
+h2 { font-size: 26px; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 16px; }
 h3 { font-size: 18px; margin: 28px 0 8px; }
 p { max-width: 68ch; }
 .muted { color: var(--muted); }
@@ -107,13 +116,16 @@ figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; }
 
 /* grid de cases (index) */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding: 40px 0 80px; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color .15s, transform .15s; }
-.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-soft); overflow: hidden; text-decoration: none; box-shadow: var(--shadow-soft); transition: border-color .15s, transform .15s, box-shadow .15s; }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
 .card a { color: inherit; text-decoration: none; }
 .card .thumb { aspect-ratio: 16/10; background: #000 center/cover; }
 .card .body { padding: 16px; }
 .card h3 { margin: 0 0 6px; font-size: 16px; }
 .card p { font-size: 14px; color: var(--muted); margin: 0; }
+/* CTA textual "Ver case →" dentro de cards (usado em /sobre e nos cases) */
+.ver-case { color: var(--accent); font-size: 13px; margin-top: 10px; }
+.card p.ver-case { color: var(--accent); font-size: 13px; }   /* vence .card p (muted) */
 
 footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; text-align: center; }
 
@@ -131,10 +143,14 @@ footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted)
   animation: marquee 48s linear infinite;   /* 0 → -50% = exatamente 1 conjunto (loop sem emenda) */
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
+/* padroniza por CAIXA (altura E largura): logos horizontais limitam pela largura
+   (ficam mais baixos) e os compactos/quadrados crescem até a altura — equilibra a
+   área óptica em vez de só travar a altura */
 .marquee-track img {
   flex: 0 0 auto;
-  height: 26px; width: auto; max-width: 132px; object-fit: contain;
-  margin: 0 36px;
+  height: auto; width: auto;
+  max-height: 32px; max-width: 110px; object-fit: contain;
+  margin: 0 30px;
   filter: grayscale(1) invert(1) brightness(1.15);        /* todos viram monocromo claro, mesmo peso */
   opacity: .7;
   transition: opacity .3s ease;
@@ -146,7 +162,8 @@ footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted)
 /* ============================================================
    PÁGINA INTERNA — dobra cheia + seções
    ============================================================ */
-.fold { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
+/* min-height desconta topbar (56) + crumbs (~52) p/ o cabeçalho caber na 1ª dobra */
+.fold { position: relative; min-height: calc(100svh - 108px); display: flex; align-items: flex-end; overflow: hidden; padding: 0; }
 .fold::before {
   content: ""; position: absolute; inset: 0;
   background: var(--bg) center/cover no-repeat;
@@ -156,12 +173,24 @@ footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted)
   background: linear-gradient(180deg, color-mix(in srgb, var(--bg-fold, #0c0d10) 20%, transparent) 0%,
               transparent 30%, color-mix(in srgb, #0c0d10 92%, transparent) 100%);
 }
-.fold-inner { position: relative; z-index: 1; width: 100%; padding-bottom: 56px; padding-top: 96px; }
+/* variante p/ dobras com FOTO de fundo: véu mais forte (mesma receita do case ref) p/ legibilidade */
+.fold--dim::after { background: linear-gradient(180deg,
+  rgba(12,13,16,.45) 0%, rgba(12,13,16,.30) 14%,
+  rgba(12,13,16,.55) 34%, rgba(12,13,16,.82) 50%, rgba(12,13,16,.97) 66%, #0c0d10 80%); }
+.fold--dim .fold-inner h1 { text-shadow: 0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
+.fold--dim .fold-sub { text-shadow: 0 1px 16px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.5); }
+.fold--dim .fold-info dt, .fold--dim .fold-info dd { text-shadow: 0 1px 12px rgba(0,0,0,.6); }
+.fold-inner { position: relative; z-index: 1; width: 100%; padding-top: 40px; padding-bottom: 64px; }
 .fold-inner h1 { font-size: clamp(40px, 9vw, 96px); line-height: .95; letter-spacing: -.04em; margin: 0; }
 .fold-sub { font-size: clamp(15px, 2.2vw, 20px); color: var(--accent); font-weight: 600; margin: 12px 0 0; }
-.fold-info { display: flex; gap: 40px; flex-wrap: wrap; margin: 32px 0 0; padding-top: 24px; border-top: 1px solid color-mix(in srgb, var(--fg) 18%, transparent); }
+.fold-info { display: flex; gap: 24px; flex-wrap: wrap; margin: 22px 0 0; }
 .fold-info dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
 .fold-info dd { margin: 4px 0 0; font-weight: 500; font-size: 15px; }
+
+/* placeholder de telas/mockups (seção de fotos ainda sem imagem real) */
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+.shot-ph { aspect-ratio: 16/10; border: 1px dashed color-mix(in srgb, var(--fg) 20%, transparent); border-radius: var(--r); background: var(--panel); display: grid; place-content: center; text-align: center; padding: 16px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.shot-ph b { display: block; color: color-mix(in srgb, var(--fg) 70%, transparent); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
 
 /* vídeo placeholder 16:9 */
 .video-embed { position: relative; aspect-ratio: 16/9; border-radius: var(--r); border: 1px solid var(--line); background: var(--thumb, none) center/cover no-repeat, var(--panel); display: grid; place-content: center; overflow: hidden; }
@@ -236,6 +265,16 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 }
 .col > * { position: relative; z-index: 1; }
 
+/* directional hover fill — nos itens internos do menu (.case-row); desliza da borda de entrada e sai pela de saída */
+.row-fill { position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  opacity: 0; transition: transform .4s var(--ease), opacity .4s var(--ease); }
+.row-fill[data-dir="top"]    { transform: translateY(-101%); }
+.row-fill[data-dir="bottom"] { transform: translateY(101%); }
+.row-fill[data-dir="left"]   { transform: translateX(-101%); }
+.row-fill[data-dir="right"]  { transform: translateX(101%); }
+.case-row.fill-in .row-fill { transform: none; opacity: 1; }
+
 /* expandir a coluna em foco, comprimir as outras */
 .cols:hover .col { flex-grow: .5; }              /* vizinhas encolhem */
 .cols .col:hover, .cols .col:focus-visible, .cols .col:has(:focus-visible) { flex-grow: 5; }
@@ -309,7 +348,8 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 .col-more .tags { margin: 0; }
 /* Cases de sucesso: lista inline dos 3 cases no painel 02 (sem hub) */
 .case-list { display: flex; flex-direction: column; margin: 20px 0 0; }
-.case-row { display: flex; align-items: center; gap: 18px; padding: 16px 0; border-top: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+.case-row { position: relative; overflow: hidden; display: flex; align-items: center; gap: 18px; padding: 16px 0; border-top: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+.case-row > :not(.row-fill) { position: relative; z-index: 1; }   /* conteúdo acima do row-fill */
 .case-row:first-child { border-top: 0; }
 .case-row:hover { text-decoration: none; }
 .case-thumb { flex: none; width: 132px; height: 80px; border-radius: 12px; background-size: cover; background-position: center; border: 1px solid var(--line); transition: border-color .2s, transform .25s var(--ease); }
@@ -326,7 +366,7 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 .col--cases::before { opacity: .14; }
 .col--cases::after  { opacity: .97; }
 .col--cases .case-list { margin-top: 24px; }
-.col--cases .case-row { padding-left: 14px; padding-right: 14px; margin-left: -14px; margin-right: -14px; border-radius: 12px; transition: background .2s; }
+.col--cases .case-row { padding-left: 14px; padding-right: 14px; margin-left: -14px; margin-right: -14px; border-radius: 12px; border-top: 0; transition: background .2s; }
 .col--cases .case-row:hover { background: rgba(255,255,255,.04); }
 /* mobile: capa menor pra não espremer o texto (desktop mantém 132×80) */
 @media (max-width: 720px) { .case-thumb { width: 68px; height: 52px; } .case-row { gap: 12px; } .col--form .col-cat { display: none; } }
@@ -422,6 +462,7 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 /* seta/CTA no rodapé do painel (links) */
 .col-go {
   display: inline-grid; place-items: center; flex: 0 0 auto;
+  align-self: flex-start;                 /* alinha o botão à esquerda, sob o título */
   width: 48px; height: 48px; margin-top: 24px;
   border-radius: 999px; border: 1px solid rgba(255,255,255,.28);
   color: rgba(255,255,255,.7);
@@ -440,6 +481,10 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
   border-color: var(--accent); color: var(--accent);
   background: color-mix(in srgb, var(--accent) 10%, transparent);
   transform: translateX(4px);
+}
+/* desktop: coluna colapsada → seta centralizada sob o título vertical (não vale p/ a aberta nem mobile) */
+@media (min-width: 721px) {
+  .col:not(.fixed):not(:hover):not(:focus-visible):not(:has(:focus-visible)) .col-go { transform: translateX(-12px); }
 }
 .col:is(:hover, :focus-visible, :has(:focus-visible))::before { opacity: .5; filter: grayscale(0) brightness(.95); }
 .col:is(:hover, :focus-visible, :has(:focus-visible))::after  { opacity: .82; }
@@ -473,7 +518,7 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 /* painel com faixa de marcas: conteúdo ocupa a largura do painel e a faixa vai de borda a borda */
 .col-more--wide { max-width: none; }
 .col-more--wide .marquee { margin: 8px calc(-1 * var(--pad-col)) 0; }
-.col-more--wide .marquee-track img { height: 22px; margin: 0 28px; }
+.col-more--wide .marquee-track img { max-height: 28px; max-width: 88px; margin: 0 24px; }
 
 /* painel trancado */
 .col--locked { cursor: default; }

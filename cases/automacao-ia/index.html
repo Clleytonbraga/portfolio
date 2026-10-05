@@ -5,29 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Automação de capas com IA · Produto web | Cleyton Braga</title>
 <meta name="description" content="Pipeline com IA que cria e publica as capas do catálogo: de 904 capas em 6 meses para mais de 3.000 em uma semana.">
-<link rel="stylesheet" href="../../styles.css?v=42">
-<style>:root{ --accent:#5fd49a; }</style>
-<style>
-.tldr{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);background:var(--panel);padding:18px 20px;margin:28px 0 0}
-.tldr b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.tldr p{margin:0;color:var(--fg);font-size:16.5px;line-height:1.6}
-.stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
-.stat{flex:1 1 170px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px}
-.stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--fg)}
-.stat span{font-size:13px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
-.flow{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
-.flow li{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 16px;background:var(--panel);counter-increment:s}
-.flow li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:12.5px;font-weight:700}
-.flow b{display:block;margin-top:10px;font-size:14.5px;line-height:1.35}
-.flow span{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:4px}
-@media(max-width:860px){.flow{grid-template-columns:1fr}}
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-.cmp div{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
-.cmp div:last-child{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
-.cmp h3{margin:0 0 8px}
-.cmp ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px;line-height:1.6}
-@media(max-width:640px){.cmp{grid-template-columns:1fr}}
-.next{color:var(--muted)}
+<link rel="stylesheet" href="../../styles.css?v=57">
+<style>:root{ --accent:#5fd49a; }
+
+
+/* hero: véu reforçado p/ legibilidade (base = gradiente do Figma, mais forte no miolo) + sombra no texto */
+.fold::after{ background:
+  linear-gradient(180deg, rgba(12,13,16,.50) 0%, rgba(12,13,16,.32) 14%,
+   rgba(12,13,16,.60) 36%, rgba(12,13,16,.84) 58%, rgba(12,13,16,.98) 100%); }
+.fold-inner h1{ text-shadow:0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
+.fold-sub{ text-shadow:0 1px 16px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.5); }
+/* meta: text-shadow p/ legibilidade sobre a foto (layout já vem do shared) */
+.fold-info dd{ text-shadow:0 1px 12px rgba(0,0,0,.6); }
+.fold-info dt{ text-shadow:0 1px 10px rgba(0,0,0,.6); }
+/* RESUMO — 2 colunas (label verde + texto) */
+.resumo{ display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start;
+  padding:38px 0; }
+.resumo-label{ color:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; }
+.resumo-label::after{ content:""; display:block; width:28px; height:3px; border-radius:2px;
+  background:var(--accent); margin-top:10px; }
+.resumo p{ margin:0; max-width:72ch; font-size:17px; line-height:1.6; }
+
+/* ANTES E DEPOIS */
+.cmp{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; }
+.cmp>div{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:22px 24px; }
+.cmp .good{ border-color:color-mix(in srgb,var(--accent) 45%,var(--line));
+  background:color-mix(in srgb,var(--accent) 6%,var(--panel)); }
+.cmp h3{ margin:0 0 14px; font-size:18px; }
+.cmp .good h3{ color:var(--accent); }
+.cmp ul{ list-style:none; margin:0; padding:0; }
+.cmp li{ display:flex; gap:12px; padding:6px 0; color:var(--muted); font-size:15px; }
+.cmp li::before{ content:"—"; color:var(--muted); }
+.cmp .good li::before{ content:"✓"; color:var(--accent); }
+
+/* PIPELINE — "Da referência crua à capa publicada" */
+.pipe{ display:grid; grid-template-columns:400px 1fr; gap:48px; align-items:start; margin-top:4px; }
+.pipe-row{ display:flex; align-items:center; gap:20px; }
+.pipe-layers{ display:grid; gap:4px; }
+.pipe-layers img{ width:104px; height:auto; display:block; }
+.pipe-arrow{ color:var(--muted); font-size:26px; line-height:1; }
+.pipe-final img{ width:225px; aspect-ratio:3/4; object-fit:cover; border-radius:18px; display:block; border:1px solid var(--line); }
+.pipe-cap{ color:var(--muted); font-size:14px; margin-top:16px; text-align:center; max-width:339px; }
+.steps{ list-style:none; margin:0; padding:0; }
+.steps li{ display:flex; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
+.steps li:first-child{ border-top:0; padding-top:0; }
+.step-n{ flex:0 0 34px; height:34px; border-radius:999px; display:grid; place-items:center;
+  font-weight:700; font-size:15px; color:var(--c,var(--accent));
+  border:1px solid color-mix(in srgb,var(--c,var(--accent)) 45%,transparent);
+  background:color-mix(in srgb,var(--c,var(--accent)) 14%,transparent); }
+.steps li:nth-child(1){ --c:#5fb0ff } .steps li:nth-child(2){ --c:#5fd49a }
+.steps li:nth-child(3){ --c:#8ee06b } .steps li:nth-child(4){ --c:#f2c14e }
+.steps li:nth-child(5){ --c:#f07ca8 }
+.step-b b{ display:block; font-size:16px; line-height:1.3; }
+.step-b span{ display:block; color:var(--muted); font-size:14px; margin-top:4px; }
+.pipe-tools{ display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
+.chip{ display:inline-flex; align-items:center; gap:9px; border:1px solid var(--line);
+  border-radius:999px; padding:7px 14px; font-size:13px; }
+.chip::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--c,var(--accent)); }
+.chip:nth-child(1){ --c:#f2c14e } .chip:nth-child(2){ --c:#f07ca8 }
+.chip:nth-child(3){ --c:#b18cff } .chip:nth-child(4){ --c:#5fd49a }
+.chip span{ color:var(--muted); }
+
+/* RESULTADO */
+.stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:4px 0; }
+.stat{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:26px 24px; }
+.stat b{ display:block; font-weight:700; font-size:clamp(21px,2.1vw,29px); letter-spacing:-.02em; color:var(--fg); white-space:nowrap; }
+.stat b .g{ color:var(--accent); display:inline; font-size:inherit; }
+.stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
+
+/* TELAS — mockup de browser (placeholder arte neutra) */
+.telas-ph{ min-height:320px; background:#0a0b0d; }
+
+/* Outros projetos: 3 cards iguais, imagem larga (como no Figma), título branco */
+.grid{ grid-template-columns:repeat(3,1fr); }
+.grid .card .thumb{ aspect-ratio:37/13; }
+.grid .card h3{ color:var(--fg); }
+
+@media(max-width:860px){
+  .pipe{ grid-template-columns:1fr; gap:28px; }
+  .pipe-layers img{ width:88px; }
+  .pipe-final img{ width:188px; }
+  .pipe-cap{ text-align:left; }
+}
+@media(max-width:720px){
+  .resumo{ grid-template-columns:1fr; gap:16px; }
+  .stats{ grid-template-columns:1fr; }
+  .cmp{ grid-template-columns:1fr; }
+  .grid{ grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
@@ -36,34 +101,41 @@
   <span class="brand">
     <a class="name" href="../../index.html">Cleyton Braga</a>
     <span class="dash">|</span>
-    <a class="role" href="../../sobre/index.html">Product Designer</a>
+    <span class="role">UX/UI Designer</span>
   </span>
   <nav>
-    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
     <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
-  <a class="crumb-back" href="../produto-web/index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <a class="crumb-back" href="../../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <ol class="crumb-trail">
     <li><a href="../../index.html">Início</a></li>
-    <li><a href="../produto-web/index.html">Produto web</a></li>
     <li aria-current="page">Automação de capas com IA</li>
   </ol>
 </div></nav>
 
-<main class="wrap">
-  <div class="hero">
-    <div class="eyebrow">02 · Produto web · Automação</div>
-    <h1>De 904 capas em 6 meses para mais de 3.000 em uma semana</h1>
-    <p class="lede">Um pipeline com IA que encontra as capas fora do padrão, gera as novas e publica no backoffice.</p>
-    <dl class="meta">
+<section class="fold" style="--bg:url(cases/automacao-ia/assets/hero.webp)">
+  <div class="fold-inner wrap">
+    <span class="eyebrow">02 · Produto web · Automação</span>
+    <h1>Automação de capas com IA</h1>
+    <p class="fold-sub">De 904 capas em 6 meses para mais de 3.000 em uma semana.</p>
+    <dl class="fold-info">
       <div><dt>Meu papel</dt><dd>Ideia, desenho do fluxo e implementação</dd></div>
       <div><dt>Ferramentas</dt><dd>Claude Code · Figma · Magnific</dd></div>
-      <div><dt>Produto</dt><dd>Catálogo do site, 4 marcas</dd></div>
-      <div><dt>Período</dt><dd>2026</dd></div><!-- REVISAR: confirmar período -->
+      <div><dt>Produto</dt><dd>Catálogo de jogos do site</dd></div>
+      <div><dt>Período</dt><dd>2026</dd></div>
     </dl>
-    <div class="tldr"><b>Resumo</b><p>O catálogo tinha mais de 3.500 capas para atualizar em quatro formatos. No processo manual, quatro pessoas entregaram 904 em seis meses. Desenhei uma automação que produz cerca de 1.000 capas por dia e publica sozinha. O operacional passou de quatro pessoas para uma.</p></div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- RESUMO -->
+  <div class="resumo">
+    <div class="resumo-label">RESUMO</div>
+    <p>O catálogo tinha mais de 3.500 capas para atualizar em quatro formatos. No processo manual, quatro pessoas entregaram 904 em seis meses. Desenhei uma automação que produz cerca de 1.000 capas por dia e publica sozinha. O operacional passou de quatro pessoas para uma.</p>
   </div>
 
   <section>
@@ -76,40 +148,78 @@
     <h2>Antes e depois</h2>
     <div class="cmp">
       <div><h3>Manual</h3><ul><li>3 designers e 1 pessoa de apoio</li><li>Upload repetido por formato</li><li>904 capas em 6 meses</li></ul></div>
-      <div><h3>Com o pipeline</h3><ul><li>1 pessoa no operacional</li><li>Publicação direta no backoffice</li><li>Cerca de 1.000 capas por dia</li></ul></div>
+      <div class="good"><h3>Com o pipeline</h3><ul><li>1 pessoa no operacional</li><li>Publicação direta no backoffice</li><li>Cerca de 1.000 capas por dia</li></ul></div>
     </div>
   </section>
 
   <section>
-    <h2>O pipeline</h2>
-    <p class="muted">Montei o fluxo com o Claude Code, usando o Figma como mesa de montagem e o Magnific para gerar imagem.</p>
-    <ol class="flow">
-      <li><b>Varre o catálogo</b><span>Encontra as capas que estão fora do padrão.</span></li>
-      <li><b>Busca referências</b><span>Puxa a arte original no site de cada estúdio.</span></li>
-      <li><b>Separa as camadas</b><span>A IA extrai as 3 camadas essenciais de cada composição.</span></li>
-      <li><b>Monta no Figma</b><span>Organiza as capas por estúdio, nos quatro formatos.</span></li>
-      <li><b>Publica</b><span>Sobe tudo no backoffice, sem upload manual.</span></li>
-    </ol>
-    <!-- REVISAR (Cleyton): esta é a seção que mais mostra senioridade. Conte quem revisa as capas, o que é recusado e por quê, e um erro da IA que você teve de corrigir. -->
-    <!-- REVISAR: imagem. A atual (auto-thumbs.webp) mostra capas reconhecíveis do catálogo; trocar por uma versão neutra antes de publicar. -->
+    <h2>Da referência crua à capa publicada</h2>
+    <div class="pipe">
+      <div class="pipe-visual">
+        <div class="pipe-row">
+          <div class="pipe-layers">
+            <img src="assets/layer1.webp" alt="Camada de fundo">
+            <img src="assets/layer2.webp" alt="Camada de personagem">
+            <img src="assets/layer3.webp" alt="Camada de logo">
+          </div>
+          <span class="pipe-arrow" aria-hidden="true">→</span>
+          <div class="pipe-final"><img src="assets/thumb-final.webp" alt="Capa final montada"></div>
+        </div>
+        <p class="pipe-cap">1 capa · 3 camadas · 4 formatos</p>
+      </div>
+      <ol class="steps">
+        <li><span class="step-n">1</span><div class="step-b"><b>Varre o catálogo</b><span>Encontra as capas que estão fora do padrão.</span></div></li>
+        <li><span class="step-n">2</span><div class="step-b"><b>Busca referências</b><span>Puxa a arte original no site de cada estúdio.</span></div></li>
+        <li><span class="step-n">3</span><div class="step-b"><b>Separa as camadas</b><span>A IA extrai as 3 camadas essenciais de cada composição.</span></div></li>
+        <li><span class="step-n">4</span><div class="step-b"><b>Monta no Figma</b><span>Organiza as capas por estúdio, nos quatro formatos.</span></div></li>
+        <li><span class="step-n">5</span><div class="step-b"><b>Publica</b><span>Sobe tudo no backoffice, sem upload manual.</span></div></li>
+      </ol>
+    </div>
+    <div class="pipe-tools">
+      <span class="chip"><b>Claude Code</b><span>· orquestração</span></span>
+      <span class="chip"><b>Magnific</b><span>· geração de imagem</span></span>
+      <span class="chip"><b>Figma</b><span>· montagem</span></span>
+      <span class="chip"><b>Backoffice</b><span>· publicação via API</span></span>
+    </div>
   </section>
 
   <section>
     <h2>Resultado</h2>
     <div class="stats">
-      <div class="stat"><b>904 → 3.000+</b><span>capas em 6 meses, contra mais de 3.000 em uma semana</span></div>
-      <div class="stat"><b>4 → 1</b><span>pessoas no operacional</span></div>
-      <div class="stat"><b>4 formatos</b><span>gerados e publicados de uma vez</span></div>
+      <div class="stat"><b>904 → <span class="g">3.000+</span></b><span>capas em 6 meses, contra mais de 3.000 em uma semana</span></div>
+      <div class="stat"><b>4 → <span class="g">1</span></b><span>pessoas no operacional</span></div>
+      <div class="stat"><b><span class="g">4</span> formatos</b><span>gerados e publicados de uma vez</span></div>
     </div>
     <p class="muted" style="margin-top:18px">O objetivo era devolver esse tempo ao time, para criação e estratégia.</p>
-    <!-- REVISAR: o currículo fala em "3.500+ capas, de 6 meses para 3 semanas". O post do LinkedIn fala em "3.000+ em uma semana". Alinhar os dois números antes de publicar. -->
   </section>
 
   <section>
-    <h2>O que vem</h2>
-    <p class="muted next">Um segundo projeto de automação está em andamento, com o mesmo princípio: tirar do time o trabalho repetitivo.</p>
-    <p style="margin-top:28px"><a href="../hub-promocoes/index.html">Próximo: Hub de Promoções →</a></p>
+    <h2>Telas</h2>
+    <p class="muted">O pipeline em funcionamento, com arte neutra.</p>
+    <div class="demo">
+      <div class="demo-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="telas-ph"><!-- REVISAR: trocar por screenshot do pipeline (arte neutra) --></div>
+    </div>
   </section>
+
+  <section>
+    <h2>Outros projetos</h2>
+    <div class="grid">
+      <a class="card" href="../hub-promocoes/index.html">
+        <div class="thumb" style="background-image:radial-gradient(120% 120% at 100% 0%,color-mix(in srgb,var(--accent) 40%,transparent),#15171c 70%)"></div>
+        <div class="body"><h3>Hub de Promoções →</h3><p>Apostas · apps, UI e design system</p><p class="ver-case">Ver case →</p></div>
+      </a>
+      <a class="card" href="../feedback-org/index.html">
+        <div class="thumb" style="background-image:url(../feedback-org/assets/feedback-hero.webp)"></div>
+        <div class="body"><h3>Feedback ORG →</h3><p>Pesquisa de clima organizacional</p><p class="ver-case">Ver case →</p></div>
+      </a>
+      <a class="card" href="../sao-joao-2k25/index.html">
+        <div class="thumb" style="background-image:url(../sao-joao-2k25/assets/hero.jpg)"></div>
+        <div class="body"><h3>App São João 2K25 →</h3><p>App de evento — programação e mapa</p><p class="ver-case">Ver case →</p></div>
+      </a>
+    </div>
+  </section>
+
 </main>
 
 <footer><div class="wrap">

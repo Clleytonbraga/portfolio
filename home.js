@@ -20,6 +20,14 @@
 
   var ARROW = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  /* directional hover fill: detecta a borda de entrada/saída e desliza um preenchimento a partir dela */
+  function edgeOf(el, e) {
+    var r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    return Math.abs(x) > Math.abs(y) ? (x > 0 ? 'right' : 'left') : (y > 0 ? 'bottom' : 'top');
+  }
+
   function sectionHeader(s) {
     var h = document.createElement('div');
     h.className = 'sec-head';
@@ -58,6 +66,16 @@
     var tpl = document.getElementById(s.body);
     if (tpl) el.appendChild(tpl.content.cloneNode(true));
     var more = el.querySelector('.col-more');
+
+    /* directional hover fill nos itens internos do menu (.case-row) */
+    el.querySelectorAll('.case-row').forEach(function (row) {
+      var rf = document.createElement('span');
+      rf.className = 'row-fill';
+      rf.setAttribute('aria-hidden', 'true');
+      row.insertBefore(rf, row.firstChild);
+      row.addEventListener('mouseenter', function (e) { rf.dataset.dir = edgeOf(row, e); row.classList.add('fill-in'); });
+      row.addEventListener('mouseleave', function (e) { rf.dataset.dir = edgeOf(row, e); row.classList.remove('fill-in'); });
+    });
     if (more && s.brands) { more.classList.add('col-more--wide'); more.appendChild(marquee()); }
     if (more && s.locked) {
       var soon = document.createElement('span');

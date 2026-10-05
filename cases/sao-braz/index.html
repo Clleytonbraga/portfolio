@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>São Braz no São João · Ativações · Cleyton Braga</title>
-<link rel="stylesheet" href="../../styles.css?v=42">
+<link rel="stylesheet" href="../../styles.css?v=57">
 <!-- accent laranja festivo da campanha -->
 <style>:root{ --accent:#f28c1e; }</style>
 </head>
@@ -14,10 +14,10 @@
   <span class="brand">
     <a class="name" href="../../index.html">Cleyton Braga</a>
     <span class="dash">|</span>
-    <a class="role" href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">UX/UI Designer</a>
+    <span class="role">UX/UI Designer</span>
   </span>
   <nav>
-    <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">LinkedIn</a>
+    <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
     <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
   </nav>
 </div></header>
@@ -25,6 +25,7 @@
   <a class="crumb-back" href="../../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <ol class="crumb-trail">
     <li><a href="../../index.html">Início</a></li>
+    <li><a href="../game-design/index.html">Game design</a></li>
     <li aria-current="page">São Braz no São João</li>
   </ol>
 </div></nav>
@@ -32,7 +33,7 @@
 
 <!-- DOBRA -->
 <!-- --bg é consumido por styles.css (raiz /), então o path é resolvido a partir da raiz, não deste arquivo. -->
-<section class="fold" style="--bg:url(cases/sao-braz/assets/screens/pippos-ranking.png)">
+<section class="fold fold--dim" style="--bg:url(cases/sao-braz/assets/screens/pippos-ranking.png)">
   <div class="fold-inner wrap">
     <h1>São Braz<br>no São João</h1>
     <p class="fold-sub">Ativações digitais · Gamification · Direção visual</p>
@@ -105,7 +106,7 @@
       <figure><img src="assets/logo-game.png" alt="Logo Desafio da Memória"></figure>
       <figure><img src="assets/back.png" alt="Carta do jogo da memória"></figure>
     </div>
-    <figure>
+    <figure id="pippos">
       <img src="assets/screens/pippos-site.png" alt="Landing page Pippo's Doggo Dash — jogo, ranking e prêmios">
       <figcaption>Landing do Pippo's "Doggo Dash", com jogo, ranking de prêmios e regulamento.</figcaption>
     </figure>
