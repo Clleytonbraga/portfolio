@@ -4,35 +4,210 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hub de Promoções · Produto web | Cleyton Braga</title>
-<meta name="description" content="CMS e analytics de um hub interno: o time publica promoções sem depender de deploy e decide com dado de uso.">
-<link rel="stylesheet" href="../../styles.css?v=57">
-<style>:root{ --accent:#5fd49a; }</style>
-<style>
-.tldr{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--r);background:var(--panel);padding:18px 20px;margin:28px 0 0}
-.tldr b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.tldr p{margin:0;color:var(--fg);font-size:16.5px;line-height:1.6}
-.stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
-.stat{flex:1 1 170px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px}
-.stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--fg)}
-.stat span{font-size:13px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
-.flow{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
-.flow li{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 16px;background:var(--panel);counter-increment:s}
-.flow li::before{content:counter(s);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:12.5px;font-weight:700}
-.flow b{display:block;margin-top:10px;font-size:14.5px;line-height:1.35}
-.flow span{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:4px}
-@media(max-width:860px){.flow{grid-template-columns:1fr}}
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-.cmp div{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
-.cmp div:last-child{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
-.cmp h3{margin:0 0 8px}
-.cmp ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px;line-height:1.6}
-@media(max-width:640px){.cmp{grid-template-columns:1fr}}
-.next{color:var(--muted)}
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px}
-.features div{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:14px 16px}
-.features b{display:block;font-size:15px}
-.features span{display:block;color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:4px}
-.q{color:var(--accent);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+<meta name="description" content="CMS e painel de um hub interno: o CRM cria, agenda e mede os cards da vitrine sem depender de deploy.">
+<!-- Open Graph / preview de compartilhamento -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cleyton Braga">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Hub de Promoções · Produto web | Cleyton Braga">
+<meta property="og:description" content="CMS e painel de um hub interno: o CRM cria, agenda e mede os cards da vitrine sem depender de deploy.">
+<meta property="og:url" content="https://clleytonbraga.github.io/portfolio/cases/hub-promocoes/">
+<meta property="og:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cleyton Braga — UX/UI & Product Designer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hub de Promoções · Produto web | Cleyton Braga">
+<meta name="twitter:description" content="CMS e painel de um hub interno: o CRM cria, agenda e mede os cards da vitrine sem depender de deploy.">
+<meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
+
+<link rel="stylesheet" href="../../styles.css?v=59">
+<style>:root{ --accent:#5fd49a; }
+
+/* ===== Estrutura espelhada do case 1 (automacao-ia) ===== */
+
+/* hero: véu reforçado p/ legibilidade (base = gradiente do Figma, mais forte no miolo) + sombra no texto */
+.fold::after{ background:
+  linear-gradient(180deg, rgba(12,13,16,.50) 0%, rgba(12,13,16,.32) 14%,
+   rgba(12,13,16,.60) 36%, rgba(12,13,16,.84) 58%, rgba(12,13,16,.98) 100%); }
+.fold-inner h1{ text-shadow:0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
+.fold-sub{ text-shadow:0 1px 16px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.5); }
+.fold-info dd{ text-shadow:0 1px 12px rgba(0,0,0,.6); }
+.fold-info dt{ text-shadow:0 1px 10px rgba(0,0,0,.6); }
+
+/* RESUMO — 2 colunas (label verde + texto) */
+.resumo{ display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start;
+  padding:38px 0; }
+.resumo-label{ color:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; }
+.resumo-label::after{ content:""; display:block; width:28px; height:3px; border-radius:2px;
+  background:var(--accent); margin-top:10px; }
+.resumo p{ margin:0; max-width:90ch; font-size:17px; line-height:1.6; }
+
+/* ANTES E DEPOIS */
+.cmp{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; }
+.cmp>div{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:22px 24px; }
+.cmp .good{ border-color:color-mix(in srgb,var(--accent) 45%,var(--line));
+  background:color-mix(in srgb,var(--accent) 6%,var(--panel)); }
+.cmp h3{ margin:0 0 14px; font-size:18px; }
+.cmp .good h3{ color:var(--accent); }
+.cmp ul{ list-style:none; margin:0; padding:0; }
+.cmp li{ display:flex; gap:12px; padding:6px 0; color:var(--muted); font-size:15px; }
+.cmp li::before{ content:"—"; color:var(--muted); }
+.cmp .good li::before{ content:"✓"; color:var(--accent); }
+
+/* PROCESSO — visual à esquerda + passos numerados à direita (igual .pipe do case 1) */
+.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:start; margin-top:4px; }
+.pipe-final{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#0a0b0d; }
+.pipe-final img{ width:100%; height:auto; display:block; }
+.pipe-cap{ color:var(--muted); font-size:14px; margin-top:16px; text-align:center; max-width:339px; }
+.steps{ list-style:none; margin:0; padding:0; }
+.steps li{ display:flex; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
+.steps li:first-child{ border-top:0; padding-top:0; }
+.step-n{ flex:0 0 34px; height:34px; border-radius:999px; display:grid; place-items:center;
+  font-weight:700; font-size:15px; color:var(--c,var(--accent));
+  border:1px solid color-mix(in srgb,var(--c,var(--accent)) 45%,transparent);
+  background:color-mix(in srgb,var(--c,var(--accent)) 14%,transparent); }
+.steps li:nth-child(1){ --c:#5fb0ff } .steps li:nth-child(2){ --c:#5fd49a }
+.steps li:nth-child(3){ --c:#8ee06b } .steps li:nth-child(4){ --c:#f2c14e }
+.steps li:nth-child(5){ --c:#f07ca8 }
+.step-b b{ display:block; font-size:16px; line-height:1.3; }
+.step-b span{ display:block; color:var(--muted); font-size:14px; margin-top:4px; }
+.pipe-tools{ display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
+.chip{ display:inline-flex; align-items:center; gap:9px; border:1px solid var(--line);
+  border-radius:999px; padding:7px 14px; font-size:13px; }
+.chip::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--c,var(--accent)); }
+.chip:nth-child(1){ --c:#f2c14e } .chip:nth-child(2){ --c:#f07ca8 }
+.chip:nth-child(3){ --c:#b18cff } .chip:nth-child(4){ --c:#5fd49a }
+.chip span{ color:var(--muted); }
+
+/* RESULTADO */
+.stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:4px 0; }
+.stat{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:26px 24px; }
+.stat b{ display:block; font-weight:700; font-size:clamp(21px,2.1vw,29px); letter-spacing:-.02em; color:var(--fg); white-space:nowrap; }
+.stat b .g{ color:var(--accent); display:inline; font-size:inherit; }
+.stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
+
+/* TELAS — capturas reais do produto */
+.shot{ margin:18px 0 0; }
+.shot img{ width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:var(--r-soft); background:#0a0b0d; }
+.shot figcaption{ color:var(--muted); font-size:13.5px; margin-top:10px; }
+
+/* Outros projetos: 3 cards iguais, imagem larga (como no Figma), título branco */
+.grid{ grid-template-columns:repeat(3,1fr); }
+.grid .card .thumb{ aspect-ratio:37/13; }
+.grid .card h3{ color:var(--fg); }
+
+@media(max-width:860px){
+  .pipe{ grid-template-columns:1fr; gap:28px; }
+  .pipe-cap{ text-align:left; }
+}
+@media(max-width:720px){
+  .resumo{ grid-template-columns:1fr; gap:16px; }
+  .stats{ grid-template-columns:1fr; }
+  .cmp{ grid-template-columns:1fr; }
+  .grid{ grid-template-columns:1fr; }
+}
+
+/* ===== Kit de blocos ao vivo (card + mini-dashboard) — reveal/loading ao rolar ===== */
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
+
+/* --- Card de promoção (saída do CMS) --- */
+.promo{ position:relative; width:100%; max-width:360px; aspect-ratio:349/260; border-radius:18px; overflow:hidden;
+  border:1px solid var(--line); background:
+   linear-gradient(180deg, rgba(10,11,13,.15) 0%, rgba(10,11,13,.04) 32%, rgba(10,11,13,.72) 70%, rgba(10,11,13,.96) 100%),
+   url(assets/bolao.webp) center/cover; }
+.promo-badge{ position:absolute; top:12px; right:12px; z-index:2; background:var(--accent); color:#0c0d10;
+  font-size:10.5px; font-weight:800; letter-spacing:.06em; padding:5px 9px; border-radius:999px; }
+.promo-body{ position:absolute; left:20px; right:20px; bottom:18px; z-index:2; }
+.promo-body b{ display:block; font-size:24px; line-height:1.05; letter-spacing:-.02em; }
+.promo-body p{ margin:8px 0 0; color:var(--muted); font-size:13px; max-width:22ch; }
+.promo-cta{ display:inline-block; margin-top:12px; color:var(--accent); font-weight:600; font-size:13.5px; }
+.promo .sk{ position:absolute; inset:0; z-index:3; background:linear-gradient(100deg,#13151a 30%,#1c1f26 50%,#13151a 70%);
+  background-size:200% 100%; animation:sk 1.1s linear infinite; }
+.promo.in .sk{ opacity:0; animation:none; transition:opacity .45s ease .1s; pointer-events:none; }
+@keyframes sk{ from{background-position:200% 0} to{background-position:-200% 0} }
+
+/* --- Mini-dashboard --- */
+.promodash{ border:1px solid var(--line); border-radius:var(--r-soft); background:var(--panel); padding:20px; margin-top:18px; }
+.dash-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+.dash-top .k{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+.dash-top .pill{ font-size:12px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 12px; white-space:nowrap; }
+.dstats{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.dstat{ border:1px solid var(--line); border-radius:var(--r); background:#0f1115; padding:15px 16px; }
+.dstat .lbl{ font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+.dstat .val{ font-size:clamp(20px,2.3vw,28px); font-weight:800; letter-spacing:-.02em; margin-top:8px; line-height:1; }
+.dstat .val small{ font-size:13px; font-weight:600; color:var(--accent); margin-left:7px; letter-spacing:0; }
+.dstat .sub{ color:var(--muted); font-size:11.5px; margin-top:7px; }
+.dash-row{ display:grid; grid-template-columns:1fr 1.25fr; gap:12px; margin-top:12px; }
+.blk{ border:1px solid var(--line); border-radius:var(--r); background:#0f1115; padding:16px 18px; }
+.blk h4{ margin:0 0 14px; font-size:13.5px; font-weight:600; }
+.donut-wrap{ display:flex; align-items:center; gap:18px; }
+.donut{ width:118px; height:118px; flex:none; transform:rotate(-90deg); }
+.donut circle{ fill:none; stroke-width:17; }
+.donut .trk{ stroke:color-mix(in srgb,var(--muted) 24%,transparent); }
+.donut .arc{ stroke:var(--accent); stroke-linecap:round; stroke-dasharray:var(--c); stroke-dashoffset:var(--c);
+  transition:stroke-dashoffset 1.1s var(--ease); }
+.promodash.in .donut .arc{ stroke-dashoffset:var(--off); }
+.leg{ display:grid; gap:10px; font-size:13px; }
+.leg i{ display:inline-block; width:9px; height:9px; border-radius:3px; margin-right:9px; vertical-align:middle; }
+.leg .mut{ color:var(--muted); }
+.ranks{ display:grid; gap:10px; }
+.rank{ display:grid; grid-template-columns:120px 1fr; gap:12px; align-items:center; font-size:12.5px; }
+.rank .tr{ height:9px; border-radius:999px; background:color-mix(in srgb,var(--accent) 16%,transparent); overflow:hidden; }
+.rank .fl{ display:block; height:100%; border-radius:999px; background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform .9s var(--ease); }
+.promodash.in .rank .fl{ transform:scaleX(var(--p)); }
+.spark svg{ width:100%; height:120px; display:block; }
+.spark .area{ fill:color-mix(in srgb,var(--accent) 12%,transparent); opacity:0; transition:opacity .8s ease .5s; }
+.spark .ln{ fill:none; stroke:var(--accent); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 1.4s var(--ease); }
+.promodash.in .spark .area{ opacity:1; }
+.promodash.in .spark .ln{ stroke-dashoffset:0; }
+.spark .xax{ display:flex; justify-content:space-between; color:var(--muted); font-size:11px; margin-top:6px; }
+@media(max-width:720px){
+  .dstats{ grid-template-columns:repeat(2,1fr); }
+  .dash-row{ grid-template-columns:1fr; }
+  .rank{ grid-template-columns:104px 1fr; }
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.reveal.in{ opacity:1; transform:none; transition:none; }
+  .donut .arc,.rank .fl,.spark .ln,.spark .area,.promo .sk{ transition:none; animation:none; }
+  .promodash.in .donut .arc{ stroke-dashoffset:var(--off); }
+  .promo.in .sk,.promo .sk{ display:none; }
+}
+
+/* ===== Lightbox / carrossel das telas ===== */
+.shot img{ cursor:zoom-in; }
+body.lb-lock{ overflow:hidden; }
+.lb{ position:fixed; inset:0; z-index:200; opacity:0; visibility:hidden; transition:opacity .25s ease, visibility .25s; }
+.lb.open{ opacity:1; visibility:visible; }
+.lb-backdrop{ position:absolute; inset:0; background:rgba(8,9,11,.93); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+.lb-dialog{ position:absolute; inset:0; display:grid; grid-template-rows:auto 1fr auto; }
+.lb-bar{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:16px 20px; }
+.lb-count{ font-size:13px; color:var(--muted); letter-spacing:.04em; }
+.lb-close{ width:40px; height:40px; border-radius:999px; border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 80%,transparent); color:var(--fg); font-size:20px; line-height:1; display:grid; place-items:center; cursor:pointer; }
+.lb-close:hover{ border-color:var(--accent); color:var(--accent); }
+.lb-stage{ position:relative; z-index:1; overflow:hidden; display:grid; place-items:center; padding:0 clamp(12px,5vw,80px); }
+.lb-img{ max-width:100%; max-height:74vh; border-radius:10px; border:1px solid var(--line); background:#0a0b0d;
+  user-select:none; -webkit-user-drag:none; touch-action:none; cursor:zoom-in;
+  transform:translate(0,0) scale(1); transition:transform .25s var(--ease); }
+.lb-img.zoomed{ cursor:grab; transition:none; }
+.lb-img.dragging{ cursor:grabbing; transition:none; }
+.lb-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:48px; height:48px; border-radius:999px;
+  border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 82%,transparent); color:var(--fg); font-size:22px; line-height:1;
+  display:grid; place-items:center; cursor:pointer; }
+.lb-arrow:hover{ border-color:var(--accent); color:var(--accent); }
+.lb-arrow[disabled]{ opacity:.3; pointer-events:none; }
+.lb-prev{ left:clamp(8px,2vw,24px); } .lb-next{ right:clamp(8px,2vw,24px); }
+.lb-cap{ position:relative; z-index:2; text-align:center; color:var(--muted); font-size:13.5px; padding:14px 20px 0; }
+.lb-thumbs{ position:relative; z-index:2; display:flex; gap:10px; justify-content:center; flex-wrap:nowrap; overflow-x:auto; padding:16px 16px 22px; }
+.lb-thumb{ flex:0 0 auto; width:116px; height:66px; object-fit:cover; border-radius:8px; opacity:.45; cursor:pointer;
+  border:2px solid transparent; transition:opacity .2s, border-color .2s; }
+.lb-thumb:hover{ opacity:.8; }
+.lb-thumb.active{ opacity:1; border-color:var(--accent); }
+@media(max-width:720px){ .lb-img{ max-height:62vh; } .lb-arrow{ width:40px; height:40px; } .lb-thumb{ width:92px; height:54px; } }
+@media(prefers-reduced-motion:reduce){ .lb,.lb-img{ transition:none; } }
 </style>
 </head>
 <body>
@@ -56,90 +231,285 @@
   </ol>
 </div></nav>
 
-<section class="fold" style="--bg:radial-gradient(120% 90% at 82% 6%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 62%)">
+<section class="fold" style="--bg:url(cases/hub-promocoes/assets/hero.webp)">
   <div class="fold-inner wrap">
     <span class="eyebrow">02 · Produto web · Ferramenta interna</span>
     <h1>Hub de Promoções</h1>
-    <p class="fold-sub">O time de Promoções publica sem esperar deploy, e decide com dado de uso.</p>
+    <p class="fold-sub">O CRM gerencia a vitrine de promoções e acompanha o uso dos cards no mesmo sistema.</p>
     <dl class="fold-info">
-      <div><dt>Meu papel</dt><dd>Concepção e design da página, do CMS e do analytics</dd></div>
-      <div><dt>Usuários</dt><dd>Time de Promoções e CRM</dd></div>
-      <div><dt>Plataforma</dt><dd>Web, 4 marcas</dd></div>
-      <div><dt>Status</dt><dd>Em uso</dd></div><!-- REVISAR: desde quando e quantas pessoas usam -->
+      <div><dt>Meu papel</dt><dd>Concepção e design da página, do CMS e do painel</dd></div>
+      <div><dt>Usuários</dt><dd>CRM</dd></div>
+      <div><dt>Plataforma</dt><dd>Web · 2 marcas</dd></div>
+      <div><dt>Status</dt><dd>Em uso</dd></div>
     </dl>
   </div>
 </section>
 
 <main class="wrap">
-  <div class="tldr"><b>Resumo</b><p>Toda promoção nova no site passava pelo desenvolvimento. Concebi a página de Promoções e o hub por trás dela: o time cria, edita, reordena, destaca e agenda os cards sozinho. Um painel de analytics mostra tráfego, ranking, buscas sem resultado e mapa de calor, e a escolha de quais promoções manter passou a ter dado por trás.</p></div>
+
+  <!-- RESUMO -->
+  <div class="resumo">
+    <div class="resumo-label">RESUMO</div>
+    <p>Desenhei a página de Promoções, o CMS para gerenciar os cards e um painel com dados de visualização, clique e busca. Antes, incluir ou alterar um card dependia do desenvolvimento.</p>
+  </div>
+
+  <section>
+    <h2>O problema</h2>
+    <p class="muted">O deploy atualizava o site em 5 a 10 minutos. O processo completo para criar e colocar um card no ar, porém, passava de 24 horas. A equipe também não conseguia consultar o uso de cada promoção.</p>
+  </section>
 
   <section>
     <h2>Antes e depois</h2>
     <div class="cmp">
-      <div><h3>Antes</h3><ul><li>Pedido do time para o desenvolvimento</li><li>Cada card novo dependia de código e deploy</li><li>Sem leitura de quais promoções funcionavam</li></ul></div>
-      <div><h3>Com o hub</h3><ul><li>O time publica e agenda sozinho</li><li>Mudança de ordem e destaque na hora</li><li>Painel com uso real de cada card</li></ul></div>
+      <div><h3>Antes</h3><ul><li>O CRM solicitava a publicação ao desenvolvimento</li><li>Mudanças na vitrine exigiam deploy</li><li>Não havia dados de uso por card</li></ul></div>
+      <div class="good"><h3>Com o hub</h3><ul><li>O CRM cria e agenda cards no CMS</li><li>Ajusta ordem e destaque sem deploy</li><li>Consulta visualizações e cliques no painel</li></ul></div>
     </div>
-    <!-- REVISAR (Cleyton): quanto tempo levava publicar uma promoção antes, e quantas por semana. Esse número vira o resultado do case. -->
   </section>
 
   <section>
-    <h2>O CMS</h2>
-    <p class="muted">No CMS, cada promoção é um card. A tela de edição mostra a prévia do card ao lado do formulário.</p>
-    <div class="features">
-      <div><b>Criar e editar</b><span>Título, texto, imagem e link de cada card.</span></div>
-      <div><b>Reordenar e destacar</b><span>Muda a ordem da vitrine e escolhe o card em destaque.</span></div>
-      <div><b>Agendar</b><span>Campanhas entram e saem do ar sozinhas.</span></div>
+    <h2>Como o CRM publica</h2>
+    <p class="muted">Cada promoção vira um card que leva a uma página dinâmica. No editor, a prévia aparece ao lado dos campos.</p>
+    <div class="pipe">
+      <div class="pipe-visual">
+        <div class="promo reveal">
+          <span class="promo-badge">EM DESTAQUE</span>
+          <div class="promo-body">
+            <b>Bolão Vaidebet</b>
+            <p>Acerte o placar do jogo e ganhe giros!</p>
+            <span class="promo-cta">Saiba mais →</span>
+          </div>
+          <span class="sk" aria-hidden="true"></span>
+        </div>
+        <p class="pipe-cap">Card em destaque na vitrine.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="step-n">1</span><div class="step-b"><b>Cria o card</b><span>Preenche título, texto, imagem e link.</span></div></li>
+        <li><span class="step-n">2</span><div class="step-b"><b>Reordena e destaca</b><span>Arrasta os cards e escolhe o destaque da vitrine.</span></div></li>
+        <li><span class="step-n">3</span><div class="step-b"><b>Agenda</b><span>Define as datas de início e fim.</span></div></li>
+        <li><span class="step-n">4</span><div class="step-b"><b>Publica sem deploy</b><span>O CMS atualiza a vitrine do site.</span></div></li>
+        <li><span class="step-n">5</span><div class="step-b"><b>Acompanha no painel</b><span>Consulta visualizações, cliques e buscas.</span></div></li>
+      </ol>
     </div>
-    <!-- REVISAR: uma decisão de guarda-corpo (o que o time pode ou não mudar sem revisão). -->
+    <div class="pipe-tools">
+      <span class="chip"><b>CMS</b><span>· Cards e prévia</span></span>
+      <span class="chip"><b>Agendamento</b><span>· Início e fim</span></span>
+      <span class="chip"><b>Analytics</b><span>· Uso por card</span></span>
+      <span class="chip"><b>2 marcas</b><span>· Mesmo CMS</span></span>
+    </div>
   </section>
 
   <section>
-    <h2>O analytics</h2>
-    <p class="muted">Cada bloco do painel responde uma pergunta do time. Os dados vêm de eventos de visualização, clique e busca, que estruturei junto com o desenho das telas.</p>
-    <div class="features">
-      <div><span class="q">Quantos viram?</span><b>Acessos e usuários únicos</b><span>Com a tendência contra o período anterior.</span></div>
-      <div><span class="q">O que funciona?</span><b>Ranking de cards</b><span>Quais promoções recebem mais clique.</span></div>
-      <div><span class="q">De onde?</span><b>Distribuição por região</b><span>Onde estão os usuários de cada campanha.</span></div>
-      <div><span class="q">O que falta?</span><b>Buscas sem resultado</b><span>Termos que as pessoas procuram e não acham.</span></div>
-      <div><span class="q">Onde clicam?</span><b>Mapa de calor</b><span>Interação por área da página.</span></div>
-      <div><span class="q">E na reunião?</span><b>Exportação</b><span>Relatório em PDF e CSV.</span></div>
-    </div>
-    <!-- REVISAR: imagem. A atual (auto-promocoes.webp) mostra marca e conteúdo do site; trocar por uma versão com dados e marca neutros. -->
-  </section>
+    <h2>O painel de dados</h2>
+    <p class="muted">Estruturei os eventos de visualização, clique e busca junto com as telas. O painel mostra acessos, taxa de cliques, cards mais clicados e uso por dispositivo.</p>
 
-  <section>
-    <h2>Resultado</h2>
-    <p class="muted">Publicar deixou de depender de código, e o CRM passou a escolher quais promoções manter olhando para o uso, não para opinião.</p>
-    <!-- REVISAR (Cleyton): um exemplo real de decisão que o painel mudou (uma promoção tirada, um termo buscado que virou campanha) e, se houver, publicações feitas sem dev ou tempo por publicação. -->
+    <div class="promodash">
+      <div class="dash-top"><span class="k">Dados · Vaidebet — Promoções</span><span class="pill">Últimos 7 dias</span></div>
+
+      <div class="dstats">
+        <div class="dstat"><div class="lbl">Views</div><div class="val"><span data-to="128">0</span><small>+16%</small></div><div class="sub">período 21–23 jul</div></div>
+        <div class="dstat"><div class="lbl">Cliques</div><div class="val"><span data-to="36">0</span><small>+42%</small></div><div class="sub">3 dias ativos</div></div>
+        <div class="dstat"><div class="lbl">CTR</div><div class="val"><span data-to="28.1" data-fmt="pct">0</span><small>+3,2%</small></div><div class="sub">36 de 128 views</div></div>
+        <div class="dstat"><div class="lbl">Card mais clicado</div><div class="val" style="font-size:22px">Missões</div><div class="sub">5 cliques · 14% do total</div></div>
+      </div>
+
+      <div class="dash-row">
+        <div class="blk">
+          <h4>Desktop × Mobile</h4>
+          <div class="donut-wrap">
+            <svg class="donut" viewBox="0 0 118 118" style="--c:314.16;--off:172.79" aria-hidden="true">
+              <circle class="trk" cx="59" cy="59" r="50"/>
+              <circle class="arc" cx="59" cy="59" r="50"/>
+            </svg>
+            <div class="leg">
+              <span><i style="background:var(--accent)"></i>Desktop <b>45%</b></span>
+              <span class="mut"><i style="background:color-mix(in srgb,var(--muted) 45%,transparent)"></i>Mobile 55%</span>
+            </div>
+          </div>
+        </div>
+        <div class="blk">
+          <h4>Cards mais clicados</h4>
+          <div class="ranks">
+            <div class="rank"><span>Missões</span><span class="tr"><span class="fl" style="--p:1"></span></span></div>
+            <div class="rank"><span>Vem pro Telegram</span><span class="tr"><span class="fl" style="--p:.97"></span></span></div>
+            <div class="rank"><span>Teste</span><span class="tr"><span class="fl" style="--p:.93"></span></span></div>
+            <div class="rank"><span>Torneios Vaidebet</span><span class="tr"><span class="fl" style="--p:.62"></span></span></div>
+            <div class="rank"><span>Estamos no Whats</span><span class="tr"><span class="fl" style="--p:.6"></span></span></div>
+            <div class="rank"><span>Pagamento Antecipado</span><span class="tr"><span class="fl" style="--p:.58"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="blk" style="margin-top:12px">
+        <h4>Cliques por dia</h4>
+        <div class="spark">
+          <svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
+            <path class="area" d="M0,105 C50,101 85,98 120,90 C160,81 190,66 220,48 C248,31 272,16 300,8 L300,120 L0,120 Z"/>
+            <path class="ln" pathLength="1" d="M0,105 C50,101 85,98 120,90 C160,81 190,66 220,48 C248,31 272,16 300,8"/>
+          </svg>
+          <div class="xax"><span>21/07</span><span>22/07</span><span>23/07</span></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section>
     <h2>Telas</h2>
-    <p class="muted">O CMS e o painel, com marca e dados neutros.</p>
-    <div class="shots">
-      <div class="shot-ph"><b>CMS: edição de card</b>tela em breve</div>
-      <div class="shot-ph"><b>Painel de analytics</b>tela em breve</div>
-      <div class="shot-ph"><b>Card publicado no site</b>tela em breve</div>
+    <p class="muted">Capturas do produto preparadas para o portfólio — o painel de dados, o CMS e o editor de card.</p>
+    <figure class="shot">
+      <img src="assets/painel.webp" data-full="assets/painel-full.webp" alt="Painel de dados do hub em desktop e mobile" loading="lazy" width="1800" height="771">
+      <figcaption>Painel de dados — desktop e mobile.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="assets/cms.webp" data-full="assets/cms-full.webp" alt="CMS com a lista de cards e a prévia do hub" loading="lazy" width="1800" height="771">
+      <figcaption>CMS: lista de cards e prévia do hub.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="assets/editor.webp" data-full="assets/editor-full.webp" alt="Editor de card com as abas Dados, Links e UTM &amp; Modal" loading="lazy" width="1800" height="1012">
+      <figcaption>Editor de card: dados, links, UTM e modal.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Resultado</h2>
+    <div class="stats">
+      <div class="stat"><b>Sem <span class="g">deploy</span></b><span>o CRM publica e agenda direto, sem passar pelo desenvolvimento</span></div>
+      <div class="stat"><b><span class="g">2</span> marcas</b><span>atendidas pela mesma ferramenta</span></div>
+      <div class="stat"><b>Decisão <span class="g">com dado</span></b><span>manter ou tirar card passou a olhar o uso, não a opinião</span></div>
     </div>
+    <p class="muted" style="margin-top:18px">O analista de CRM e o designer continuam preparando a promoção, mas já não precisam acionar um desenvolvedor para publicar cada card.</p>
   </section>
 
   <section>
     <h2>Outros projetos</h2>
     <div class="grid">
-      <div class="card"><a href="../automacao-ia/index.html">
+      <a class="card" href="../automacao-ia/index.html">
         <div class="thumb" style="background-image:url(../automacao-ia/assets/hero.webp)"></div>
-        <div class="body"><h3>Automação de capas com IA →</h3><p>Produto web · pipeline com IA</p></div>
-      </a></div>
-      <div class="card"><a href="../jornadas/index.html">
-        <div class="thumb" style="background-image:radial-gradient(120% 120% at 100% 0%,color-mix(in srgb,var(--accent) 40%,transparent),#15171c 70%)"></div>
-        <div class="body"><h3>Jornadas de conversão →</h3><p>Produto web · conversão</p></div>
-      </a></div>
+        <div class="body"><h3>Automação de capas com IA →</h3><p>Produto web · pipeline com IA</p><p class="ver-case">Ver case →</p></div>
+      </a>
+      <a class="card" href="../sao-joao-2k25/index.html">
+        <div class="thumb" style="background-image:url(../sao-joao-2k25/assets/hero.jpg)"></div>
+        <div class="body"><h3>App São João 2K25 →</h3><p>App de evento — programação e mapa</p><p class="ver-case">Ver case →</p></div>
+      </a>
+      <a class="card" href="../feedback-org/index.html">
+        <div class="thumb" style="background-image:url(../feedback-org/assets/feedback-hero.webp)"></div>
+        <div class="body"><h3>Feedback ORG →</h3><p>Pesquisa de clima organizacional</p><p class="ver-case">Ver case →</p></div>
+      </a>
     </div>
   </section>
+
 </main>
 
 <footer><div class="wrap">
   Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
 </div></footer>
+
+<script>
+/* Reveal + count-up ao rolar — dispara as animações dos blocos do dashboard/card. */
+(function () {
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countUp(el) {
+    var to = parseFloat(el.dataset.to), pct = el.dataset.fmt === 'pct', dur = 1100, t0 = null;
+    var out = function (v) { return pct ? v.toFixed(1).replace('.', ',') + '%' : Math.round(v).toLocaleString('pt-BR'); };
+    if (rm) { el.textContent = out(to); return; }
+    (function step(t) { t0 = t0 || t; var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = out(to * e); if (p < 1) requestAnimationFrame(step); })(performance.now());
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      if (e.target.classList.contains("promodash")) e.target.querySelectorAll('[data-to]').forEach(countUp);
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.promodash, .reveal').forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+<script>
+/* Lightbox / carrossel das telas: clique abre em overlay, com zoom e miniaturas. */
+(function () {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('.shot img'));
+  if (!imgs.length) return;
+  var items = imgs.map(function (im) {
+    var fig = im.closest('figure'), fc = fig && fig.querySelector('figcaption');
+    return { full: im.getAttribute('data-full') || im.src, thumb: im.src, cap: fc ? fc.textContent : im.alt, alt: im.alt };
+  });
+
+  var lb = document.createElement('div');
+  lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Visualizador de telas');
+  lb.innerHTML =
+    '<div class="lb-backdrop"></div>' +
+    '<div class="lb-dialog">' +
+      '<div class="lb-bar"><span class="lb-count"></span><button class="lb-close" type="button" aria-label="Fechar">✕</button></div>' +
+      '<div class="lb-stage">' +
+        '<button class="lb-arrow lb-prev" type="button" aria-label="Anterior">‹</button>' +
+        '<img class="lb-img" alt="" draggable="false" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">' +
+        '<button class="lb-arrow lb-next" type="button" aria-label="Próxima">›</button>' +
+      '</div>' +
+      '<div class="lb-cap"></div>' +
+      '<div class="lb-thumbs"></div>' +
+    '</div>';
+  document.body.appendChild(lb);
+
+  var stage = lb.querySelector('.lb-stage'), img = lb.querySelector('.lb-img'),
+      cap = lb.querySelector('.lb-cap'), count = lb.querySelector('.lb-count'),
+      thumbsWrap = lb.querySelector('.lb-thumbs');
+
+  items.forEach(function (it, i) {
+    var t = document.createElement('img');
+    t.className = 'lb-thumb'; t.src = it.thumb; t.alt = it.alt;
+    t.addEventListener('click', function () { show(i); });
+    thumbsWrap.appendChild(t);
+  });
+  var thumbEls = Array.prototype.slice.call(thumbsWrap.children);
+
+  var cur = 0, scale = 1, tx = 0, ty = 0, lastReturn = null;
+  function apply() { img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'; }
+  function resetZoom() { scale = 1; tx = 0; ty = 0; img.classList.remove('zoomed'); apply(); }
+  function clampPan() {
+    var r = img.getBoundingClientRect(), s = stage.getBoundingClientRect();
+    var mx = Math.max(0, (r.width - s.width) / 2 + 24), my = Math.max(0, (r.height - s.height) / 2 + 24);
+    tx = Math.max(-mx, Math.min(mx, tx)); ty = Math.max(-my, Math.min(my, ty));
+  }
+  function setZoom(v) { scale = Math.min(4, Math.max(1, v)); if (scale <= 1) { resetZoom(); return; } img.classList.add('zoomed'); clampPan(); apply(); }
+
+  function show(i) {
+    cur = (i + items.length) % items.length; resetZoom();
+    img.src = items[cur].full; img.alt = items[cur].alt;
+    cap.textContent = items[cur].cap; count.textContent = (cur + 1) + ' / ' + items.length;
+    thumbEls.forEach(function (t, k) { t.classList.toggle('active', k === cur); });
+    thumbEls[cur].scrollIntoView({ inline: 'center', block: 'nearest' });
+  }
+  function open(i) { lastReturn = document.activeElement; show(i); lb.classList.add('open'); document.body.classList.add('lb-lock'); lb.querySelector('.lb-close').focus(); }
+  function close() { lb.classList.remove('open'); document.body.classList.remove('lb-lock'); if (lastReturn && lastReturn.focus) lastReturn.focus(); }
+
+  imgs.forEach(function (im, i) { im.addEventListener('click', function () { open(i); }); });
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.querySelector('.lb-next').addEventListener('click', function () { show(cur + 1); });
+  lb.querySelector('.lb-prev').addEventListener('click', function () { show(cur - 1); });
+  lb.querySelector('.lb-backdrop').addEventListener('click', close);
+  stage.addEventListener('click', function (e) { if (e.target === stage) close(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') show(cur + 1);
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === '+' || e.key === '=') setZoom(scale + 0.4);
+    else if (e.key === '-') setZoom(scale - 0.4);
+  });
+  stage.addEventListener('wheel', function (e) { if (!lb.classList.contains('open')) return; e.preventDefault(); setZoom(scale + (e.deltaY < 0 ? 0.3 : -0.3)); }, { passive: false });
+
+  var down = false, moved = false, sx = 0, sy = 0, otx = 0, oty = 0;
+  img.addEventListener('pointerdown', function (e) { down = true; moved = false; sx = e.clientX; sy = e.clientY; otx = tx; oty = ty; try { img.setPointerCapture(e.pointerId); } catch (x) {} });
+  img.addEventListener('pointermove', function (e) {
+    if (!down) return;
+    if (Math.abs(e.clientX - sx) > 5 || Math.abs(e.clientY - sy) > 5) moved = true;
+    if (scale > 1 && moved) { img.classList.add('dragging'); tx = otx + (e.clientX - sx); ty = oty + (e.clientY - sy); clampPan(); apply(); }
+  });
+  img.addEventListener('pointerup', function (e) { img.classList.remove('dragging'); if (down && !moved) setZoom(scale > 1 ? 1 : 2.2); down = false; try { img.releasePointerCapture(e.pointerId); } catch (x) {} });
+})();
+</script>
 </body>
 </html>

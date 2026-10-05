@@ -28,7 +28,7 @@ body {
 }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
-.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: none; margin: 0; padding: 0 clamp(24px, 6vw, 120px); }
 
 /* topo */
 .topbar { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); z-index: 10; }
@@ -94,7 +94,7 @@ h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; letter-spacing: -.03e
 section { padding: 40px 0; }
 h2 { font-size: 26px; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 16px; }
 h3 { font-size: 18px; margin: 28px 0 8px; }
-p { max-width: 68ch; }
+p { max-width: 90ch; }
 .muted { color: var(--muted); }
 
 /* demo interativa */
