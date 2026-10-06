@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Cleyton Braga, Product Designer: produto web, gamificação e game design. Trajetória, como trabalho e ferramentas.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../styles.css?v=59">
+<link rel="stylesheet" href="../styles.css?v=67">
 <style>:root{ --accent:#e3b341; }</style>
 <style>
 /* largura padronizada pelo case 1: .wrap do shared (max 860 / gutter 24) */
@@ -86,16 +86,20 @@
 
 /* ---- Game design — cards horizontais ---- */
 .gcards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
-.gcard{display:grid;grid-template-columns:150px 1fr;align-items:center;border:1px solid var(--line);border-radius:var(--r-soft);background:var(--panel);overflow:hidden;color:var(--fg);box-shadow:var(--shadow-soft);transition:border-color .15s,transform .15s,box-shadow .15s}
+.gcard{width:100%;display:grid;grid-template-columns:0.75fr 1.25fr;min-height:200px;border:1px solid #23262e;border-radius:24px;background:#15171c;overflow:hidden;color:var(--fg);box-shadow:0 4px 14px rgba(0,0,0,.22);transition:border-color .15s,transform .15s,box-shadow .15s}
 .gcard:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none}
-.gthumb{width:150px;height:150px;align-self:stretch;background:#000 center/cover}
-.gbody{padding:16px 20px}
-.gbody b{display:block;font-size:17px}
-.gbody p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
-.gtags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
-.gtags span{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12px;color:var(--muted)}
-.gbody .ver-case{display:block}
+.gthumb{order:-1;min-height:100%;background-color:#000;background-position:center;background-repeat:no-repeat;background-size:contain;background-origin:content-box;padding:24px 20px}
+.gbody{display:flex;min-width:0;flex-direction:column;justify-content:space-between;gap:14px;padding:18px 20px}
+.gtop{display:flex;flex-direction:column;gap:14px}
+.gbody b{font-size:18px;font-weight:600;line-height:1.25;color:#f2f3f5}
+.gbody p{margin:0;font-size:14px;line-height:1.5;color:#9aa0ac}
+.gfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.gtags{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.gtags span{border:1px solid #23262e;border-radius:999px;padding:4px 11px;font-size:12px;color:#9aa0ac}
+.garrow{flex:none;display:block;width:32px;height:32px;color:var(--accent)}
+.garrow svg{display:block;width:100%;height:100%}
 @media(max-width:720px){.gcards{grid-template-columns:1fr}}
+@media(max-width:560px){.gcard{grid-template-columns:96px 1fr;min-height:0}.gthumb{padding:16px 12px}.gbody{gap:10px;padding:14px}.gtop{gap:8px}.gbody b{font-size:15px;line-height:1.2}.gbody p{font-size:12.5px;line-height:1.4}.gtags{gap:6px}.gtags span{padding:3px 9px;font-size:11px}.garrow{width:26px;height:26px}}
 
 /* ---- Formação e ferramentas (empilhado, como no Figma) ---- */
 .ff{display:flex;flex-direction:column;gap:24px;margin-top:24px}
@@ -246,11 +250,11 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
     <div class="gcards">
       <a class="gcard" href="../cases/sao-braz/index.html">
         <span class="gthumb" style="background-image:url(../cases/sao-braz/assets/screens/capa.png)"></span>
-        <span class="gbody"><b>São Braz: Desafio da Memória</b><p>Jogo da memória em totem para ativação de marca — tem demo jogável aqui no site.</p><span class="gtags"><span>Totem</span><span>Memória</span><span>Ativação</span></span><span class="ver-case">Ver case →</span></span>
+        <span class="gbody"><span class="gtop"><b>São Braz: Desafio da Memória</b><p>Jogo da memória em totem para ativação de marca — tem demo jogável aqui no site.</p></span><span class="gfoot"><span class="gtags"><span>Totem</span><span>Memória</span><span>Ativação</span></span><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
       <a class="gcard" href="../cases/game-design/index.html">
-        <span class="gthumb" style="background-image:radial-gradient(120% 120% at 100% 0%,color-mix(in srgb,var(--accent) 35%,transparent),#15171c 70%)"></span>
-        <span class="gbody"><b>Advergames &amp; gamificação</b><p>Jogos curtos para ativação de marca e mecânicas de engajamento dentro do produto.</p><span class="gtags"><span>Apps</span><span>Missões</span><span>Ranking</span></span><span class="ver-case">Ver case →</span></span>
+        <span class="gthumb" style="background-image:radial-gradient(120% 120% at 100% 0%,color-mix(in srgb,var(--accent) 35%,transparent),#15171c 70%);padding:0;background-origin:border-box;background-size:cover"></span>
+        <span class="gbody"><span class="gtop"><b>Advergames &amp; gamificação</b><p>Jogos curtos para ativação de marca e mecânicas de engajamento dentro do produto.</p></span><span class="gfoot"><span class="gtags"><span>Apps</span><span>Missões</span><span>Ranking</span></span><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
     </div>
     <div class="cta-row"><a href="../cases/game-design/index.html">Ver Game design →</a></div>
@@ -270,7 +274,7 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
 
 <section class="contact" style="--accent:#a98bf0"><div class="wrap"><div class="contact-card">
   <h2>Vamos conversar?</h2>
-  <p class="contact-lede">Deixa seu email e uma mensagem — respondo direto pra você.</p>
+  <p class="contact-lede">Deixa seu email e uma mensagem.</p>
 
   <form class="cta-form" novalidate>
     <div class="fstep" data-step="1">

@@ -21,13 +21,10 @@
 <meta name="twitter:description" content="Dashboards de pesquisa de clima para donos e RH lerem os dados e agirem, sem analista no meio. UX, UI e marca com a Dilis.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=59">
+<link rel="stylesheet" href="../../styles.css?v=67">
 <style>:root{ --accent:#6cff8f; }
 
-/* hero: véu p/ legibilidade */
-.fold--dim::before{ filter:blur(2px) brightness(.4) saturate(.8); transform:scale(1.03); }
-.fold--dim::after{ background:linear-gradient(180deg,rgba(12,13,16,.35) 0%,rgba(12,13,16,.55) 45%,#0c0d10 100%); }
-.fold-inner h1{ text-shadow:0 2px 30px rgba(0,0,0,.55),0 1px 2px rgba(0,0,0,.4); }
+/* hero: tratamento padrão (véu + sombras) vem do styles.css compartilhado */
 
 /* ===== Estrutura do case (padrão hub de promoções) ===== */
 .resumo{ display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start; padding:38px 0; }
@@ -62,8 +59,8 @@
 
 .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:4px 0; }
 .stat{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:26px 24px; }
-.stat b{ display:block; font-weight:700; font-size:clamp(20px,2.1vw,28px); letter-spacing:-.02em; color:var(--fg); }
-.stat b .g{ color:var(--accent); } .stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
+.stat b{ display:block; font-weight:700; font-size:clamp(21px,2.1vw,29px); letter-spacing:-.02em; color:var(--fg); white-space:nowrap; }
+.stat b .g{ color:var(--accent); display:inline; font-size:inherit; } .stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
 
 /* TELAS — galeria clicável (abre no lightbox) */
 .gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; margin-top:18px; }
@@ -124,7 +121,7 @@ body.lb-lock{ overflow:hidden; }
   </ol>
 </div></nav>
 
-<section class="fold fold--dim" style="--bg:url(cases/feedback-org/assets/feedback-hero.webp)">
+<section class="fold" style="--bg:url(cases/feedback-org/assets/hero.webp)">
   <div class="fold-inner wrap">
     <span class="eyebrow">04 · SaaS e apps · SaaS B2B</span>
     <h1>Feedback ORG</h1>
@@ -212,18 +209,18 @@ body.lb-lock{ overflow:hidden; }
 
   <section>
     <h2>Outros projetos</h2>
-    <div class="grid">
-      <a class="card" href="../hub-promocoes/index.html">
-        <div class="thumb" style="background-image:url(../hub-promocoes/assets/hero.webp)"></div>
-        <div class="body"><h3>Hub de Promoções →</h3><p>Produto web · CMS e analytics</p><p class="ver-case">Ver case →</p></div>
+    <div class="gcards">
+      <a class="gcard" href="../hub-promocoes/index.html">
+        <span class="gthumb" style="background-image:url(../hub-promocoes/assets/hero.webp)"></span>
+        <span class="gbody"><span class="gtop"><b>Hub de Promoções</b><p>Produto web · CMS e analytics</p></span><span class="gfoot"><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
-      <a class="card" href="../hub2/index.html">
-        <div class="thumb" style="background-image:url(../hub2/assets/dashboard.jpg)"></div>
-        <div class="body"><h3>HUB2 →</h3><p>SaaS · gestão para agências</p><p class="ver-case">Ver case →</p></div>
+      <a class="gcard" href="../hub2/index.html">
+        <span class="gthumb" style="background-image:url(../hub2/assets/dashboard.jpg)"></span>
+        <span class="gbody"><span class="gtop"><b>HUB2</b><p>SaaS · gestão para agências</p></span><span class="gfoot"><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
-      <a class="card" href="../sao-joao-2k25/index.html">
-        <div class="thumb" style="background-image:url(../sao-joao-2k25/assets/hero-magnific.webp)"></div>
-        <div class="body"><h3>App São João 2K25 →</h3><p>App de evento — programação e mapa</p><p class="ver-case">Ver case →</p></div>
+      <a class="gcard" href="../sao-joao-2k25/index.html">
+        <span class="gthumb" style="background-image:url(../sao-joao-2k25/assets/hero-magnific.webp)"></span>
+        <span class="gbody"><span class="gtop"><b>App São João 2K25</b><p>App de evento — programação e mapa</p></span><span class="gfoot"><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
     </div>
   </section>

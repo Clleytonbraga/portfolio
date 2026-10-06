@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="Portfólio de Cleyton Braga — produto web, gamificação e game design.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="styles.css?v=59">
+<link rel="stylesheet" href="styles.css?v=67">
 <style>
   /* Linhas "em breve" (páginas que dependem de material) — não-clicáveis */
   .case-row--soon { cursor: default; opacity: .5; }
@@ -143,7 +143,7 @@
     <div class="col-more">
       <span class="col-cat">Contato</span>
       <h2>Vamos conversar?</h2>
-      <p class="col-lede">Deixa seu email e uma mensagem — respondo direto pra você.</p>
+      <p class="col-lede">Deixa seu email e uma mensagem.</p>
 
       <form class="cta-form" novalidate>
         <div class="fstep" data-step="1">
@@ -177,7 +177,9 @@
 </template>
 
 <script src="data/sections.js?v=56"></script>
-<script src="home.js?v=56"></script>
+<!-- GSAP Core (grátis) — mecânica do preenchimento direcional "água" nos .case-row -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="home.js?v=65"></script>
 
 </body>
 </html>

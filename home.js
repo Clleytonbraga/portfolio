@@ -20,12 +20,85 @@
 
   var ARROW = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  /* directional hover fill: detecta a borda de entrada/saída e desliza um preenchimento a partir dela */
-  function edgeOf(el, e) {
-    var r = el.getBoundingClientRect();
-    var x = (e.clientX - r.left) / r.width - 0.5;
-    var y = (e.clientY - r.top) / r.height - 0.5;
-    return Math.abs(x) > Math.abs(y) ? (x > 0 ? 'right' : 'left') : (y > 0 ? 'bottom' : 'top');
+  /* ── Preenchimento direcional "água" (.case-row) ─────────────────────────────
+     A "água" (vidro) entra pela borda onde o ponteiro chega; a frente é uma curva
+     que faz barriga em direção ao cursor e reage à velocidade; na saída, escorre
+     pela borda de saída sem snap. Dirigido por GSAP (se disponível) via clip-path.
+     Sem GSAP / reduced-motion / teclado: estado imediato (preenche inteiro).       */
+  var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function crossFrac(anchor, rect, x, y) {
+    var f = (anchor === 'left' || anchor === 'right')
+      ? (y - rect.top) / rect.height
+      : (x - rect.left) / rect.width;
+    return Math.max(0, Math.min(1, f));
+  }
+
+  function initWaterFill(row) {
+    var rf = document.createElement('span');
+    rf.className = 'row-fill';
+    rf.setAttribute('aria-hidden', 'true');
+    row.insertBefore(rf, row.firstChild);
+
+    var st = { p: 0, bulge: 0 };   // p = progresso 0..1; bulge = amplitude da curva (fração)
+    var anchor = 'left', cross = 0.5, tween = null;
+    var lastX = 0, lastY = 0, lastT = 0;
+
+    function poly(pts) {   // pts: array de ['L', x, y] | ['M', x, y] | ['Q', cx, cy, x, y]
+      return pts.map(function (s) { return s[0] + s.slice(1).join(' '); }).join(' ') + ' Z';
+    }
+    function buildPath(w, h) {
+      var p = Math.max(0, Math.min(1, st.p));
+      var amp = st.bulge * Math.sin(Math.PI * p);   // 0 nas pontas, máximo no meio → assenta plano
+      var fx, fy;
+      if (anchor === 'left')  { fx = p * w;     return poly([['M',0,0],['L',fx,0],['Q',fx + amp*w, cross*h, fx, h],['L',0,h]]); }
+      if (anchor === 'right') { fx = w - p * w; return poly([['M',w,0],['L',fx,0],['Q',fx - amp*w, cross*h, fx, h],['L',w,h]]); }
+      if (anchor === 'top')   { fy = p * h;     return poly([['M',0,0],['L',0,fy],['Q',cross*w, fy + amp*h, w, fy],['L',w,0]]); }
+      fy = h - p * h;                           return poly([['M',0,h],['L',0,fy],['Q',cross*w, fy - amp*h, w, fy],['L',w,h]]);
+    }
+    function apply() {
+      var r = row.getBoundingClientRect();
+      var d = 'path("' + buildPath(r.width, r.height) + '")';
+      rf.style.clipPath = d; rf.style.webkitClipPath = d;
+    }
+    function animate(target, dur, ease) {
+      if (tween) { tween.kill(); tween = null; }
+      if (!window.gsap || prefersReduce.matches) {   // estado imediato
+        st.p = target; st.bulge = 0; apply(); rf.style.opacity = target > 0 ? 1 : 0; return;
+      }
+      rf.style.opacity = 1;
+      tween = window.gsap.to(st, {
+        p: target, duration: dur, ease: ease, onUpdate: apply,
+        onComplete: function () { if (target === 0) rf.style.opacity = 0; }
+      });
+    }
+
+    row.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'touch') return;        // no mobile não há hover → sem fill
+      var r = row.getBoundingClientRect();
+      anchor = 'left';                              // sempre enche da esquerda p/ direita
+      cross = crossFrac(anchor, r, e.clientX, e.clientY);
+      lastX = e.clientX; lastY = e.clientY; lastT = e.timeStamp; st.bulge = 0;
+      rf.style.opacity = 1;
+      animate(1, 0.55, 'power3.out');
+    });
+    row.addEventListener('pointermove', function (e) {
+      var dt = Math.max(1, e.timeStamp - lastT);
+      var sp = Math.hypot(e.clientX - lastX, e.clientY - lastY) / dt;   // px/ms
+      lastX = e.clientX; lastY = e.clientY; lastT = e.timeStamp;
+      cross = crossFrac(anchor, row.getBoundingClientRect(), e.clientX, e.clientY);
+      st.bulge = Math.min(0.26, sp * 0.14);         // velocidade → curvatura
+    });
+    row.addEventListener('pointerleave', function (e) {
+      if (e.pointerType === 'touch') return;
+      var r = row.getBoundingClientRect();
+      anchor = 'right';                              // escorre pra fora pela direita (lavada contínua L→R)
+      cross = crossFrac(anchor, r, e.clientX, e.clientY);
+      st.p = 1;
+      animate(0, 0.5, 'power2.in');
+    });
+    row.addEventListener('focus', function () { if (tween) tween.kill(); st.p = 1; st.bulge = 0; apply(); rf.style.opacity = 1; });
+    row.addEventListener('blur',  function () { if (tween) tween.kill(); st.p = 0; apply(); rf.style.opacity = 0; });
   }
 
   function sectionHeader(s) {
@@ -67,15 +140,8 @@
     if (tpl) el.appendChild(tpl.content.cloneNode(true));
     var more = el.querySelector('.col-more');
 
-    /* directional hover fill nos itens internos do menu (.case-row) */
-    el.querySelectorAll('.case-row').forEach(function (row) {
-      var rf = document.createElement('span');
-      rf.className = 'row-fill';
-      rf.setAttribute('aria-hidden', 'true');
-      row.insertBefore(rf, row.firstChild);
-      row.addEventListener('mouseenter', function (e) { rf.dataset.dir = edgeOf(row, e); row.classList.add('fill-in'); });
-      row.addEventListener('mouseleave', function (e) { rf.dataset.dir = edgeOf(row, e); row.classList.remove('fill-in'); });
-    });
+    /* preenchimento direcional "água" nos itens internos do menu (.case-row) */
+    el.querySelectorAll('.case-row').forEach(initWaterFill);
     if (more && s.brands) { more.classList.add('col-more--wide'); more.appendChild(marquee()); }
     if (more && s.locked) {
       var soon = document.createElement('span');

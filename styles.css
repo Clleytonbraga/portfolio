@@ -11,6 +11,7 @@
   --r-soft: 24px;                       /* "shape soft" (rounded-3xl) p/ cards */
   --shadow-soft: 0 4px 14px rgba(0,0,0,.22);   /* sutil, estilo Figma */
   --ease: cubic-bezier(.22,.61,.36,1);
+  --liquid: cubic-bezier(.34,1.3,.5,1);   /* overshoot suave p/ hover líquido */
   --dur: .5s;
   --pad-col: clamp(28px, 2.6vw, 44px);
   --kw: rgba(255,255,255,.5);
@@ -127,6 +128,31 @@ figcaption { color: var(--muted); font-size: 13px; margin-top: 8px; }
 .ver-case { color: var(--accent); font-size: 13px; margin-top: 10px; }
 .card p.ver-case { color: var(--accent); font-size: 13px; }   /* vence .card p (muted) */
 
+/* ── Card SPLIT (media à esquerda + corpo com seta ↗) — "Outros projetos" e /sobre.
+   Padrão do Figma 397:301. Media = cover (screenshots); logo usa contain inline.    */
+.gcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 24px; }
+.gcard { width: 100%; display: grid; grid-template-columns: 0.75fr 1.25fr; min-height: 200px; border: 1px solid #23262e; border-radius: 24px; background: #15171c; overflow: hidden; color: var(--fg); box-shadow: 0 4px 14px rgba(0,0,0,.22); transition: border-color .15s, transform .15s, box-shadow .15s; }
+.gcard:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+.gthumb { order: -1; min-height: 100%; background: #000 center/cover no-repeat; }
+.gbody { display: flex; min-width: 0; flex-direction: column; justify-content: space-between; gap: 14px; padding: 18px 20px; }
+.gtop { display: flex; flex-direction: column; gap: 14px; }
+.gbody b { font-size: 18px; font-weight: 600; line-height: 1.25; color: #f2f3f5; }
+.gbody p { margin: 0; font-size: 14px; line-height: 1.5; color: #9aa0ac; }
+.gfoot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.gtags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.gtags span { border: 1px solid #23262e; border-radius: 999px; padding: 4px 11px; font-size: 12px; color: #9aa0ac; }
+.garrow { flex: none; display: block; width: 32px; height: 32px; margin-left: auto; color: var(--accent); }
+.garrow svg { display: block; width: 100%; height: 100%; }
+@media (max-width: 560px) {
+  .gcard { grid-template-columns: 104px 1fr; min-height: 0; }
+  .gbody { gap: 10px; padding: 14px; }
+  .gtop { gap: 8px; }
+  .gbody b { font-size: 15px; line-height: 1.2; }
+  .gbody p { font-size: 12.5px; line-height: 1.4; }
+  .gtags { gap: 6px; } .gtags span { padding: 3px 9px; font-size: 11px; }
+  .garrow { width: 26px; height: 26px; }
+}
+
 footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; text-align: center; }
 
 /* ============================================================
@@ -157,7 +183,7 @@ footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted)
 }
 .marquee-track img:hover { opacity: 1; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } .row-fill { transition: opacity .2s linear; } }
 
 /* ============================================================
    PÁGINA INTERNA — dobra cheia + seções
@@ -170,22 +196,30 @@ footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted)
 }
 .fold::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-fold, #0c0d10) 20%, transparent) 0%,
-              transparent 30%, color-mix(in srgb, #0c0d10 92%, transparent) 100%);
+  /* véu padrão (= case 2): gradiente reforçado p/ legibilidade do texto sobre a foto. SEM blur/brightness. */
+  background: linear-gradient(180deg, rgba(12,13,16,.50) 0%, rgba(12,13,16,.32) 14%,
+    rgba(12,13,16,.60) 36%, rgba(12,13,16,.84) 58%, rgba(12,13,16,.98) 100%);
 }
-/* variante p/ dobras com FOTO de fundo: véu mais forte (mesma receita do case ref) p/ legibilidade */
-.fold--dim::after { background: linear-gradient(180deg,
-  rgba(12,13,16,.45) 0%, rgba(12,13,16,.30) 14%,
-  rgba(12,13,16,.55) 34%, rgba(12,13,16,.82) 50%, rgba(12,13,16,.97) 66%, #0c0d10 80%); }
-.fold--dim .fold-inner h1 { text-shadow: 0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
-.fold--dim .fold-sub { text-shadow: 0 1px 16px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.5); }
-.fold--dim .fold-info dt, .fold--dim .fold-info dd { text-shadow: 0 1px 12px rgba(0,0,0,.6); }
+/* sombra no texto do hero (padrão = case 2) — vale p/ todos os heroes internos */
+.fold-inner h1 { text-shadow: 0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
+.fold-sub { text-shadow: 0 1px 16px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.5); }
+.fold-info dt, .fold-info dd { text-shadow: 0 1px 12px rgba(0,0,0,.6); }
 .fold-inner { position: relative; z-index: 1; width: 100%; padding-top: 40px; padding-bottom: 64px; }
 .fold-inner h1 { font-size: clamp(40px, 9vw, 96px); line-height: .95; letter-spacing: -.04em; margin: 0; }
 .fold-sub { font-size: clamp(15px, 2.2vw, 20px); color: var(--accent); font-weight: 600; margin: 12px 0 0; }
 .fold-info { display: flex; gap: 24px; flex-wrap: wrap; margin: 22px 0 0; }
 .fold-info dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
 .fold-info dd { margin: 4px 0 0; font-weight: 500; font-size: 15px; }
+/* mobile: o fundo do hero vira uma FAIXA no topo (largura cheia, ancorada no topo,
+   altura reduzida) em vez de cover esticado/zoom; o texto desce pra baixo da faixa.
+   (/sobre tem regra própria que esconde .fold::before no mobile → não é afetado.)    */
+@media (max-width: 720px) {
+  .fold { min-height: auto; }
+  .fold::before { inset: 0 0 auto; height: 48vw; max-height: 300px; background-position: top center; }
+  .fold::after  { inset: 0 0 auto; height: 48vw; max-height: 300px;
+    background: linear-gradient(180deg, transparent 50%, rgba(12,13,16,.85) 86%, #0c0d10); }
+  .fold-inner { padding-top: calc(min(48vw, 300px) + 22px); }
+}
 
 /* placeholder de telas/mockups (seção de fotos ainda sem imagem real) */
 .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
@@ -265,15 +299,22 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 }
 .col > * { position: relative; z-index: 1; }
 
-/* directional hover fill — nos itens internos do menu (.case-row); desliza da borda de entrada e sai pela de saída */
+/* liquid-glass hover fill — nos itens internos do menu (.case-row); painel fosco que floresce da borda de entrada */
+/* preenchimento direcional "água" — recortado por clip-path (JS + GSAP em home.js).
+   Acabamento = vidro fosco no tom do accent. O clip-path recorta tb o inset rim,
+   então a borda viva acompanha a frente curva da "água". */
 .row-fill { position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit;
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  opacity: 0; transition: transform .4s var(--ease), opacity .4s var(--ease); }
-.row-fill[data-dir="top"]    { transform: translateY(-101%); }
-.row-fill[data-dir="bottom"] { transform: translateY(101%); }
-.row-fill[data-dir="left"]   { transform: translateX(-101%); }
-.row-fill[data-dir="right"]  { transform: translateX(101%); }
-.case-row.fill-in .row-fill { transform: none; opacity: 1; }
+  background:
+    radial-gradient(120% 140% at 50% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.015));
+  backdrop-filter: blur(7px) saturate(1.25); -webkit-backdrop-filter: blur(7px) saturate(1.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px color-mix(in srgb, var(--accent) 34%, transparent);
+  opacity: 0; transition: opacity .25s var(--ease); }
+/* fallback (sem JS/GSAP) e foco por teclado: preenche inteiro, sem a curva */
+.case-row.fill-in .row-fill { opacity: 1; }
+/* o preenchimento é afford de hover: em touch / layout empilhado (mobile) ele sai
+   da caixa e "corta" o botão → desliga */
+@media (hover: none), (max-width: 720px) { .row-fill { display: none; } }
 
 /* expandir a coluna em foco, comprimir as outras */
 .cols:hover .col { flex-grow: .5; }              /* vizinhas encolhem */
@@ -342,7 +383,7 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 }
 /* categoria (eyebrow) + cargo dentro do painel aberto */
 .col-cat { display: block; color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
-.col-more .role { display: block; color: var(--fg); font-weight: 600; font-size: 15px; margin: -4px 0 12px; }
+.col-more .role { display: block; color: var(--accent); font-weight: 600; font-size: 15px; margin: -4px 0 12px; }
 .col-lede { color: var(--fg) !important; font-size: 16px !important; font-weight: 500; margin: 0 0 18px !important; max-width: 40ch !important; }
 .tags-label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin: 16px 0 8px; }
 .col-more .tags { margin: 0; }
@@ -399,6 +440,7 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 .social-btn:hover { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); text-decoration: none; }
 /* telas pequenas: só a bolinha com o ícone (sem label), pra não desequilibrar */
 @media (max-width: 560px) {
+  .contact-socials { justify-content: center; }
   .social-btn { width: 46px; height: 46px; padding: 0; gap: 0; justify-content: center; }
   .social-label { display: none; }
 }
@@ -417,7 +459,8 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
   height: 44px; padding: 0 18px; font: inherit; outline: none;
   transition: border-color .2s;
 }
-.cta-form textarea { height: auto; min-height: 92px; padding: 12px 18px; border-radius: 20px; resize: none; }
+/* textarea ocupa a linha inteira → o botão de enviar cai abaixo (não flutua ao lado) */
+.cta-form textarea { flex: 1 1 100%; height: auto; min-height: 92px; padding: 12px 18px; border-radius: 20px; resize: none; }
 .cta-form input:focus, .cta-form textarea:focus { border-color: var(--accent); }
 .cta-form input::placeholder, .cta-form textarea::placeholder { color: color-mix(in srgb, var(--muted) 70%, transparent); }
 .cta-form button {

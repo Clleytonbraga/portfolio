@@ -20,11 +20,10 @@
 <meta name="twitter:description" content="Portfólio de Cleyton Braga — produto web, gamificação e game design.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=59">
+<link rel="stylesheet" href="../../styles.css?v=67">
 <style>:root{ --accent:#2bd46b; }</style>
 <style>
-.fold--dim::before{filter:blur(2px) brightness(.45) saturate(.8);transform:scale(1.03)}
-.fold--dim::after{background:linear-gradient(180deg,rgba(12,13,16,.35) 0%,rgba(12,13,16,.55) 45%,#0c0d10 100%)}
+/* hero: tratamento padrão (véu + sombras) vem do styles.css compartilhado */
 .scrollshot{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:#000}
 .scrollshot img{width:100%;display:block;border:0;border-radius:0}
 .duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:28px 0}
@@ -32,10 +31,12 @@
 .phone{max-width:320px;margin:28px auto}
 figcaption{font-size:13px;color:var(--muted);margin-top:8px}
 .hero-img{width:100%;border-radius:var(--r);border:1px solid var(--line);display:block}
-.stats{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 4px}
-.stat{flex:1 1 150px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px}
-.stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--fg)}
-.stat span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block;margin-top:4px}
+.stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:4px 0; }
+.stat{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:26px 24px; }
+.stat b{ display:block; font-weight:700; font-size:clamp(21px,2.1vw,29px); letter-spacing:-.02em; color:var(--fg); white-space:nowrap; }
+.stat b .g{ color:var(--accent); display:inline; font-size:inherit; }
+.stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
+@media(max-width:720px){ .stats{ grid-template-columns:1fr; } }
 .steps{margin:14px 0 0;padding-left:20px;color:var(--muted);font-size:16px;line-height:1.65}
 .steps li{margin:6px 0}
 .sub{color:var(--accent);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 2px}
@@ -63,7 +64,7 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px}
 </div></nav>
 
 
-<section class="fold fold--dim" style="--bg:url(cases/bpx/assets/capa.jpg)">
+<section class="fold" style="--bg:url(cases/bpx/assets/capa.jpg)">
   <div class="fold-inner wrap">
     <span class="eyebrow">02 · Cases de sucesso · iGaming</span>
     <h1>BPX</h1>
@@ -139,9 +140,9 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px}
       <li>Publica tudo no backoffice.</li>
     </ol>
     <div class="stats">
-      <div class="stat"><b>904 → 3.000+</b><span>capas em 6 meses vs. em 1 semana</span></div>
-      <div class="stat"><b>4 → 1</b><span>pessoas no operacional</span></div>
-      <div class="stat"><b>4 formatos</b><span>3:4 · 1:1 · 9:16 · 16:9</span></div>
+      <div class="stat"><b>904 → <span class="g">3.000+</span></b><span>capas em 6 meses vs. em 1 semana</span></div>
+      <div class="stat"><b>4 → <span class="g">1</span></b><span>pessoas no operacional</span></div>
+      <div class="stat"><b><span class="g">4</span> formatos</b><span>3:4 · 1:1 · 9:16 · 16:9</span></div>
     </div>
     <p class="muted" style="margin-top:16px">Ferramentas: Figma, Claude Code e Magnific (Freepik) para gerar as imagens.</p>
     <figure><img class="hero-img" src="assets/auto-thumbs.webp" alt="Automação de capas de jogos — personagens saindo das thumbnails"><figcaption>A fábrica de capas: catálogo → referência → IA → Figma → backoffice.</figcaption></figure>

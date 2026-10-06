@@ -21,19 +21,12 @@
 <meta name="twitter:description" content="CMS e painel de um hub interno: o CRM cria, agenda e mede os cards da vitrine sem depender de deploy.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=59">
+<link rel="stylesheet" href="../../styles.css?v=67">
 <style>:root{ --accent:#5fd49a; }
 
 /* ===== Estrutura espelhada do case 1 (automacao-ia) ===== */
 
-/* hero: véu reforçado p/ legibilidade (base = gradiente do Figma, mais forte no miolo) + sombra no texto */
-.fold::after{ background:
-  linear-gradient(180deg, rgba(12,13,16,.50) 0%, rgba(12,13,16,.32) 14%,
-   rgba(12,13,16,.60) 36%, rgba(12,13,16,.84) 58%, rgba(12,13,16,.98) 100%); }
-.fold-inner h1{ text-shadow:0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
-.fold-sub{ text-shadow:0 1px 16px rgba(0,0,0,.6), 0 1px 2px rgba(0,0,0,.5); }
-.fold-info dd{ text-shadow:0 1px 12px rgba(0,0,0,.6); }
-.fold-info dt{ text-shadow:0 1px 10px rgba(0,0,0,.6); }
+/* hero: tratamento padrão (véu + sombras) vem do styles.css compartilhado */
 
 /* RESUMO — 2 colunas (label verde + texto) */
 .resumo{ display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start;
@@ -381,18 +374,18 @@ body.lb-lock{ overflow:hidden; }
 
   <section>
     <h2>Outros projetos</h2>
-    <div class="grid">
-      <a class="card" href="../automacao-ia/index.html">
-        <div class="thumb" style="background-image:url(../automacao-ia/assets/hero.webp)"></div>
-        <div class="body"><h3>Automação de capas com IA →</h3><p>Produto web · pipeline com IA</p><p class="ver-case">Ver case →</p></div>
+    <div class="gcards">
+      <a class="gcard" href="../automacao-ia/index.html">
+        <span class="gthumb" style="background-image:url(../automacao-ia/assets/hero.webp)"></span>
+        <span class="gbody"><span class="gtop"><b>Automação de capas com IA</b><p>Produto web · pipeline com IA</p></span><span class="gfoot"><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
-      <a class="card" href="../sao-joao-2k25/index.html">
-        <div class="thumb" style="background-image:url(../sao-joao-2k25/assets/hero.jpg)"></div>
-        <div class="body"><h3>App São João 2K25 →</h3><p>App de evento — programação e mapa</p><p class="ver-case">Ver case →</p></div>
+      <a class="gcard" href="../sao-joao-2k25/index.html">
+        <span class="gthumb" style="background-image:url(../sao-joao-2k25/assets/hero.jpg)"></span>
+        <span class="gbody"><span class="gtop"><b>App São João 2K25</b><p>App de evento — programação e mapa</p></span><span class="gfoot"><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
-      <a class="card" href="../feedback-org/index.html">
-        <div class="thumb" style="background-image:url(../feedback-org/assets/feedback-hero.webp)"></div>
-        <div class="body"><h3>Feedback ORG →</h3><p>Pesquisa de clima organizacional</p><p class="ver-case">Ver case →</p></div>
+      <a class="gcard" href="../feedback-org/index.html">
+        <span class="gthumb" style="background-image:url(../feedback-org/assets/feedback-hero.webp)"></span>
+        <span class="gbody"><span class="gtop"><b>Feedback ORG</b><p>Pesquisa de clima organizacional</p></span><span class="gfoot"><span class="garrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span></span>
       </a>
     </div>
   </section>
