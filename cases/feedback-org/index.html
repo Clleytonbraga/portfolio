@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Dashboards de pesquisa de clima para donos e RH lerem os dados e agirem, sem analista no meio. UX, UI e marca com a Dilis.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=67">
+<link rel="stylesheet" href="../../styles.css?v=68">
 <style>:root{ --accent:#6cff8f; }
 
 /* hero: tratamento padrão (véu + sombras) vem do styles.css compartilhado */
@@ -30,7 +30,7 @@
 .resumo{ display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start; padding:38px 0; }
 .resumo-label{ color:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; }
 .resumo-label::after{ content:""; display:block; width:28px; height:3px; border-radius:2px; background:var(--accent); margin-top:10px; }
-.resumo p{ margin:0; max-width:90ch; font-size:17px; line-height:1.6; }
+.resumo p{ margin:0; font-size:17px; line-height:1.6; }
 .resumo p + p{ margin-top:14px; }
 
 .cmp{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; }
@@ -41,9 +41,10 @@
 .cmp li{ display:flex; gap:12px; padding:6px 0; color:var(--muted); font-size:15px; }
 .cmp li::before{ content:"—"; color:var(--muted); } .cmp .good li::before{ content:"✓"; color:var(--accent); }
 
-.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:start; margin-top:4px; }
-.pipe-final{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#0a0b0d; }
-.pipe-final img{ width:100%; height:auto; display:block; cursor:zoom-in; }
+.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:stretch; margin-top:4px; }
+.pipe-visual{ display:flex; flex-direction:column; }
+.pipe-final{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#0a0b0d; flex:1 1 auto; }
+.pipe-final img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; cursor:zoom-in; }
 .pipe-cap{ color:var(--muted); font-size:14px; margin-top:16px; }
 .steps{ list-style:none; margin:0; padding:0; }
 .steps li{ display:flex; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
@@ -63,11 +64,9 @@
 .stat b .g{ color:var(--accent); display:inline; font-size:inherit; } .stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
 
 /* TELAS — galeria clicável (abre no lightbox) */
-.gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; margin-top:18px; }
-.shot{ margin:0; }
-.shot img{ width:100%; aspect-ratio:4/3; object-fit:cover; object-position:top center; display:block; border:1px solid var(--line); border-radius:var(--r); background:#0a0b0d; cursor:zoom-in; transition:border-color .2s, transform .2s; }
-.shot img:hover{ border-color:color-mix(in srgb,var(--accent) 55%,var(--line)); transform:translateY(-2px); }
-.shot figcaption{ color:var(--muted); font-size:13px; margin-top:8px; }
+.shot{ margin:18px 0 0; }
+.shot img{ width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:var(--r-soft); background:#0a0b0d; cursor:zoom-in; }
+.shot figcaption{ color:var(--muted); font-size:13.5px; margin-top:10px; }
 
 .grid{ grid-template-columns:repeat(3,1fr); }
 .grid .card .thumb{ aspect-ratio:37/13; }
@@ -162,7 +161,7 @@ body.lb-lock{ overflow:hidden; }
     <div class="pipe">
       <div class="pipe-visual">
         <figure class="pipe-final shot" style="margin:0">
-          <img src="assets/org-filtro.jpg" alt="Dashboard do Feedback ORG com NPS interno, barômetro e ranking de pesquisas">
+          <img src="assets/org-filtro.webp" alt="Feedback ORG em laptop e celular: dashboard de clima e pesquisa de NPS">
         </figure>
         <p class="pipe-cap">Dashboard: NPS interno, barômetro, ranking de pesquisas e satisfação dos colaboradores.</p>
       </div>
@@ -184,11 +183,9 @@ body.lb-lock{ overflow:hidden; }
   <section>
     <h2>Telas</h2>
     <p class="muted">As telas do Feedback ORG — do dashboard ao relatório de clima. Clique para ampliar.</p>
-    <div class="gallery">
-      <figure class="shot"><img src="assets/fborg-dashboard.webp" alt="Dashboard de clima do Feedback ORG" loading="lazy"><figcaption>Dashboard — NPS interno, barômetro e engajamento.</figcaption></figure>
-      <figure class="shot"><img src="assets/fborg-relatorio.webp" alt="Relatório de pesquisa do Feedback ORG" loading="lazy"><figcaption>Relatório — distribuição das respostas e pontos de alerta.</figcaption></figure>
-      <figure class="shot"><img src="assets/fborg-modal-colaborador.webp" alt="Visão por colaborador do Feedback ORG" loading="lazy"><figcaption>Colaborador — histórico individual de respostas.</figcaption></figure>
-    </div>
+    <figure class="shot"><img src="assets/fborg-dashboard.webp" alt="Dashboard de clima do Feedback ORG" loading="lazy"><figcaption>Dashboard — NPS interno, barômetro e engajamento.</figcaption></figure>
+    <figure class="shot"><img src="assets/fborg-relatorio.webp" alt="Relatório de pesquisa do Feedback ORG" loading="lazy"><figcaption>Relatório — distribuição das respostas e pontos de alerta.</figcaption></figure>
+    <figure class="shot"><img src="assets/fborg-modal-colaborador.webp" alt="Visão por colaborador do Feedback ORG" loading="lazy"><figcaption>Colaborador — histórico individual de respostas.</figcaption></figure>
   </section>
 
   <section>

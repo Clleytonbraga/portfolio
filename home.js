@@ -185,10 +185,9 @@ addEventListener('click', function (e) {
     if (!email.checkValidity()) { email.reportValidity(); return; }
     show(2); form.msg.focus();
   });
-  // PENDÊNCIA (Cleyton): contato tem de ENVIAR INLINE e cair numa PLANILHA — o visitante NÃO sai do site (nada de mailto).
-  //   Criar form no Formspree (ou serviço c/ integração Google Sheets) e colar o ID abaixo.
-  //   Hoje, com XXXXXXXX, todo envio falha (404) → mostra "não consegui enviar". Trocar o ID resolve.
-  var CONTACT_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
+  // Lead cai inline na planilha "Leads - FOLIO" via Google Apps Script (doPost → aba Leads).
+  //   Deploy: Apps Script ligado à planilha ▸ App da Web ▸ acesso "Qualquer pessoa". Re-deploy muda a URL.
+  var CONTACT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzTiVAQ-NzWVucfDPs3YTJ1CJeAMYzyJPQptzP1RPahYZN6AXY9AHiqiNpwQKRWNgDWrA/exec';
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.msg.value.trim()) { form.msg.reportValidity(); return; }

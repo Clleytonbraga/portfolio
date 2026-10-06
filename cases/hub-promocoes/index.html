@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="CMS e painel de um hub interno: o CRM cria, agenda e mede os cards da vitrine sem depender de deploy.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=67">
+<link rel="stylesheet" href="../../styles.css?v=68">
 <style>:root{ --accent:#5fd49a; }
 
 /* ===== Estrutura espelhada do case 1 (automacao-ia) ===== */
@@ -34,7 +34,7 @@
 .resumo-label{ color:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; }
 .resumo-label::after{ content:""; display:block; width:28px; height:3px; border-radius:2px;
   background:var(--accent); margin-top:10px; }
-.resumo p{ margin:0; max-width:90ch; font-size:17px; line-height:1.6; }
+.resumo p{ margin:0; font-size:17px; line-height:1.6; }
 
 /* ANTES E DEPOIS */
 .cmp{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; }
@@ -49,7 +49,8 @@
 .cmp .good li::before{ content:"✓"; color:var(--accent); }
 
 /* PROCESSO — visual à esquerda + passos numerados à direita (igual .pipe do case 1) */
-.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:start; margin-top:4px; }
+.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:stretch; margin-top:4px; }
+.pipe-visual{ display:flex; flex-direction:column; justify-content:center; }
 .pipe-final{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#0a0b0d; }
 .pipe-final img{ width:100%; height:auto; display:block; }
 .pipe-cap{ color:var(--muted); font-size:14px; margin-top:16px; text-align:center; max-width:339px; }

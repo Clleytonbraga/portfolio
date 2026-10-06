@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Cleyton Braga, Product Designer: produto web, gamificação e game design. Trajetória, como trabalho e ferramentas.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../styles.css?v=67">
+<link rel="stylesheet" href="../styles.css?v=68">
 <style>:root{ --accent:#e3b341; }</style>
 <style>
 /* largura padronizada pelo case 1: .wrap do shared (max 860 / gutter 24) */
@@ -321,8 +321,8 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
     if (!form.email.checkValidity()) { form.email.reportValidity(); return; }
     show(2); form.msg.focus();
   });
-  // PENDÊNCIA: trocar XXXXXXXX pelo ID do Formspree (hoje todo envio falha → mostra erro). Mesmo endpoint da home.
-  var CONTACT_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
+  // Mesmo endpoint da home: Google Apps Script → planilha "Leads - FOLIO" (aba Leads).
+  var CONTACT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzTiVAQ-NzWVucfDPs3YTJ1CJeAMYzyJPQptzP1RPahYZN6AXY9AHiqiNpwQKRWNgDWrA/exec';
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.msg.value.trim()) { form.msg.reportValidity(); return; }

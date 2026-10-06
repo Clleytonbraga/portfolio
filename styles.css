@@ -95,7 +95,7 @@ h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; letter-spacing: -.03e
 section { padding: 40px 0; }
 h2 { font-size: 26px; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 16px; }
 h3 { font-size: 18px; margin: 28px 0 8px; }
-p { max-width: 90ch; }
+p { max-width: none; }
 .muted { color: var(--muted); }
 
 /* demo interativa */

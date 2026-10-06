@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Pipeline com IA que cria e publica as capas do catálogo: de 904 capas em 6 meses para mais de 3.000 em uma semana.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=67">
+<link rel="stylesheet" href="../../styles.css?v=68">
 <style>:root{ --accent:#5fd49a; }
 
 
@@ -32,7 +32,7 @@
 .resumo-label{ color:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; }
 .resumo-label::after{ content:""; display:block; width:28px; height:3px; border-radius:2px;
   background:var(--accent); margin-top:10px; }
-.resumo p{ margin:0; max-width:90ch; font-size:17px; line-height:1.6; }
+.resumo p{ margin:0; font-size:17px; line-height:1.6; }
 
 /* ANTES E DEPOIS */
 .cmp{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; }
@@ -47,7 +47,8 @@
 .cmp .good li::before{ content:"✓"; color:var(--accent); }
 
 /* PIPELINE — "Da referência crua à capa publicada" */
-.pipe{ display:grid; grid-template-columns:400px 1fr; gap:48px; align-items:start; margin-top:4px; }
+.pipe{ display:grid; grid-template-columns:400px 1fr; gap:48px; align-items:stretch; margin-top:4px; }
+.pipe-visual{ display:flex; flex-direction:column; justify-content:center; }
 .pipe-row{ display:flex; align-items:center; gap:20px; }
 .pipe-layers{ display:grid; gap:4px; }
 .pipe-layers img{ width:104px; height:auto; display:block; }
@@ -82,7 +83,8 @@
 .stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
 
 /* TELAS — mockup de browser (placeholder arte neutra) */
-.telas-ph{ min-height:320px; background:#0a0b0d; }
+.telas-ph{ aspect-ratio:16/9; background:#0a0b0d; }
+.telas-ph iframe{ width:100%; height:100%; border:0; display:block; }
 
 /* Outros projetos: 3 cards iguais, imagem larga (como no Figma), título branco */
 .grid{ grid-template-columns:repeat(3,1fr); }
@@ -206,7 +208,7 @@
     <p class="muted">O pipeline em funcionamento, com arte neutra.</p>
     <div class="demo">
       <div class="demo-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-      <div class="telas-ph"><!-- REVISAR: trocar por screenshot do pipeline (arte neutra) --></div>
+      <div class="telas-ph"><iframe title="Figma — exemplo de arquivo de thumbs" src="https://embed.figma.com/design/eudG4iSG0Fze2yohYHyMCP/Thumbs?node-id=1-224&embed-host=share" allowfullscreen loading="lazy"></iframe></div>
     </div>
   </section>
 

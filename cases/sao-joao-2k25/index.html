@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="App oficial do São João de Campina Grande 2025: programação dia a dia, mapa, missões e notícias, em tema claro e escuro.">
 <meta name="twitter:image" content="https://clleytonbraga.github.io/portfolio/assets/og-cover.jpg">
 
-<link rel="stylesheet" href="../../styles.css?v=67">
+<link rel="stylesheet" href="../../styles.css?v=68">
 <style>:root{ --accent:#ff9d3b; }
 
 /* hero: tratamento padrão (véu + sombras) vem do styles.css compartilhado */
@@ -30,7 +30,7 @@
 .resumo{ display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start; padding:38px 0; }
 .resumo-label{ color:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; }
 .resumo-label::after{ content:""; display:block; width:28px; height:3px; border-radius:2px; background:var(--accent); margin-top:10px; }
-.resumo p{ margin:0; max-width:90ch; font-size:17px; line-height:1.6; }
+.resumo p{ margin:0; font-size:17px; line-height:1.6; }
 .resumo p + p{ margin-top:14px; }
 
 .cmp{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:4px; }
@@ -41,9 +41,10 @@
 .cmp li{ display:flex; gap:12px; padding:6px 0; color:var(--muted); font-size:15px; }
 .cmp li::before{ content:"—"; color:var(--muted); } .cmp .good li::before{ content:"✓"; color:var(--accent); }
 
-.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:start; margin-top:4px; }
-.pipe-final{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#0a0b0d; }
-.pipe-final img{ width:100%; height:auto; display:block; cursor:zoom-in; }
+.pipe{ display:grid; grid-template-columns:420px 1fr; gap:48px; align-items:stretch; margin-top:4px; }
+.pipe-visual{ display:flex; flex-direction:column; }
+.pipe-final{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:#0a0b0d; flex:1 1 auto; }
+.pipe-final img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; cursor:zoom-in; }
 .pipe-cap{ color:var(--muted); font-size:14px; margin-top:16px; }
 .steps{ list-style:none; margin:0; padding:0; }
 .steps li{ display:flex; gap:16px; padding:18px 0; border-top:1px solid var(--line); }
@@ -57,17 +58,18 @@
 .chip:nth-child(1){ --c:#f2c14e } .chip:nth-child(2){ --c:#f07ca8 } .chip:nth-child(3){ --c:#b18cff } .chip:nth-child(4){ --c:#5fd49a }
 .chip span{ color:var(--muted); }
 
-.stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:4px 0; }
+.stats{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:4px 0; }
 .stat{ background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:26px 24px; }
 .stat b{ display:block; font-weight:700; font-size:clamp(21px,2.1vw,29px); letter-spacing:-.02em; color:var(--fg); white-space:nowrap; }
 .stat b .g{ color:var(--accent); display:inline; font-size:inherit; } .stat span{ display:block; color:var(--muted); font-size:14px; margin-top:12px; line-height:1.45; }
 
-/* TELAS — galeria clicável (abre no lightbox) */
-.gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-top:18px; }
-.shot{ margin:0; }
-.shot img{ width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top center; display:block; border:1px solid var(--line); border-radius:var(--r); background:#0a0b0d; cursor:zoom-in; transition:border-color .2s, transform .2s; }
-.shot img:hover{ border-color:color-mix(in srgb,var(--accent) 55%,var(--line)); transform:translateY(-2px); }
-.shot figcaption{ color:var(--muted); font-size:13px; margin-top:8px; }
+/* TELAS — carrossel de telas mobile (scroll-snap nativo; abre no lightbox) */
+.shot img{ cursor:zoom-in; }
+.carousel{ margin-top:18px; }
+.carousel .slide{ flex:0 0 clamp(172px,19vw,208px); }
+.carousel .slide img{ aspect-ratio:557/1083; object-fit:cover; object-position:center; background:#0a0b0d; cursor:zoom-in; transition:border-color .2s, transform .2s; }
+.carousel .slide img:hover{ border-color:color-mix(in srgb,var(--accent) 55%,var(--line)); transform:translateY(-2px); }
+.carousel .slide figcaption{ font-size:13px; }
 
 .grid{ grid-template-columns:repeat(3,1fr); }
 .grid .card .thumb{ aspect-ratio:37/13; }
@@ -125,7 +127,7 @@ body.lb-lock{ overflow:hidden; }
   <div class="fold-inner wrap">
     <span class="eyebrow">04 · SaaS e apps · App</span>
     <h1>App São João 2K25</h1>
-    <p class="fold-sub">O app do São João de Campina Grande 2025: programação, mapa, missões e notícias.</p>
+    <p class="fold-sub">Um app para consultar a programação do São João de Campina Grande, encontrar atrações e se orientar durante o evento.</p>
     <dl class="fold-info">
       <div><dt>Escopo</dt><dd>UX · UI · Componentes</dd></div>
       <div><dt>Meu papel</dt><dd>Product Designer</dd></div>
@@ -140,20 +142,20 @@ body.lb-lock{ overflow:hidden; }
   <!-- RESUMO -->
   <div class="resumo">
     <div class="resumo-label">RESUMO</div>
-    <p>O São João de Campina Grande dura o mês de junho inteiro e tem vários palcos. Em 2024 o evento teve só um site com o básico. Para 2025 desenhei o app: programação dia a dia, uma página por atração, o mapa do evento com hotéis, restaurantes e bares por perto, missões com conquistas, notícias e patrocinadores — em tema claro e escuro.</p>
+    <p>Desenhei a experiência do app do São João de Campina Grande 2025. O trabalho incluiu a navegação pela programação, as páginas das atrações, o mapa, as missões e as interfaces em tema claro e escuro.</p>
   </div>
 
   <section>
     <h2>O problema</h2>
-    <p class="muted">Com vários palcos e o mês inteiro de programação, faltava um lugar único para o público se organizar no dia a dia: ver as atrações por palco, achar o que tem por perto e acompanhar as notícias do evento. Em 2024 isso vivia num site com apenas o básico.</p>
+    <p class="muted">O evento se estende por todo o mês de junho e acontece em vários palcos. Para decidir o que assistir e se localizar, o público precisava consultar informações que, na edição anterior, estavam reunidas apenas em um site básico. O desafio era organizar esse volume de conteúdo numa navegação simples para quem está planejando a visita ou já está no evento.</p>
     <!-- REVISAR (Cleyton): o app foi publicado nas lojas? Quem desenvolveu? Se houver downloads, entram no Resultado. -->
   </section>
 
   <section>
     <h2>Antes e depois</h2>
     <div class="cmp">
-      <div><h3>Antes (2024)</h3><ul><li>Site com informações básicas</li><li>Sem programação dia a dia</li><li>Sem mapa, missões ou notícias</li></ul></div>
-      <div class="good"><h3>Com o app (2025)</h3><ul><li>Programação por dia e por palco</li><li>Mapa com pontos de apoio por perto</li><li>Missões e conquistas, tema claro e escuro</li></ul></div>
+      <div><h3>Antes (2024)</h3><ul><li>Site com informações básicas do evento</li><li>Cronograma básico de atrações</li><li>Sem gamificação</li></ul></div>
+      <div class="good"><h3>Na solução de 2025</h3><ul><li>Programação organizada por data e palco</li><li>Página com horário e local de cada atração</li><li>Mapa, notícias e missões acessíveis no app</li></ul></div>
     </div>
   </section>
 
@@ -167,38 +169,34 @@ body.lb-lock{ overflow:hidden; }
         <p class="pipe-cap">Mapa, home e programação.</p>
       </div>
       <ol class="steps">
-        <li><span class="step-n">1</span><div class="step-b"><b>Programação dia a dia</b><span>Calendário de junho; ao escolher o dia, destaques e atrações por palco.</span></div></li>
-        <li><span class="step-n">2</span><div class="step-b"><b>Página por atração</b><span>Data, hora, palco e sugestões de outras atrações.</span></div></li>
-        <li><span class="step-n">3</span><div class="step-b"><b>Mapa do evento</b><span>Hotéis, restaurantes, bares, cafeterias e museus por perto.</span></div></li>
-        <li><span class="step-n">4</span><div class="step-b"><b>Missões e conquistas</b><span>Visita locais, tira foto e ganha selo no perfil.</span></div></li>
-        <li><span class="step-n">5</span><div class="step-b"><b>Notícias e patrocinadores</b><span>Novidades do evento e espaço das marcas.</span></div></li>
+        <li><span class="step-n">1</span><div class="step-b"><b>Programação por dia e palco</b><span>O calendário dá acesso aos dias de junho. Em cada data, as atrações aparecem por palco, para facilitar a escolha do que assistir.</span></div></li>
+        <li><span class="step-n">2</span><div class="step-b"><b>Página de cada atração</b><span>Reúne data, horário e palco, além de sugerir outras atrações para continuar a descoberta da programação.</span></div></li>
+        <li><span class="step-n">3</span><div class="step-b"><b>Mapa do evento</b><span>Mostra locais do evento e opções próximas, como hotéis, restaurantes, bares, cafeterias e museus.</span></div></li>
+        <li><span class="step-n">4</span><div class="step-b"><b>Missões e conquistas</b><span>Convida o público a visitar locais, registrar uma foto e receber um selo no perfil.</span></div></li>
+        <li><span class="step-n">5</span><div class="step-b"><b>Notícias e patrocinadores</b><span>Reúne atualizações do evento e apresenta as marcas participantes.</span></div></li>
       </ol>
     </div>
     <div class="pipe-tools">
-      <span class="chip"><b>Programação</b><span>· por dia e palco</span></span>
-      <span class="chip"><b>Mapa</b><span>· pontos por perto</span></span>
-      <span class="chip"><b>Missões</b><span>· conquistas</span></span>
-      <span class="chip"><b>Tema</b><span>· claro e escuro</span></span>
+      <span class="chip"><b>Programação</b><span>· dia e palco</span></span>
+      <span class="chip"><b>Mapa</b><span>· locais próximos</span></span>
+      <span class="chip"><b>Missões</b><span>· visitas e selos</span></span>
     </div>
   </section>
 
   <section>
     <h2>Telas</h2>
-    <p class="muted">Da home ao mapa, missões e cadastro, em tema claro e escuro. Clique para ampliar.</p>
-    <div class="gallery">
-      <figure class="shot"><img src="assets/home-full.jpg" alt="Home completa" loading="lazy"><figcaption>Home — selo, acesso rápido, calendário e destaques.</figcaption></figure>
-      <figure class="shot"><img src="assets/dark-full.jpg" alt="Home em modo escuro" loading="lazy"><figcaption>Home no tema escuro.</figcaption></figure>
-      <figure class="shot"><img src="assets/programacao.jpg" alt="Programação" loading="lazy"><figcaption>Programação do dia.</figcaption></figure>
-      <figure class="shot"><img src="assets/programacao-b.jpg" alt="Página de atração" loading="lazy"><figcaption>Página de uma atração.</figcaption></figure>
-      <figure class="shot"><img src="assets/mapa.jpg" alt="Mapa do evento" loading="lazy"><figcaption>Mapa com pontos de apoio.</figcaption></figure>
-      <figure class="shot"><img src="assets/missoes.jpg" alt="Detalhe da missão Explorador Junino" loading="lazy"><figcaption>Missão "Explorador Junino".</figcaption></figure>
-      <figure class="shot"><img src="assets/missoes-b.jpg" alt="Tela de missões e conquistas" loading="lazy"><figcaption>Missões e conquistas.</figcaption></figure>
-      <figure class="shot"><img src="assets/login.jpg" alt="Login" loading="lazy"><figcaption>Login com Google, Apple e Facebook.</figcaption></figure>
-      <figure class="shot"><img src="assets/registro.jpg" alt="Cadastro" loading="lazy"><figcaption>Cadastro.</figcaption></figure>
-      <figure class="shot"><img src="assets/noticia.jpg" alt="Notícia" loading="lazy"><figcaption>Notícia.</figcaption></figure>
-      <figure class="shot"><img src="assets/patrocinadores.jpg" alt="Patrocinador" loading="lazy"><figcaption>Patrocinador.</figcaption></figure>
-      <figure class="shot"><img src="assets/menu.jpg" alt="Menu" loading="lazy"><figcaption>Menu.</figcaption></figure>
-      <figure class="shot"><img src="assets/wireframes.jpg" alt="Wireframes do app" loading="lazy"><figcaption>Wireframes iniciais (home, notícias, parceiros e cadastro).</figcaption></figure>
+    <p class="muted">O fluxo do usuário, da abertura do app ao conteúdo do evento: onboarding, acesso à conta, home, programação, mapa, missões e notícias. Arraste para navegar; clique para ampliar.</p>
+    <div class="carousel">
+      <figure class="slide shot"><img src="assets/sj-splash.webp" alt="Onboarding do app São João" loading="lazy"><figcaption>Onboarding · boas-vindas e introdução.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-login.webp" alt="Login" loading="lazy"><figcaption>Login · opções de acesso.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-registro.webp" alt="Cadastro" loading="lazy"><figcaption>Cadastro · criação da conta.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-home.webp" alt="Home do app" loading="lazy"><figcaption>Home · calendário, destaques e acessos rápidos.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-menu.webp" alt="Menu" loading="lazy"><figcaption>Menu · acesso às áreas do app.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-programacao.webp" alt="Programação" loading="lazy"><figcaption>Programação · atrações do dia.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-mapa.webp" alt="Mapa do evento" loading="lazy"><figcaption>Mapa · locais e opções próximas.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-missoes.webp" alt="Missões e conquistas" loading="lazy"><figcaption>Missões · atividades e conquistas.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-noticia.webp" alt="Notícia" loading="lazy"><figcaption>Notícia · conteúdo do evento.</figcaption></figure>
+      <figure class="slide shot"><img src="assets/sj-patrocinadores.webp" alt="Patrocinador" loading="lazy"><figcaption>Patrocinador · espaço da marca.</figcaption></figure>
     </div>
   </section>
 
@@ -206,10 +204,9 @@ body.lb-lock{ overflow:hidden; }
     <h2>Resultado</h2>
     <div class="stats">
       <div class="stat"><b>App <span class="g">oficial</span></b><span>do São João de Campina Grande 2025</span></div>
-      <div class="stat"><b>Tema <span class="g">claro e escuro</span></b><span>a interface inteira nos dois temas</span></div>
       <div class="stat"><b>Missões <span class="g">+ conquistas</span></b><span>camada de jogo para explorar a cidade</span></div>
     </div>
-    <p class="muted" style="margin-top:18px">Este case mostra o design e as decisões do produto. O app cobre o mês inteiro de evento num só lugar — programação, mapa, missões e notícias — no lugar do site básico de 2024.</p>
+    <p class="muted" style="margin-top:18px">O projeto reuniu a programação, o mapa, as notícias e as missões em uma experiência mobile, com interfaces desenhadas para os temas claro e escuro. A navegação por dia, palco e atração organiza a consulta ao longo do mês de evento.</p>
   </section>
 
   <section>
