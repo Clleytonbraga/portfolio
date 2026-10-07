@@ -101,11 +101,11 @@
     row.addEventListener('blur',  function () { if (tween) tween.kill(); st.p = 0; apply(); rf.style.opacity = 0; });
   }
 
-  function sectionHeader(s) {
+  function sectionHeader(s, num) {
     var h = document.createElement('div');
     h.className = 'sec-head';
     h.innerHTML =
-      '<span class="sec-num">' + s.num + '</span>' +
+      '<span class="sec-num">' + num + '</span>' +
       '<span class="sec-line" aria-hidden="true"></span>' +
       (s.keywords && s.keywords.length
         ? '<span class="sec-kw">' + s.keywords.map(function (k) { return '<span>' + k + '</span>'; }).join('') + '</span>'
@@ -113,23 +113,25 @@
     return h;
   }
 
-  window.SECTIONS.forEach(function (s) {
+  window.SECTIONS.forEach(function (s, i) {
+    /* numeral sequencial pela posição (ignora s.num) — some a lacuna quando uma aba está escondida */
+    var num = ('0' + (i + 1)).slice(-2);
     var link = s.href && !s.locked;
     var el = document.createElement(link ? 'a' : 'div');
     el.className = 'col' + (s.fixed ? ' fixed' : '') + (s.variant ? ' ' + s.variant : '') + (s.locked ? ' col--locked' : '');
     if (s.locked) {
       el.tabIndex = 0;
-      el.setAttribute('aria-label', s.num + ' · ' + s.title + ' (' + s.locked + ')');
+      el.setAttribute('aria-label', num + ' · ' + s.title + ' (' + s.locked + ')');
     } else if (link) {
       el.href = s.href;
-      el.setAttribute('aria-label', s.num + ' · ' + s.title + (s.keywords && s.keywords.length ? ' — ' + s.keywords.join(', ') : ''));
+      el.setAttribute('aria-label', num + ' · ' + s.title + (s.keywords && s.keywords.length ? ' — ' + s.keywords.join(', ') : ''));
     } else {
       el.tabIndex = 0;
     }
     el.style.setProperty('--accent', s.accent);
     el.style.setProperty('--img', s.img ? 'url("' + s.img + '")' : 'none');
 
-    el.appendChild(sectionHeader(s));
+    el.appendChild(sectionHeader(s, num));
 
     var label = document.createElement('span');
     label.className = 'col-label';
