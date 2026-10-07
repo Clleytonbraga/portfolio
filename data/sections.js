@@ -20,9 +20,11 @@ window.SECTIONS = [
     title: 'Produto web', href: null, /* lista inline dos cases no painel (tpl-produto) */
     img: 'cases/bpx/assets/jornada.webp', body: 'tpl-cases', variant: 'col--cases' },
 
+  /* aba 3 escondida até terminar — desenvolvida na branch game-design
   { num: '03', accent: '#ec6a7f', keywords: ['Jogos', 'Experiências', 'Interação'],
     title: 'Game design', href: null,
     img: 'cases/sao-braz/assets/aba4-games.webp', body: 'tpl-games', variant: 'col--cases' },
+  */
 
   { num: '04', accent: '#eea25c', keywords: ['Ferramentas', 'Fluxos', 'Dados'],
     title: 'SaaS e apps', href: null,
