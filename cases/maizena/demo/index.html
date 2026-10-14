@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maizena — Caça-Receitas</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cleyton Braga">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Maizena — Caça-Receitas">
+<meta property="og:description" content="Portfólio de Cleyton Braga — produto web e game design.">
+<meta property="og:url" content="https://cleytonbraga.com/cases/maizena/demo/">
+<meta property="og:image" content="https://cleytonbraga.com/assets/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  /* Caça-receitas Maizena — assets reais do Figma. Gire e acerte os 3 ingredientes.
+     A receita (foto polaroide no caderno) abre num modal. Desktop horizontal + mobile. */
+  :root{
+    --y1:#ffe14d; --y2:#ffc400; --y3:#f0a400;
+    --gold:#e7a900; --red:#e2231a; --orange:#f07a1e; --green:#2fb457; --paper:#fffdf5; --ink:#4a3200;
+  }
+  *{ box-sizing:border-box; margin:0; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    font-family:"Trebuchet MS", system-ui, sans-serif; color:var(--ink);
+    background:var(--y2) url(assets/box-bg.webp) center top/cover no-repeat fixed;
+    min-height:100%; display:flex; align-items:center; justify-content:center;
+    padding:20px; overflow-x:hidden;
+  }
+  .game{ display:flex; gap:clamp(16px,2.6vw,38px); align-items:center; justify-content:center; width:100%; max-width:1000px; }
+
+  /* ===== painel da máquina (caixa de luz) ===== */
+  .panel{ position:relative; flex:1 1 60%; max-width:600px; min-width:0;
+    border-radius:24px; padding:clamp(16px,2vw,24px) clamp(16px,2vw,26px) clamp(16px,2vw,22px);
+    background:linear-gradient(180deg,#ffd62e,#f2a900);
+    box-shadow:0 18px 40px -16px rgba(120,70,0,.55), inset 0 0 0 3px rgba(255,255,255,.3), inset 0 0 0 9px var(--gold); }
+  .bulbs{ position:absolute; inset:0; pointer-events:none; z-index:1; }
+  .bulb{ position:absolute; width:10px; height:10px; margin:-5px 0 0 -5px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff, #ffe680 42%, #e89a00 100%);
+    box-shadow:0 0 5px 1px rgba(255,220,90,.85); animation:blink 1.1s infinite ease-in-out; }
+  @keyframes blink{ 0%,100%{ opacity:1; filter:brightness(1.15); } 50%{ opacity:.3; filter:brightness(.7); } }
+
+  .brand{ position:relative; z-index:2; text-align:center; padding:6px 0 4px; }
+  .brand img{ width:min(168px,46%); display:block; margin:10px auto; }
+  .brand .sub{ font-size:11px; font-weight:bold; letter-spacing:4px; color:#6b4a00; text-transform:uppercase; }
+
+  .machine-wrap{ position:relative; z-index:2; width:100%; }
+  .machine-wrap img.machine{ display:block; width:100%; height:auto; }
+  .reel{ position:absolute; overflow:hidden; top:21%; height:60%; }
+  .reel0{ left:4.3%; width:28.9%; } .reel1{ left:35.2%; width:29.4%; } .reel2{ left:66.6%; width:28.75%; }
+  .strip{ display:flex; flex-direction:column; will-change:transform; }
+  .cell{ display:flex; align-items:center; justify-content:center; }
+  .cell img{ width:72%; height:72%; object-fit:contain; filter:drop-shadow(0 2px 3px rgba(80,50,0,.28)); }
+  .reel.hit::after{ content:""; position:absolute; inset:0; box-shadow:inset 0 0 0 3px var(--green); border-radius:40%/18%; }
+
+  .lever{ position:relative; z-index:2; margin-top:16px; width:100%; cursor:pointer; border:0; font-family:inherit;
+    display:flex; align-items:center; justify-content:center; gap:14px; padding:16px 18px; border-radius:14px;
+    background:linear-gradient(180deg,#ffa23a,#e2231a);
+    box-shadow:0 6px 0 #a4140d, 0 10px 22px -6px rgba(226,35,26,.55), inset 0 1px 0 rgba(255,255,255,.4);
+    animation:leverPulse 1.8s ease-in-out infinite; transition:transform .06s, box-shadow .06s; }
+  .lever:active:not(:disabled){ transform:translateY(5px); box-shadow:0 1px 0 #a4140d, inset 0 1px 0 rgba(255,255,255,.4); animation:none; }
+  .lever:disabled{ filter:saturate(.7) brightness(.97); cursor:default; animation:none; }
+  .lever span{ font-size:clamp(16px,2vw,21px); font-weight:800; letter-spacing:2.5px; color:#fff; text-shadow:0 1px 2px rgba(120,10,0,.5); }
+  .lever .dot{ width:22px; height:22px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fff,#ffd34d 55%,#f0a400); box-shadow:0 2px 4px rgba(0,0,0,.3), 0 0 8px rgba(255,220,90,.8); }
+  @keyframes leverPulse{ 0%,100%{ box-shadow:0 6px 0 #a4140d, 0 10px 22px -6px rgba(226,35,26,.5), inset 0 1px 0 rgba(255,255,255,.4); } 50%{ box-shadow:0 6px 0 #a4140d, 0 12px 30px -4px rgba(226,35,26,.9), inset 0 1px 0 rgba(255,255,255,.4); } }
+
+  /* ===== deck da receita (lado direito) ===== */
+  .deck{ flex:0 1 330px; min-width:0; position:relative; background:var(--paper); border-radius:18px;
+    padding:clamp(16px,1.8vw,22px) clamp(14px,1.6vw,20px) clamp(16px,1.8vw,20px);
+    box-shadow:0 16px 34px -14px rgba(120,70,0,.5); text-align:center; }
+  .deck-head{ font-size:11px; font-weight:bold; letter-spacing:3px; color:#b07800; text-transform:uppercase; }
+  .deck-name{ margin:5px 0 2px; font-size:clamp(20px,2.4vw,26px); font-weight:800; color:#b23b00; letter-spacing:.3px; }
+  .iglabel{ margin:16px 0 9px; font-size:11px; font-weight:bold; letter-spacing:3px; color:#b07800; text-transform:uppercase; }
+  .reqs{ display:flex; justify-content:center; gap:10px; }
+  .req{ position:relative; width:31%; max-width:94px; background:#fff; border-radius:12px; padding:9px 4px 7px;
+    box-shadow:0 2px 6px -2px rgba(0,0,0,.22); border:2px solid #f0e6c8; transition:border-color .2s; text-align:center; }
+  .req img{ width:76%; aspect-ratio:1/1; object-fit:contain; display:block; margin:0 auto; }
+  .req b{ display:block; font-size:10px; font-weight:bold; color:#7a5200; text-transform:uppercase; margin-top:2px; }
+  .req .mark{ position:absolute; top:-9px; right:-9px; width:22px; height:22px; border-radius:50%; display:none;
+    align-items:center; justify-content:center; font-size:14px; color:#fff; font-weight:bold; background:var(--green); }
+  .req.ok{ border-color:var(--green); } .req.ok .mark{ display:flex; }
+
+  /* "ver receita" = link de texto secundário (ícone de info + sublinhado) */
+  .see{ margin:16px auto 0; cursor:pointer; border:0; background:none; box-shadow:none; font-family:inherit;
+    display:inline-flex; align-items:center; gap:6px; padding:4px 6px; color:var(--red); }
+  .see svg{ width:16px; height:16px; flex:none; }
+  .see span{ font-size:14px; font-weight:bold; letter-spacing:.3px; color:var(--red);
+    text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1.5px; }
+  .see:hover span{ text-decoration-thickness:2.5px; }
+
+  .result{ margin-top:14px; min-height:22px; font-weight:800; font-size:15px; }
+  .result.win{ color:var(--green); } .result.lose{ color:#c23a00; }
+  .prog{ margin-top:5px; font-size:11px; color:#9a6e20; letter-spacing:1px; }
+
+  /* ===== modal da receita (polaroide no caderno) ===== */
+  .modal{ position:fixed; inset:0; z-index:60; display:flex; align-items:center; justify-content:center; padding:20px;
+    background:rgba(40,25,0,.55); opacity:0; visibility:hidden; transition:opacity .22s; }
+  .modal.open{ opacity:1; visibility:visible; }
+  .note{ position:relative; width:min(380px,92vw); max-height:92vh; overflow:auto; border-radius:10px; padding:26px 22px 24px;
+    background:
+      linear-gradient(#fcf7e8,#fcf7e8) padding-box,
+      repeating-linear-gradient(#fcf7e8 0 31px, #d9ead0 31px 32px);
+    box-shadow:0 26px 60px -18px rgba(0,0,0,.6); transform:translateY(12px) scale(.97); transition:transform .25s; }
+  .modal.open .note{ transform:none; }
+  .note-close{ position:absolute; top:8px; right:10px; z-index:3; width:30px; height:30px; border:0; border-radius:50%;
+    background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.25); cursor:pointer; font-size:16px; color:#b23b00; line-height:1; }
+  .polaroid{ position:relative; width:78%; margin:14px auto 6px; background:#fff; padding:12px 12px 0; border-radius:3px;
+    box-shadow:0 10px 22px -8px rgba(0,0,0,.45); transform:rotate(-2.4deg); }
+  .polaroid img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:2px; }
+  .polaroid .cap{ padding:10px 4px 14px; text-align:center; font-family:"Comic Sans MS","Trebuchet MS",cursive;
+    font-size:17px; font-weight:bold; color:#4a3200; }
+  .tape{ position:absolute; width:74px; height:26px; background:rgba(255,214,59,.55);
+    box-shadow:0 1px 3px rgba(0,0,0,.18); top:-12px; }
+  .tape.l{ left:-16px; transform:rotate(-32deg); } .tape.r{ right:-16px; transform:rotate(32deg); }
+  .note h3{ text-align:center; margin:12px 0 2px; color:#b23b00; font-size:13px; letter-spacing:2px; text-transform:uppercase; }
+  .note .mreqs{ display:flex; justify-content:center; gap:10px; margin:8px 6px 4px; }
+  .note .mreqs .req{ border-color:#eadfc0; }
+  .note .tag{ text-align:center; margin-top:12px; font-size:12px; color:#8a6a2a; }
+  .note .tag b{ color:#b23b00; }
+  .note-cta{ margin:18px auto 2px; display:block; cursor:pointer; border:0; font-family:inherit;
+    padding:12px 26px; border-radius:999px; font-size:15px; font-weight:800; letter-spacing:.5px; color:#fff;
+    background:linear-gradient(180deg,#ffa23a,#e2231a); box-shadow:0 4px 0 #a4140d, 0 8px 18px -6px rgba(226,35,26,.6);
+    transition:transform .08s, box-shadow .08s; }
+  .note-cta:active{ transform:translateY(3px); box-shadow:0 1px 0 #a4140d; }
+
+  @media (max-width:760px){
+    body{ padding:12px; align-items:flex-start; }
+    .game{ flex-direction:column; align-items:center; max-width:430px; gap:16px; }
+    .panel{ width:100%; flex:none; } .deck{ width:100%; flex:none; }
+  }
+  @media (prefers-reduced-motion:reduce){ .bulb,.lever{ animation:none; } .conf{ display:none; } .note,.modal{ transition:none; } }
+
+  .conf{ position:fixed; top:-24px; font-size:22px; z-index:70; pointer-events:none; animation:fall linear forwards; }
+  @keyframes fall{ to{ transform:translateY(112vh) rotate(380deg); opacity:.15; } }
+</style>
+</head>
+<body>
+  <div class="game">
+    <!-- máquina -->
+    <div class="panel" id="panel">
+      <div class="bulbs" id="bulbs"></div>
+      <div class="brand"><img src="assets/logo-black.webp" alt="Maizena"><div class="sub">Caça-Receitas</div></div>
+      <div class="machine-wrap">
+        <img class="machine" src="assets/machine.webp" alt="Caça-níquel Maizena">
+        <div class="reel reel0"><div class="strip" id="r0"></div></div>
+        <div class="reel reel1"><div class="strip" id="r1"></div></div>
+        <div class="reel reel2"><div class="strip" id="r2"></div></div>
+      </div>
+      <button class="lever" id="lever" type="button"><span>PRESSIONE</span><i class="dot"></i><span>GIRAR</span></button>
+    </div>
+
+    <!-- deck da receita -->
+    <div class="deck">
+      <div class="deck-head">Receita da vez</div>
+      <h2 class="deck-name" id="recName">Batata Frita</h2>
+      <div class="iglabel">Ingredientes</div>
+      <div class="reqs" id="reqs"></div>
+      <button class="see" id="see" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><line x1="12" y1="11" x2="12" y2="16.2"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>Ver receita</span></button>
+      <div class="result" id="result">Gire para começar</div>
+      <div class="prog" id="prog"></div>
+    </div>
+  </div>
+
+  <!-- modal receita -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Receita">
+    <div class="note">
+      <button class="note-close" id="mclose" type="button" aria-label="Fechar">✕</button>
+      <div class="polaroid">
+        <span class="tape l"></span><span class="tape r"></span>
+        <img id="mphoto" src="assets/rec/batata-frita.webp" alt="">
+        <div class="cap" id="mcap">Batata Frita</div>
+      </div>
+      <h3>Feita com Maizena</h3>
+      <div class="mreqs" id="mreqs"></div>
+      <div class="tag">Receita completa na <b>embalagem</b>.</div>
+      <button class="note-cta" id="again" type="button" hidden>Jogar de novo →</button>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  // ingredientes das receitas + distratores das faixas do Figma (554:20153/20224/20290), fotos sem fundo
+  var ING = { maizena:'Maizena', batata:'Batata', sal:'Sal', milho:'Milho', oleo:'Óleo',
+    acucar:'Açúcar', leite:'Leite', ovos:'Ovos', manteiga:'Manteiga',
+    azeitona:'Azeitona', bife:'Bife', cebola:'Cebola', 'couve-flor':'Couve-flor', ervilha:'Ervilha',
+    limao:'Limão', azeite:'Azeite', pimenta:'Pimenta verde', salsao:'Salsão' };
+  var POOL = Object.keys(ING);
+  var img = function(k){ return 'assets/ing/'+k+'.webp'; };
+  var RECIPES = [
+    { key:'batata-frita',  name:'Batata Frita',  ings:['maizena','batata','sal'] },
+    { key:'bolo-de-milho', name:'Bolo de Milho', ings:['maizena','milho','oleo'] },
+    { key:'mingau',        name:'Mingau',        ings:['maizena','acucar','leite'] },
+    { key:'pizza',         name:'Pizza',         ings:['maizena','ovos','leite'] },
+    { key:'sequilho',      name:'Sequilho',      ings:['maizena','manteiga','acucar'] }
+  ];
+  var BIAS = 0.68;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var strips = [ $('r0'), $('r1'), $('r2') ];
+  var lever=$('lever'), result=$('result'), prog=$('prog'), recName=$('recName'), reqsEl=$('reqs');
+  var modal=$('modal'), mphoto=$('mphoto'), mcap=$('mcap'), mreqs=$('mreqs'), again=$('again');
+
+  function cellH(){ return strips[0].parentElement.clientHeight; }
+  function CELL(k){ return '<div class="cell" style="height:'+cellH()+'px"><img src="'+img(k)+'" alt=""></div>'; }
+  strips.forEach(function(st){ st.innerHTML=CELL('maizena'); });
+
+  function reqHTML(k){ return '<div class="req"><span class="mark">✓</span><img src="'+img(k)+'" alt=""><b>'+ING[k]+'</b></div>'; }
+
+  var rIdx=0, unlocked={}, busy=false, wonPending=false;
+  function showRecipe(i){
+    var r=RECIPES[i];
+    recName.textContent=r.name;
+    reqsEl.innerHTML=r.ings.map(reqHTML).join('');
+    // modal content
+    mphoto.src='assets/rec/'+r.key+'.webp'; mphoto.alt=r.name; mcap.textContent=r.name;
+    mreqs.innerHTML=r.ings.map(reqHTML).join('');
+    updateProg();
+  }
+  function updateProg(){ prog.textContent='Receitas desbloqueadas: '+Object.keys(unlocked).length+' / '+RECIPES.length; }
+
+  // modal
+  var lastFocus=null;
+  function openModal(){ lastFocus=document.activeElement; modal.classList.add('open'); $('mclose').focus(); }
+  function closeModal(){ modal.classList.remove('open'); if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    if(wonPending){ wonPending=false; advance(); } }
+  $('see').addEventListener('click', function(){ again.hidden=true; openModal(); });
+  $('mclose').addEventListener('click', closeModal);
+  again.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
+
+  function pick(correct){ if(Math.random()<BIAS) return correct;
+    var o=POOL.filter(function(k){return k!==correct;}); return o[Math.floor(Math.random()*o.length)]; }
+  function spinReel(st, idx, finalKey, done){
+    var ch=cellH(), n=16+idx*6, html='';
+    for(var k=0;k<n;k++){ html+=CELL(POOL[Math.floor(Math.random()*POOL.length)]); }
+    html+=CELL(finalKey);
+    st.style.transition='none'; st.style.transform='translateY(0)'; st.innerHTML=html; void st.offsetHeight;
+    var dur=reduce?0:(1000+idx*430);
+    st.style.transition='transform '+dur+'ms cubic-bezier(.11,.66,.2,1)';
+    st.style.transform='translateY(-'+(n*ch)+'px)';
+    if(dur===0){ done(); } else { var e=function(){ st.removeEventListener('transitionend',e); done(); }; st.addEventListener('transitionend',e); }
+  }
+  function confetti(){ if(reduce) return; var ch=['🌽','⭐','🎉','🥣','🧈'];
+    for(var i=0;i<28;i++){ (function(){ var c=document.createElement('div'); c.className='conf';
+      c.textContent=ch[Math.floor(Math.random()*ch.length)]; c.style.left=Math.random()*100+'vw';
+      c.style.animationDuration=(1.3+Math.random()*1.3)+'s'; c.style.animationDelay=(Math.random()*0.3)+'s';
+      document.body.appendChild(c); setTimeout(function(){c.remove();},3200); })(); } }
+
+  function spin(){
+    if(busy) return; var r=RECIPES[rIdx];
+    busy=true; lever.disabled=true; result.className='result'; result.textContent='';
+    Array.prototype.forEach.call(reqsEl.children,function(el){ el.classList.remove('ok'); });
+    strips.forEach(function(st){ st.parentElement.classList.remove('hit'); });
+    var landed=[null,null,null], done=0;
+    r.ings.forEach(function(correct,i){
+      var key=pick(correct); landed[i]=key;
+      spinReel(strips[i], i, key, function(){
+        if(key===correct){ strips[i].parentElement.classList.add('hit'); reqsEl.children[i].classList.add('ok'); }
+        if(++done===3) finish(r,landed);
+      });
+    });
+  }
+  // troca de receita só acontece aqui (clique em "Jogar de novo" / fechar o modal de vitória)
+  function advance(){
+    again.hidden=true;
+    if(Object.keys(unlocked).length>=RECIPES.length){
+      unlocked={}; rIdx=0; showRecipe(0);
+      result.className='result'; result.textContent='Novo ciclo! Gire para acertar.';
+    } else {
+      var nx=rIdx; for(var s=0;s<RECIPES.length;s++){ nx=(nx+1)%RECIPES.length; if(!unlocked[RECIPES[nx].key]) break; }
+      rIdx=nx; showRecipe(rIdx);
+      result.className='result'; result.textContent='Nova receita! Gire para acertar.';
+    }
+    strips.forEach(function(st){ st.parentElement.classList.remove('hit'); });
+    busy=false; lever.disabled=false;
+  }
+  function finish(r,landed){
+    var win=r.ings.every(function(k,i){ return landed[i]===k; });
+    if(win){
+      unlocked[r.key]=true; updateProg();
+      var allDone=Object.keys(unlocked).length>=RECIPES.length;
+      result.className='result win';
+      result.textContent = allDone ? 'Você desbloqueou todas as receitas! 🏆' : 'Boa! Você fez '+r.name+' 🎉';
+      confetti();
+      again.hidden=false; again.textContent = allDone ? 'Jogar tudo de novo →' : 'Jogar de novo →';
+      wonPending=true;                     // receita NÃO muda sozinha; lever fica travado até "Jogar de novo"
+      setTimeout(openModal, reduce?0:500);
+    } else {
+      var hits=r.ings.filter(function(k,i){ return landed[i]===k; }).length;
+      result.className='result lose';
+      result.textContent = hits>0 ? ('Quase! '+hits+'/3 ingredientes.') : 'Que pena! Gire de novo.';
+      busy=false; lever.disabled=false;
+    }
+  }
+
+  // lâmpadas
+  var panel=$('panel'), bulbsEl=$('bulbs');
+  function layoutBulbs(){ var w=panel.clientWidth,h=panel.clientHeight; if(!w) return;
+    var inset=6,gap=25,pts=[],x,y; var cols=Math.max(2,Math.round((w-inset*2)/gap)),rows=Math.max(2,Math.round((h-inset*2)/gap));
+    for(var i=0;i<=cols;i++){ x=inset+(w-inset*2)*i/cols; pts.push([x,inset]); pts.push([x,h-inset]); }
+    for(var j=1;j<rows;j++){ y=inset+(h-inset*2)*j/rows; pts.push([inset,y]); pts.push([w-inset,y]); }
+    bulbsEl.innerHTML=pts.map(function(p,k){ return '<i class="bulb" style="left:'+p[0]+'px;top:'+p[1]+'px;animation-delay:'+((k%10)*0.09)+'s"></i>'; }).join('');
+  }
+  function relayout(){ strips.forEach(function(st){ if(st.children.length===1) st.innerHTML=CELL('maizena'); }); layoutBulbs(); }
+
+  lever.addEventListener('click', spin);
+  document.addEventListener('keydown', function(e){ if((e.key===' ')&&!modal.classList.contains('open')){ e.preventDefault(); spin(); } });
+  showRecipe(0);
+  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(relayout,120); });
+  window.addEventListener('load', relayout);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layoutBulbs);
+  var mImg=document.querySelector('img.machine'); if(mImg.complete) relayout(); else mImg.addEventListener('load', relayout);
+})();
+</script>
+</body>
+</html>
