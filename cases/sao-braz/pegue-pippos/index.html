@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pegue o Pippo's · São Braz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --brown:#84422d; --orange:#f78e33; --ink:#2b1a10; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; background:#3a1d13; overflow:hidden; }
+  body{ font-family:"Mitr",system-ui,sans-serif; color:#fff; display:grid; place-items:center;
+    height:100dvh; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent; }
+  /* tela 1080×1920 (frames do Figma); 1cqw = 10.8px de design */
+  .phone{ position:relative; aspect-ratio:1080/1920; height:min(100dvh, calc(100vw*1920/1080));
+    container-type:inline-size; overflow:hidden; background:var(--brown); border-radius:min(2.2cqw,20px); }
+  canvas{ position:absolute; inset:0; width:100%; height:100%; touch-action:none; display:block; }
+  .scr{ position:absolute; inset:0; display:none; }
+  .scr.on{ display:block; }
+  .scr > img.full{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .hit{ position:absolute; border:0; background:transparent; cursor:pointer; border-radius:3cqw; }
+  .hit:focus-visible{ outline:3px solid #fff; outline-offset:2px; }
+
+  /* loading (49:… GAME 2 / Home "carregando servidor") */
+  #load{ background:var(--brown); }
+  #load::before{ content:""; position:absolute; inset:1.5cqw 1.5cqw 2.5cqw; border-radius:2cqw; background:rgba(255,255,255,.035); }
+  #load img{ position:absolute; left:22.6%; top:29.9%; width:54.8%; opacity:0; animation:lring 1.6s linear infinite; }
+  #load img:nth-of-type(2){ animation-delay:.4s } #load img:nth-of-type(3){ animation-delay:.8s } #load img:nth-of-type(4){ animation-delay:1.2s }
+  /* cada quadro do anel (541:19726) entra e sai em fade, sobrepondo o próximo → giro contínuo */
+  @keyframes lring{ 0%{opacity:0} 12.5%{opacity:1} 25%{opacity:1} 37.5%{opacity:0} 100%{opacity:0} }
+  @media (prefers-reduced-motion:reduce){ #load img{ animation:none } #load img:first-of-type{ opacity:1 } }
+  #load p{ position:absolute; left:0; right:0; top:66.3%; text-align:center; font-size:3.7cqw; letter-spacing:.25cqw; color:#f0f0f0; text-transform:uppercase; }
+
+  /* contagem "Prepare-se 3/2/1" + VAI */
+  #count{ background:rgba(132,66,45,.9); }
+  #count .lbl{ position:absolute; left:0; right:0; top:33.6%; text-align:center; font-size:5.3cqw; color:#f0f0f0; text-transform:uppercase; }
+  #count .num{ position:absolute; left:0; right:0; top:34.5%; text-align:center; font-size:46cqw; font-weight:600; line-height:1.15; }
+  #count .vai{ position:absolute; left:15.8%; top:32.5%; width:68.3%; display:none; }
+  #count.go .lbl, #count.go .num{ display:none; }
+  #count.go .vai{ display:block; animation:pop .45s cubic-bezier(.2,1.6,.4,1) both; }
+  .num.tick{ animation:pop .35s cubic-bezier(.2,1.6,.4,1) both; }
+  @keyframes pop{ from{ transform:scale(.4); opacity:0 } to{ transform:scale(1); opacity:1 } }
+
+  /* fim de jogo (541:16224 vitória / 541:30172 derrota) */
+  #over{ background:rgba(132,66,45,.93); }
+  #over .col{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3.4cqw; padding:0 7cqw; text-align:center; }
+  #over h2{ font-weight:500; font-size:10.4cqw; line-height:1; text-shadow:0 .5cqw 0 rgba(0,0,0,.35); }
+  #over p{ font-weight:300; font-size:5.9cqw; line-height:1.25; }
+  #over .panel{ width:94.6cqw; height:17cqw; border:.5cqw solid rgba(0,0,0,.18); border-radius:5cqw; background:rgba(0,0,0,.06);
+    display:flex; align-items:center; justify-content:center; gap:3cqw; position:relative; }
+  #over .panel img{ height:21cqw; margin-top:-3cqw; }
+  #over .panel b{ font-weight:500; font-size:12.5cqw; line-height:1; text-shadow:0 .6cqw 0 var(--ink); }
+  #over .best{ font-size:3.5cqw; font-weight:400; opacity:.9; min-height:1em; }
+  #over.lose .win, #over.win .lose{ display:none; }
+  .btn{ width:85.9cqw; height:12.5cqw; border:0; border-radius:2.2cqw; background:var(--orange); color:#fff; cursor:pointer;
+    font:600 4.95cqw "Mitr",sans-serif; text-transform:uppercase; text-shadow:0 .35cqw 0 var(--ink);
+    box-shadow:0 1.1cqw 0 var(--ink); margin-top:1.5cqw; }
+  .btn:active{ transform:translateY(.6cqw); box-shadow:0 .5cqw 0 var(--ink); }
+  .btn:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <canvas id="cv" width="1080" height="1920" aria-label="Pegue o Pippo's — área do jogo"></canvas>
+
+  <div class="scr on" id="load"><img src="assets/loader1.webp" alt="Pegue o Pippo's"><img src="assets/loader2.webp" alt=""><img src="assets/loader3.webp" alt=""><img src="assets/loader4.webp" alt=""><p>Carregando</p></div>
+
+  <div class="scr" id="home">
+    <img class="full" src="assets/home.webp" alt="Desafio do mês: Pegue o Pippo's — São Braz e Pippo's Vitaminado">
+    <button class="hit" id="btnPlay" style="left:7%;top:67.8%;width:86%;height:10%" aria-label="Jogar"></button>
+    <button class="hit" id="btnHow" style="left:33%;top:78.6%;width:34%;height:4.6%" aria-label="Como jogar"></button>
+  </div>
+
+  <div class="scr" id="tut">
+    <img class="full" src="assets/tutorial.webp" alt="Como jogar: clique e arraste para pegar o Pippo's, evite as bombas, ganha quem terminar mais rápido">
+    <button class="hit" id="btnOk" style="left:7%;top:84.2%;width:86%;height:10%" aria-label="Ok, vamos lá"></button>
+  </div>
+
+  <div class="scr" id="count"><div class="lbl" id="cLbl">Prepare-se</div><div class="num" id="cNum">3</div><img class="vai" src="assets/vai.webp" alt="Vai!"></div>
+
+  <div class="scr" id="over">
+    <div class="col">
+      <h2>Fim de jogo!</h2>
+      <p class="win">Sua pontuação é:</p>
+      <div class="panel"><img class="win" src="assets/bag.webp" alt=""><img class="lose" src="assets/bomb.webp" alt=""><b class="win" id="finalScore">x0</b></div>
+      <div class="best win" id="finalTime"></div>
+      <p class="win">Então, acha que consegue superar isso?</p>
+      <p class="lose">Não foi dessa vez,<br>Vamos tentar novamente?</p>
+      <div class="best" id="best"></div>
+      <button class="btn" id="btnAgain">Jogar novamente</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var W=1080, H=1920;
+  var cv=document.getElementById('cv'), cx=cv.getContext('2d');
+  var $=function(id){ return document.getElementById(id); };
+
+  // ---------- assets (todos exportados do Figma GAME 2 · 541:7835) ----------
+  var NAMES=['board','pill','snd-on','snd-off','base','bag','bag-flat','bomb','hand1b','hand2b',
+    'dog-rest','dog-idle1','dog-idle2','dog-idle3','dog-idle4','dog-idle5','dog-eat1','dog-eat2','dog-eat3','dog-eat4',
+    'boom1','boom2','boom3','boom4','boom5','boom6','loader1','loader2','loader3','loader4',
+    'box-wood1','box-wood2','box-wood3','box-wood4','box-wood5','box-stone1','box-stone2','box-stone3','box-stone4','box-stone5'];
+  var IMG={};
+  function load(n){ return new Promise(function(ok){ var i=new Image(); i.onload=i.onerror=function(){ ok(); }; i.src='assets/'+n+'.webp'; IMG[n]=i; }); }
+
+  // ---------- grade do tabuleiro (medida no BG 541:8423) ----------
+  var GX=50, GY=59, CW=140, CH=138.5, COLS=7;
+  var ROW0=2, ROW1=8;                 // linhas jogáveis
+  var DOG_CELLS={'2,8':1,'3,8':1,'4,8':1};  // cabeça/orelhas do cão
+  var ENTRY=[4,8];                    // por onde o braço sai
+  function cc(c,r){ return {x:GX+CW*(c+.5), y:GY+CH*(r+.5)}; }
+
+  // cão (instância 301² em 384,1201) e base (192×196 em 444,1424)
+  var DOG={x:384,y:1201,s:301}, SHOULDER={x:536,y:1370}, REST={x:596,y:1360}; // braço nasce dentro do tronco, na altura do ombro (articulação ≈ 57%,55% do sprite)
+  // fases: dificuldade progressiva, posições sorteadas a cada partida
+  var STAGES=[{bags:3,bombs:3,boxes:2},{bags:4,bombs:6,boxes:4},{bags:5,bombs:9,boxes:6}];
+  var LIVES=3, STUN=.5;   // bomba atordoa o cão por 0,5s
+  // pontuação: Pippo's +100 · caixa −20 · bomba −50 · ida-e-volta rápida (<3s) com Pippo's +até 150 · fase limpa antes de 25s +10/s
+  var PTS={bag:100, box:-20, bomb:-50, quickMax:150, quickSec:3, stageSec:25, stagePerSec:10};
+  var OMEGA=13, MAXV=1900;  // mão = mola criticamente amortecida (rigidez) + teto de velocidade px/s
+  var EXIT1={x:560,y:1366};  // borda do tronco na articulação do ombro (onde o braço do dog-rest se liga)
+  var STEP=14, RET=2600;     // espaçamento do rastro (px) e velocidade de recolher (px/s)
+
+  var S={ mode:'load', stage:0, lives:LIVES, elapsed:0, items:[], got:0, total:0,
+    hand:{x:0,y:0,vx:0,vy:0}, trail:[], drag:false, retract:false, keys:{}, flies:[], booms:[], eatT:-1, pendingEat:false, score:0, pops:[], reachT:0, reachBags:0, stageT:0, aim:null, hAng:-1.2, stun:0,
+    shake:0, muted:false, t:0 };
+
+  // ---------- áudio (sintetizado, sem arquivos) ----------
+  var AC=null;
+  function tone(f,d,type,vol,slide){ if(S.muted) return; try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    var o=AC.createOscillator(), g=AC.createGain(), t=AC.currentTime; o.type=type||'square'; o.frequency.setValueAtTime(f,t);
+    if(slide) o.frequency.exponentialRampToValueAtTime(slide,t+d); g.gain.setValueAtTime(vol||.08,t); g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t+d); }catch(e){} }
+  function noise(d){ if(S.muted) return; try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    var b=AC.createBuffer(1,AC.sampleRate*d,AC.sampleRate), ch=b.getChannelData(0);
+    for(var i=0;i<ch.length;i++) ch[i]=(Math.random()*2-1)*Math.pow(1-i/ch.length,2);
+    var s=AC.createBufferSource(), g=AC.createGain(); g.gain.value=.25; s.buffer=b; s.connect(g); g.connect(AC.destination); s.start(); }catch(e){} }
+  var SFX={ grab:function(){ tone(660,.09,'square',.07,990); setTimeout(function(){ tone(990,.12,'square',.06,1320); },70); },
+    boom:function(){ noise(.45); tone(120,.35,'sawtooth',.1,40); }, bump:function(){ tone(180,.12,'triangle',.14,90); },
+    tick:function(){ tone(520,.08,'square',.06); }, go:function(){ tone(880,.25,'square',.07,1320); },
+    win:function(){ [523,659,784,1046].forEach(function(f,i){ setTimeout(function(){ tone(f,.18,'square',.06); },i*110); }); } };
+
+  // ---------- música: chiptune alegre em loop, sintetizada (4 compassos C–F–G–C, 140bpm) ----------
+  var _=null, MEL=[4,7,12,7,4,_,7,_, 9,7,4,_,0,_,2,_,  5,9,12,9,5,_,9,_, 12,9,5,_,2,_,4,_,
+                   7,11,14,11,7,_,11,_, 14,11,7,_,4,_,5,_,  4,7,12,16,14,_,11,_, 12,_,7,_,12,_,_,_];
+  var BASS=[0,5,7,0], MUS={bus:null,step:0,next:0,timer:0}, STEP16=60/140/4, VOL=.05;
+  function note(freq,t,d,type,v){ var o=AC.createOscillator(), g=AC.createGain(); o.type=type; o.frequency.value=freq;
+    g.gain.setValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(.0001,t+d); o.connect(g); g.connect(MUS.bus); o.start(t); o.stop(t+d+.02); }
+  function musicStart(){
+    try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended') AC.resume(); }catch(e){ return; }
+    if(MUS.bus) return;
+    MUS.bus=AC.createGain(); MUS.bus.gain.value=S.muted?0:VOL; MUS.bus.connect(AC.destination); MUS.next=AC.currentTime+.08;
+    MUS.timer=setInterval(function(){ // agenda ~120ms à frente (não depende do rAF)
+      while(MUS.next<AC.currentTime+.12){ var i=MUS.step, t=MUS.next, bar=i>>4, k=i&15;
+        if(MEL[i]!==_) note(523.25*Math.pow(2,MEL[i]/12),t,.13,'square',.5);
+        if(k%4===0) note(130.81*Math.pow(2,(BASS[bar]+(k===4||k===12?12:0))/12),t,.2,'triangle',.9);
+        if(k%2===1) note(2400,t,.02,'square',.06);
+        MUS.next+=STEP16; MUS.step=(i+1)%MEL.length; } },30);
+  }
+  function setMuted(m){ S.muted=m; if(MUS.bus) MUS.bus.gain.setTargetAtTime(m?0:VOL,AC.currentTime,.05); }
+  document.addEventListener('visibilitychange',function(){ if(!AC) return; document.hidden?AC.suspend():AC.resume(); });
+
+  // ---------- fase: sorteio com garantia de caminho até todos os Pippo's ----------
+  function buildStage(){
+    var cfg=STAGES[S.stage], cells=[];
+    for(var r=ROW0;r<=ROW1;r++) for(var c=0;c<COLS;c++) if(!DOG_CELLS[c+','+r] && !(c===3&&r===7) && !(c===4&&r===7)) cells.push([c,r]);
+    for(var tries=0;tries<400;tries++){
+      cells.sort(function(){ return Math.random()-.5; });
+      var it=[], k=0, i;
+      for(i=0;i<cfg.boxes;i++,k++) it.push({kind:'box',c:cells[k][0],r:cells[k][1],img:(Math.random()<.5?'box-wood':'box-stone')+(1+(Math.random()*5|0))});
+      for(i=0;i<cfg.bombs;i++,k++) it.push({kind:'bomb',c:cells[k][0],r:cells[k][1]});
+      for(i=0;i<cfg.bags;i++,k++) it.push({kind:'bag',c:cells[k][0],r:cells[k][1],rot:(Math.random()-.5)*.5});
+      if(reachable(it)){ it.forEach(function(o){ var p=cc(o.c,o.r); o.x=p.x; o.y=p.y; o.alive=true; o.ph=Math.random()*6; }); S.items=it; S.got=0; S.total=cfg.bags; return; }
+    }
+  }
+  // ponytail: BFS 4-vizinhos por célula; a mão (r≈38) cabe no corredor de 140px entre duas bombas vizinhas
+  function reachable(it){
+    var block={}, bags=[];
+    it.forEach(function(o){ if(o.kind==='bag') bags.push(o.c+','+o.r); else block[o.c+','+o.r]=1; });
+    var seen={}, q=[ENTRY]; seen[ENTRY.join()]=1;
+    while(q.length){ var p=q.shift();
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){ var c=p[0]+d[0], r=p[1]+d[1], k=c+','+r;
+        if(c<0||c>=COLS||r<ROW0||r>ROW1||seen[k]||block[k]||DOG_CELLS[k]) return; seen[k]=1; q.push([c,r]); }); }
+    return bags.every(function(k){ return seen[k]; });
+  }
+
+  // ---------- braço elástico ----------
+  function tip(){ return S.hand; }
+  function resetArm(){ S.hand={x:REST.x,y:REST.y,vx:0,vy:0}; S.trail=[{x:REST.x,y:REST.y}]; S.drag=false; S.retract=false; S.aim=null; }
+  function clampPt(p){ return {x:Math.max(70,Math.min(1010,p.x)), y:Math.max(330,Math.min(1640,p.y))}; }
+  function stopArm(){ S.drag=false; S.retract=true; S.aim=null; }
+
+  // mão persegue o alvo como mola (suave, sem tranco); colisão varrida entre o quadro anterior e o atual
+  function moveHand(target,dt,omega){
+    var h=S.hand, ax=omega*omega*(target.x-h.x)-2*omega*h.vx, ay=omega*omega*(target.y-h.y)-2*omega*h.vy;
+    h.vx+=ax*dt; h.vy+=ay*dt;
+    var sp=Math.hypot(h.vx,h.vy); if(sp>MAXV){ h.vx*=MAXV/sp; h.vy*=MAXV/sp; }
+    var nx=h.x+h.vx*dt, ny=h.y+h.vy*dt, d=Math.hypot(nx-h.x,ny-h.y), steps=Math.max(1,Math.ceil(d/10)), ox=h.x, oy=h.y;
+    for(var s=1;s<=steps;s++){ h.x=ox+(nx-ox)*s/steps; h.y=oy+(ny-oy)*s/steps; layTrail(); if(hitTest(h)) break; }
+  }
+  // o braço deixa um rastro por onde a mão passa; voltar por cima dele encolhe o braço
+  function layTrail(){
+    var t=S.trail, h=S.hand, n=t.length;
+    for(var i=n-3;i>=1&&i>n-50;i--) if(Math.hypot(h.x-t[i].x,h.y-t[i].y)<18){ t.length=i+1; return; }
+    var l=t[t.length-1]; if(Math.hypot(h.x-l.x,h.y-l.y)<STEP) return;
+    t.push({x:h.x,y:h.y});
+    for(var j=Math.max(1,t.length-6);j<t.length-1;j++){ t[j].x=(t[j-1].x+t[j].x*2+t[j+1].x)/4; t[j].y=(t[j-1].y+t[j].y*2+t[j+1].y)/4; } // tira o tremido
+  }
+  function hitTest(p){
+    for(var i=0;i<S.items.length;i++){ var o=S.items[i]; if(!o.alive) continue;
+      var dx=p.x-o.x, dy=p.y-o.y;
+      if(o.kind==='bag' && dx*dx+dy*dy<70*70){ o.alive=false; S.pendingEat=true; S.reachBags++; addPts(PTS.bag,o.x,o.y-60); SFX.grab();
+        S.flies.push({x:o.x,y:o.y,rot:o.rot,t:0,slot:S.got+S.flies.length}); }
+      else if(o.kind==='bomb' && dx*dx+dy*dy<60*60){ o.alive=false; S.booms.push({x:o.x,y:o.y,t:0}); S.lives--; S.shake=.3; S.stun=STUN; addPts(PTS.bomb,o.x,o.y-80); SFX.boom(); stopArm(); return true; }
+      else if(o.kind==='box' && Math.abs(dx)<68 && Math.abs(dy)<66){ o.bump=.25; addPts(PTS.box,o.x,o.y-80); SFX.bump(); stopArm(); return true; }
+    }
+    return false;
+  }
+
+  function addPts(n,x,y,label){ S.score=Math.max(0,S.score+n); S.pops.push({x:x,y:y,t:0,txt:(n>0?'+':'−')+Math.abs(n)+(label?' '+label:''),good:n>0}); }
+  function startReach(){ S.drag=true; S.reachT=S.elapsed; S.reachBags=0; }
+  function fmtPts(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+
+  // ---------- fluxo ----------
+  function show(id){ ['load','home','tut','count','over'].forEach(function(s){ $(s).classList.toggle('on',s===id); }); }
+  function startGame(){ S.stage=0; S.lives=LIVES; S.elapsed=0; S.score=0; S.pops=[]; S.stageT=0; S.booms=[]; S.flies=[]; S.eatT=-1; buildStage(); resetArm(); countdown(3); }
+  function countdown(n){
+    S.mode='count'; show('count'); var box=$('count'), num=$('cNum');
+    $('cLbl').textContent='Prepare-se'; box.classList.remove('go');
+    (function step(){
+      if(n>0){ num.textContent=n; num.classList.remove('tick'); void num.offsetWidth; num.classList.add('tick'); SFX.tick(); n--; setTimeout(step,800); }
+      else { box.classList.add('go'); SFX.go(); setTimeout(function(){ show(null); S.mode='play'; },650); }
+    })();
+  }
+  function nextStage(){
+    S.stage++; S.stageT=S.elapsed; buildStage(); resetArm(); S.mode='count'; show('count');
+    var box=$('count'), num=$('cNum'); box.classList.remove('go'); $('cLbl').textContent='Level 1-'+(S.stage+1);
+    num.textContent=''; setTimeout(function(){ box.classList.add('go'); SFX.go(); setTimeout(function(){ show(null); S.mode='play'; },650); },700);
+  }
+  function fmt(ms){ var m=Math.floor(ms/60000), s=Math.floor(ms/1000)%60, c=Math.floor(ms/10)%100;
+    return [m,s,c].map(function(v){ return (v<10?'0':'')+v; }).join(':'); }
+  function gameOver(win){
+    S.mode='over'; var o=$('over'); o.classList.toggle('win',win); o.classList.toggle('lose',!win);
+    var best=0; try{ best=+localStorage.getItem('pegue-pippos-score')||0; }catch(e){}
+    if(win){ $('finalScore').textContent='x'+fmtPts(S.score); $('finalTime').textContent='Tempo: '+fmt(S.elapsed); SFX.win();
+      if(S.score>best){ best=S.score; try{ localStorage.setItem('pegue-pippos-score',String(best)); }catch(e){} $('best').textContent='Novo recorde!'; }
+      else $('best').textContent='Seu recorde: x'+fmtPts(best); }
+    else $('best').textContent='Pontos: x'+fmtPts(S.score)+(best?' · Recorde: x'+fmtPts(best):'');
+    setTimeout(function(){ show('over'); $('btnAgain').focus(); }, win?250:700);
+  }
+
+  // ---------- loop ----------
+  var last=0, KEYV={ArrowUp:[0,-1],KeyW:[0,-1],ArrowDown:[0,1],KeyS:[0,1],ArrowLeft:[-1,0],KeyA:[-1,0],ArrowRight:[1,0],KeyD:[1,0]};
+  function frame(now){
+    var dt=Math.min(.05,(now-(last||now))/1000); last=now; S.t+=dt; S.dt=dt;
+    if(S.mode==='play'){
+      S.elapsed+=dt*1000;
+      // teclado: segurar seta/WASD move o alvo, soltar recolhe
+      var vx=0, vy=0; for(var k in S.keys){ var v=KEYV[k]; if(v){ vx+=v[0]; vy+=v[1]; } }
+      if(vx||vy){ if(!S.retract&&S.eatT<0&&S.stun<=0){ if(!S.drag){ startReach(); S.aim={x:S.hand.x,y:S.hand.y}; }
+          var n=Math.hypot(vx,vy); S.aim=clampPt({x:S.aim.x+vx/n*760*dt, y:S.aim.y+vy/n*760*dt}); } S.kbd=true; }
+      else if(S.kbd){ S.kbd=false; if(S.drag) stopArm(); }
+      if(S.drag&&S.aim) moveHand(S.aim,dt,OMEGA);
+    }
+    if(S.retract){ // a mão volta pelo próprio rastro
+      var t=S.trail, h=S.hand, budget=RET*dt;
+      while(budget>0){ var q=t[t.length-1], d=Math.hypot(q.x-h.x,q.y-h.y);
+        if(d<=budget){ h.x=q.x; h.y=q.y; budget-=d; if(t.length>1) t.pop(); else break; }
+        else { h.x+=(q.x-h.x)*budget/d; h.y+=(q.y-h.y)*budget/d; budget=0; } }
+      h.vx=h.vy=0;
+      if(t.length<=1&&Math.hypot(h.x-REST.x,h.y-REST.y)<2){ resetArm(); afterRetract(); }
+    }
+    S.flies.forEach(function(f){ f.t+=dt/.5; });
+    S.flies=S.flies.filter(function(f){ if(f.t>=1){ S.got++; return false; } return true; });
+    S.booms.forEach(function(b){ b.t+=dt; }); S.booms=S.booms.filter(function(b){ return b.t<.6; });
+    S.items.forEach(function(o){ if(o.bump) o.bump=Math.max(0,o.bump-dt); });
+    if(S.eatT>=0){ S.eatT+=dt; if(S.eatT>.7){ S.eatT=-1; } }
+    S.shake=Math.max(0,S.shake-dt); S.stun=Math.max(0,S.stun-dt);
+    S.pops.forEach(function(q){ q.t+=dt; }); S.pops=S.pops.filter(function(q){ return q.t<1.1; });
+    if(S.mode==='play' && !S.drag && !S.retract && S.got===S.total && !S.flies.length && S.eatT<0){
+      var ss=(S.elapsed-S.stageT)/1000, sb=Math.max(0,Math.round(PTS.stageSec-ss))*PTS.stagePerSec;
+      if(sb>0) addPts(sb,540,980,'TEMPO');
+      if(S.stage<STAGES.length-1) nextStage(); else gameOver(true);
+    }
+    draw(); requestAnimationFrame(frame);
+  }
+  function afterRetract(){
+    if(S.reachBags){ var rt=(S.elapsed-S.reachT)/1000, qb=Math.round(Math.max(0,1-rt/PTS.quickSec)*PTS.quickMax/5)*5;
+      if(qb>0) addPts(qb,540,1150,'RÁPIDO!'); S.reachBags=0; }
+    if(S.pendingEat){ S.pendingEat=false; S.eatT=0; }
+    if(S.lives<=0 && S.mode==='play') gameOver(false);
+  }
+
+  // ---------- desenho ----------
+  function img(n,x,y,w,h){ var i=IMG[n]; if(i&&i.naturalWidth) cx.drawImage(i,x,y,w,h); }
+  function imgC(n,x,y,h,rot){ var i=IMG[n]; if(!i||!i.naturalWidth) return; var w=h*i.naturalWidth/i.naturalHeight;
+    cx.save(); cx.translate(x,y); if(rot) cx.rotate(rot); cx.drawImage(i,-w/2,-h/2,w,h); cx.restore(); }
+  function slotPos(i,total){ var w=total*100+40, x0=W/2-w/2+20; return {x:x0+50+i*100, y:1785}; }
+
+  // braço = spline Catmull-Rom passando por ombro (atrás do tronco) → saída da cintura → rastro → mão
+  function drawArm(){
+    var h=S.hand, P=[SHOULDER,EXIT1].concat(S.trail); var l=P[P.length-1];
+    if(Math.hypot(h.x-l.x,h.y-l.y)>1) P.push({x:h.x,y:h.y});
+    cx.save(); cx.lineCap='round'; cx.lineJoin='round';
+    function trace(){ cx.beginPath(); cx.moveTo(P[0].x,P[0].y);
+      for(var i=0;i<P.length-1;i++){ var a=P[Math.max(0,i-1)], b=P[i], c=P[i+1], d=P[Math.min(P.length-1,i+2)];
+        cx.bezierCurveTo(b.x+(c.x-a.x)/6,b.y+(c.y-a.y)/6, c.x-(d.x-b.x)/6,c.y-(d.y-b.y)/6, c.x,c.y); } }
+    trace(); cx.strokeStyle='#c86e20'; cx.lineWidth=27; cx.stroke();
+    trace(); cx.strokeStyle='#f78e33'; cx.lineWidth=20; cx.stroke();
+    cx.restore();
+    // mão ancorada pelo punho na ponta do braço, dedos no rumo do último trecho
+    var q=P[Math.max(0,P.length-4)], ang=Math.atan2(h.y-q.y,h.x-q.x);
+    if(Math.hypot(h.x-q.x,h.y-q.y)<4) ang=S.hAng;
+    var da=Math.atan2(Math.sin(ang-S.hAng),Math.cos(ang-S.hAng)); S.hAng+=da*Math.min(1,(S.dt||.016)*16);
+    var open=S.drag, im=IMG[open?'hand1b':'hand2b']; if(!im||!im.naturalWidth) return;
+    var hh=open?78:54, ww=hh*im.naturalWidth/im.naturalHeight, ax=open?.6:.5, ay=.92;
+    cx.save(); cx.translate(h.x,h.y); cx.rotate(S.hAng+Math.PI/2); cx.drawImage(im,-ww*ax,-hh*ay,ww,hh); cx.restore();
+  }
+
+  function draw(){
+    cx.save();
+    if(S.shake){ cx.translate((Math.random()-.5)*28*S.shake/.3,(Math.random()-.5)*28*S.shake/.3); }
+    img('board',0,0,W,H);
+    var play=S.mode!=='home'&&S.mode!=='load';
+    if(play){
+      // itens
+      S.items.forEach(function(o){ if(!o.alive) return;
+        if(o.kind==='box'){ var j=o.bump?Math.sin(o.bump*60)*6:0; imgC(o.img,o.x+j,o.y,136); }
+        else if(o.kind==='bomb'){ var s=1+Math.sin(S.t*5+o.ph)*.035*(S.stage+1); imgC('bomb',o.x,o.y,112*s); }
+        else imgC('bag',o.x,o.y+Math.sin(S.t*3+o.ph)*4,128,o.rot); });
+      // base + cão (olhos animados / comendo)
+      imgC('base',540,1522,131);
+      var dn;
+      if(S.eatT>=0) dn='dog-eat'+(1+Math.min(3,Math.floor(S.eatT*5)%4));
+      else { var seq=[1,1,1,1,1,1,1,1,1,1,2,3,4,5,1,1,1,1,1,1,1,1,5,4,3,2], f=seq[Math.floor(S.t*7)%seq.length]; dn='dog-idle'+f; }
+      var resting=!S.drag&&!S.retract;
+      if(resting&&S.eatT<0) dn='dog-rest';           // repouso = mão na barriga (541:19043)
+      else if(S.eatT<0) drawArm();                     // esticando: braço sai de trás do tronco
+      if(S.stun>0){ var w=Math.sin(S.t*40)*.1*(S.stun/STUN); cx.save(); cx.translate(DOG.x+DOG.s/2,DOG.y+DOG.s*.95); cx.rotate(w);
+        cx.drawImage(IMG[dn],-DOG.s/2,-DOG.s*.95,DOG.s,DOG.s); cx.restore();
+        for(var z=0;z<3;z++){ var za=S.t*9+z*2.094; imgC('boom1',DOG.x+DOG.s*.5+Math.cos(za)*85, DOG.y+DOG.s*.04+Math.sin(za)*22, 60); } }
+      else img(dn,DOG.x,DOG.y,DOG.s,DOG.s);
+      // explosões
+      S.booms.forEach(function(b){ var f=Math.min(5,Math.floor(b.t/.1)); imgC('boom'+(f+1),b.x,b.y,230); });
+      // HUD
+      img('pill',45,105,266,144);
+      cx.fillStyle='#825d4c'; cx.font='500 40px Mitr'; cx.textBaseline='middle'; cx.textAlign='left';
+      var st='x '+(S.score<10?'0':'')+fmtPts(S.score); cx.font='500 40px Mitr'; var sw=cx.measureText(st).width;
+      if(sw>124){ cx.font='500 '+Math.floor(40*124/sw)+'px Mitr'; } cx.fillText(st, 172, 187);
+      for(var l=0;l<LIVES;l++){ cx.globalAlpha=l<S.lives?1:.22; imgC('hand1b',110+l*64,1785,74,-.15); } // vidas = mãos
+      cx.globalAlpha=1;
+      img(S.muted?'snd-off':'snd-on',916,113,114,111);
+      cx.textAlign='center'; cx.fillStyle='#f0f0f0'; cx.font='400 25px Mitr'; cx.fillText('TEMPO',540,234);
+      cx.font='600 109px Mitr'; cx.fillStyle='rgba(0,0,0,.12)'; cx.fillText(fmt(S.elapsed),540,313);
+      cx.fillStyle='#fff'; cx.fillText(fmt(S.elapsed),540,307);
+      cx.fillStyle='#f0f0f0'; cx.font='400 26px Mitr'; cx.fillText('LEVEL 1-'+(S.stage+1),540,1700);
+      // slot de coleta
+      var w=S.total*100+40; cx.lineWidth=5; cx.strokeStyle='rgba(132,66,45,.45)'; cx.fillStyle='rgba(255,255,255,.07)';
+      cx.beginPath(); if(cx.roundRect) cx.roundRect(W/2-w/2,1725,w,120,26); else cx.rect(W/2-w/2,1725,w,120); cx.fill(); cx.stroke();
+      for(var i=0;i<S.total;i++){ var sp=slotPos(i,S.total);
+        if(i<S.got) imgC('bag',sp.x,sp.y,84,-.12); else { cx.globalAlpha=.75; imgC('bag-flat',sp.x,sp.y,70); cx.globalAlpha=1; } }
+      // saquinhos voando até o slot
+      S.flies.forEach(function(f){ var e=1-Math.pow(1-f.t,3), sp=slotPos(f.slot,S.total), arc=Math.sin(f.t*Math.PI)*-160;
+        imgC('bag', f.x+(sp.x-f.x)*e, f.y+(sp.y-f.y)*e+arc, 128-(44*e), f.rot*(1-e)); });
+      // pontos flutuando
+      cx.textAlign='center'; cx.lineJoin='round';
+      S.pops.forEach(function(q){ var e=q.t/1.1, y=q.y-70*(1-Math.pow(1-e,3)), sc=q.t<.12?.6+q.t/.12*.4:1;
+        cx.globalAlpha=e>.7?(1-e)/.3:1; cx.font='600 '+Math.round(56*sc)+'px Mitr';
+        cx.lineWidth=10; cx.strokeStyle='#2b1a10'; cx.strokeText(q.txt,q.x,y); cx.fillStyle=q.good?'#ffd23f':'#ff6b4a'; cx.fillText(q.txt,q.x,y); });
+      cx.globalAlpha=1;
+    }
+    cx.restore();
+  }
+
+  // ---------- entrada ----------
+  function toDesign(e){ var r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)*W/r.width, y:(e.clientY-r.top)*H/r.height}; }
+  cv.addEventListener('pointerdown',function(e){
+    var p=toDesign(e);
+    if(p.x>906&&p.x<1040&&p.y>103&&p.y<234){ setMuted(!S.muted); return; }
+    if(S.mode!=='play'||S.retract||S.eatT>=0||S.stun>0) return;
+    var t=tip(), onDog=p.x>380&&p.x<700&&p.y>1190&&p.y<1600, onHand=Math.hypot(p.x-t.x,p.y-t.y)<110;
+    if(onDog||onHand){ startReach(); S.aim=clampPt(p); cv.setPointerCapture(e.pointerId); e.preventDefault(); }
+  });
+  cv.addEventListener('pointermove',function(e){ if(S.drag&&S.mode==='play'&&!S.kbd) S.aim=clampPt(toDesign(e)); });
+  function release(){ if(S.drag&&!S.kbd) stopArm(); }
+  cv.addEventListener('pointerup',release); cv.addEventListener('pointercancel',release);
+  addEventListener('keydown',function(e){
+    if(KEYV[e.code]){ S.keys[e.code]=1; e.preventDefault(); }
+    else if(e.code==='KeyR'&&!e.metaKey&&!e.ctrlKey&&(S.mode==='play'||S.mode==='over')) startGame();
+  });
+  addEventListener('keyup',function(e){ delete S.keys[e.code]; });
+  addEventListener('blur',function(){ S.keys={}; });
+
+  // a música começa no primeiro toque (navegadores bloqueiam áudio antes de um gesto)
+  ['btnPlay','btnHow','btnOk','btnAgain'].forEach(function(id){ $(id).addEventListener('click',musicStart); });
+  $('btnPlay').onclick=function(){ startGame(); };
+  $('btnHow').onclick=function(){ S.mode='tut'; show('tut'); };
+  $('btnOk').onclick=function(){ startGame(); };
+  $('btnAgain').onclick=function(){ startGame(); };
+
+  // ---------- loading (anel animado em CSS) ----------
+  var minWait=new Promise(function(ok){ setTimeout(ok,1600); });
+  var fontReady=(document.fonts&&document.fonts.load)?Promise.all([document.fonts.load('600 109px Mitr'),document.fonts.load('500 40px Mitr')]).catch(function(){}):Promise.resolve();
+  Promise.all(NAMES.map(load).concat([minWait,fontReady])).then(function(){ S.mode='home'; show('home'); });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
