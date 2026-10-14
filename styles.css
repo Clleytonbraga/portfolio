@@ -424,7 +424,7 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
 .col--form { justify-content: center; }
 .col--form .col-more { max-width: 760px; }
 .col--form .col-more p { max-width: 62ch; }        /* intro do contato em linha cheia, ~2 linhas */
-.col-more h2, .col-more h1 { font-size: clamp(28px, 3vw, 44px); line-height: 1.02; letter-spacing: -.03em; margin: 0 0 10px; }
+.col-more h2 { font-size: clamp(28px, 3vw, 44px); line-height: 1.02; letter-spacing: -.03em; margin: 0 0 10px; }
 .col-more p  { color: var(--muted); font-size: 15px; margin: 0 0 18px; max-width: 34ch; }
 .col-cta {
   display: inline-block; margin-top: 22px; font-size: 14px; font-weight: 600;

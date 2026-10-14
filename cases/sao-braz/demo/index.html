@@ -30,8 +30,8 @@
     font-family:"Trebuchet MS", system-ui, sans-serif; color:#fff;
     background:
       radial-gradient(120% 80% at 50% 0%, #26307a 0%, var(--navy2) 45%, var(--navy) 100%);
-    height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:clamp(6px,1.6vh,16px); padding:clamp(8px,2vh,20px) 14px; overflow:hidden;
+    min-height:100%; display:flex; flex-direction:column; align-items:center;
+    padding:24px 16px 40px; overflow-x:hidden;
   }
   /* bandeirolas de fundo */
   body::before{
@@ -41,15 +41,15 @@
     -webkit-mask:radial-gradient(14px 20px at 14px 0, #000 98%, transparent) repeat-x 0 0/28px 22px;
     mask:radial-gradient(14px 20px at 14px 0, #000 98%, transparent) repeat-x 0 0/28px 22px;
   }
-  .logo{ width:auto; height:clamp(52px,12vh,130px); max-width:70vw; z-index:1; margin:0; filter:drop-shadow(0 6px 14px rgba(0,0,0,.4)); }
+  .logo{ width:min(300px,70vw); z-index:1; margin-top:28px; filter:drop-shadow(0 6px 14px rgba(0,0,0,.4)); }
   .hud{
-    z-index:1; display:flex; gap:14px; margin:0; font-weight:bold; font-size:clamp(13px,1.8vh,15px);
+    z-index:1; display:flex; gap:14px; margin:16px 0 20px; font-weight:bold; font-size:15px;
   }
   .hud span{ background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.25);
     padding:7px 16px; border-radius:999px; }
   .board{
-    z-index:1; display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(7px,1.4vh,12px);
-    width:min(460px,94vw,58vh); perspective:1000px;
+    z-index:1; display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+    width:min(460px,94vw); perspective:1000px;
   }
   .card{
     aspect-ratio:3/4; cursor:pointer; position:relative; transform-style:preserve-3d;
@@ -81,7 +81,7 @@
 </style>
 </head>
 <body>
-  <img class="logo" src="../assets/logo-game.webp" alt="Desafio da Memória — São Braz">
+  <img class="logo" src="../assets/logo-game.png" alt="Desafio da Memória — São Braz">
   <div class="hud"><span id="moves">Jogadas: 0</span><span id="pairs">Pares: 0/6</span></div>
   <div class="board" id="board"></div>
 
@@ -110,7 +110,7 @@
     shuffle([...FACES,...FACES]).forEach(name=>{
       const c=document.createElement('div');
       c.className='card'; c.dataset.name=name;
-      c.innerHTML=`<div class="side back" style="background-image:url(../assets/back.webp)"></div>
+      c.innerHTML=`<div class="side back" style="background-image:url(../assets/back.png)"></div>
                    <div class="side face" style="background-image:url(../assets/${name}.png)"></div>`;
       c.addEventListener('click',()=>flip(c));
       board.appendChild(c);

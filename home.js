@@ -139,15 +139,7 @@
     el.appendChild(label);
 
     var tpl = document.getElementById(s.body);
-    if (tpl) {
-      if (tpl.content) {                       // <template> (fallback)
-        el.appendChild(tpl.content.cloneNode(true));
-      } else {                                 // <div class="tpl-src" hidden>: conteúdo já no HTML → move
-        tpl.removeAttribute('hidden');
-        while (tpl.firstChild) el.appendChild(tpl.firstChild);
-        tpl.parentNode.removeChild(tpl);
-      }
-    }
+    if (tpl) el.appendChild(tpl.content.cloneNode(true));
     var more = el.querySelector('.col-more');
 
     /* preenchimento direcional "água" nos itens internos do menu (.case-row) */

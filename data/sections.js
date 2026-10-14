@@ -9,7 +9,7 @@
    fixed     true = painel aberto por padrão (apresentação)
    variant   classe extra opcional (ex.: "col--form", "col--cases")
 
-   Estrutura v2: 01 Quem sou eu · 02 Produto web · 03 Gamificação · 04 SaaS e apps · 05 Contato.
+   Estrutura v2: 01 Quem sou eu · 02 Produto web · 03 Game design · 04 SaaS e apps · 05 Contato.
    As abas 02/03/04 expandem inline numa lista de cases (não têm página de hub).
    "Marcas atendidas" saiu da home → agora é a faixa no /sobre (Dilis incluída). */
 window.SECTIONS = [
@@ -22,7 +22,7 @@ window.SECTIONS = [
 
   /* aba 3 escondida até terminar — desenvolvida na branch game-design
   { num: '03', accent: '#ec6a7f', keywords: ['Jogos', 'Experiências', 'Interação'],
-    title: 'Gamificação', href: null,
+    title: 'Game design', href: null,
     img: 'cases/sao-braz/assets/aba4-games.webp', body: 'tpl-games', variant: 'col--cases' },
   */
 

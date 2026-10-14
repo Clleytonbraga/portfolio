@@ -3,237 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gamificação | Cleyton Braga</title>
-<meta name="description" content="Jogos e ativações de marca com mecânica de jogo: Desafio da Memória (demo jogável), Pippo's, Maizena, Caixa, Red Bull e mais.">
+<title>Game design | Cleyton Braga</title>
+<meta name="description" content="Jogos curtos para ativação de marca e mecânicas de jogo dentro de produto: memória, runner, roleta e missões.">
+<!-- Open Graph / preview de compartilhamento -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cleyton Braga">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Gamificação | Cleyton Braga">
-<meta property="og:description" content="Jogos e ativações de marca com mecânica de jogo: Desafio da Memória (demo jogável), Pippo's, Maizena, Caixa, Red Bull e mais.">
+<meta property="og:title" content="Game design | Cleyton Braga">
+<meta property="og:description" content="Jogos curtos para ativação de marca e mecânicas de jogo dentro de produto: memória, runner, roleta e missões.">
 <meta property="og:url" content="https://cleytonbraga.com/cases/game-design/">
 <meta property="og:image" content="https://cleytonbraga.com/assets/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Cleyton Braga — UX/UI & Product Designer">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Gamificação | Cleyton Braga">
-<meta name="twitter:description" content="Jogos e ativações de marca com mecânica de jogo: Desafio da Memória (demo jogável), Pippo's, Maizena, Caixa, Red Bull e mais.">
+<meta name="twitter:title" content="Game design | Cleyton Braga">
+<meta name="twitter:description" content="Jogos curtos para ativação de marca e mecânicas de jogo dentro de produto: memória, runner, roleta e missões.">
 <meta name="twitter:image" content="https://cleytonbraga.com/assets/og-cover.jpg">
-<link rel="canonical" href="https://cleytonbraga.com/cases/game-design/">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <link rel="stylesheet" href="../../styles.css?v=68">
-<style>:root{ --accent:#eea25c; --accent-2:#e4863a; --accent-ink:#1b1206; --ok:#49d06a; }
-
-.vh{ position:absolute!important; width:1px; height:1px; margin:-1px; padding:0; border:0; clip:rect(0 0 0 0); clip-path:inset(50%); overflow:hidden; white-space:nowrap; }
-
-/* Tudo numa tela só (hero + cards = uma composição). O hero recebe min-height (não altura fixa):
-   em telas normais hero+cards preenchem a viewport; se o conteúdo for maior, o hero cresce e a página
-   rola — sem cortar o título. 388px = topbar+crumbs (108) + área dos cards (~280). */
-.gscreen{ display:flex; flex-direction:column; }
-
-/* ===== Hero em destaque — segue o padrão .fold do site (véu cima→baixo, texto embaixo, text-shadow) ===== */
-.ghero{ position:relative; min-height:calc(100svh - 360px); display:flex; align-items:flex-end; overflow:hidden; background:#07080a; }
-.ghero-media{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity .6s ease; }
-.ghero-media.show{ opacity:1; }
-.ghero-media--ph{ background:
-  radial-gradient(120% 120% at 70% 20%, rgba(238,162,92,.14), transparent 60%),
-  repeating-linear-gradient(45deg,#15171c,#15171c 16px,#121318 16px,#121318 32px); }
-/* véu idêntico ao .fold do site */
-.ghero-veil{ position:absolute; inset:0; z-index:1;
-  background:linear-gradient(180deg, rgba(12,13,16,.50) 0%, rgba(12,13,16,.32) 14%,
-    rgba(12,13,16,.60) 36%, rgba(12,13,16,.84) 58%, rgba(12,13,16,.98) 100%); }
-.ghero-inner{ position:relative; z-index:2; width:100%; padding-top:40px; padding-bottom:56px; }
-.ghero-fade{ transition:opacity .3s ease; }
-.ghero-title{ margin:10px 0 0; font-weight:800; letter-spacing:-.04em; line-height:.95;
-  font-size:clamp(40px,7vw,84px); color:#fff; max-width:14ch; text-shadow:0 2px 30px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4); }
-.ghero-meta{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:20px; font-size:15px; color:#e7e9ee; text-shadow:0 1px 12px rgba(0,0,0,.6); }
-.ghero-dot{ width:11px; height:11px; border-radius:50%; background:var(--ok); flex:none; }
-.ghero-sep{ color:var(--muted); }
-.ghero-tag{ color:var(--muted); }
-.ghero-desc{ margin:14px 0 0; max-width:46ch; color:#e6e8ee; font-size:15.5px; line-height:1.5; text-shadow:0 1px 12px rgba(0,0,0,.65); }
-.ghero-actions{ display:flex; align-items:center; gap:12px; margin-top:22px; }
-.ghero-hint{ margin:16px 0 0; font-size:13.5px; color:var(--muted); text-shadow:0 1px 10px rgba(0,0,0,.6); }
-
-/* botões */
-.gbtn{ display:inline-flex; align-items:center; gap:10px; border-radius:999px; padding:14px 26px; font-size:15.5px; font-weight:800; letter-spacing:.01em; border:1px solid transparent; }
-.gbtn-play{ background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:var(--accent-ink); cursor:pointer; transition:transform .12s, filter .15s; box-shadow:0 8px 20px -12px rgba(0,0,0,.6); }
-.gbtn-play:hover{ transform:translateY(-1px); filter:brightness(1.05); }
-.gbtn-lock{ background:color-mix(in srgb,var(--panel) 70%,transparent); color:var(--muted); border-color:var(--line); cursor:not-allowed; }
-.gbtn svg{ width:17px; height:17px; flex:none; }
-
-/* dots (navegação = clicar no dot ou arrastar/swipe no hero) */
-.ghero-dots{ display:none; }
-.gdot{ width:9px; height:9px; border-radius:999px; border:none; padding:0; background:rgba(255,255,255,.3); cursor:pointer; transition:background .3s; }
-.gdot:hover{ background:rgba(255,255,255,.55); }
-.gdot.active{ width:30px; background:var(--accent); }
-
-/* ===== Jogos · Mais populares (carrossel de cards = preview dos jogos, parte do hero) ===== */
-.pop{ flex:none; padding-top:18px; padding-bottom:22px; }
-.pop-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 14px; }
-.pop-h{ margin:0; font-size:clamp(18px,2.4vw,24px); font-weight:700; color:#fff; letter-spacing:-.01em; }
-.pop-nav{ display:flex; gap:8px; }
-.pop-arrow{ width:36px; height:36px; border-radius:999px; border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 60%,transparent); color:var(--fg); font-size:20px; line-height:1; display:grid; place-items:center; cursor:pointer; transition:border-color .15s, color .15s, opacity .15s; }
-.pop-arrow:hover{ border-color:var(--accent); color:var(--accent); }
-.pop-arrow:disabled{ opacity:.3; cursor:default; border-color:var(--line); color:var(--muted); }
-/* padding vertical pra o hover/realce dos cards não serem cortados pela overflow da fileira */
-.pop-row{ display:grid; grid-auto-flow:column; grid-auto-columns:200px; gap:16px; overflow-x:auto; padding:8px 2px 16px; scrollbar-width:none; -ms-overflow-style:none; }
-.pop-row::-webkit-scrollbar{ width:0; height:0; display:none; }
-/* "Outros projetos": fora do one-screen, em grade fixa (sem scroll-horizontal) */
-.pop--more{ padding-top:28px; padding-bottom:52px; }
-.pop--more .pop-row{ grid-auto-flow:row; grid-template-columns:repeat(4,1fr); grid-auto-columns:auto; overflow:visible; }
-.pcard{ display:flex; flex-direction:column; gap:12px; padding:0; border:none; background:transparent; text-align:left; cursor:pointer; color:var(--fg); }
-.pcard-art{ position:relative; aspect-ratio:258/172; border-radius:14px; overflow:hidden; border:1px solid var(--line); background-size:cover; background-position:center; background-image:var(--img); transition:border-color .18s, box-shadow .18s, transform .18s; }
-.pcard-art--ph{ background:
-  radial-gradient(120% 120% at 70% 20%, rgba(238,162,92,.12), transparent 60%),
-  repeating-linear-gradient(45deg,#15171c,#15171c 10px,#121318 10px,#121318 20px); }
-.pcard:hover .pcard-art{ transform:translateY(-2px); border-color:color-mix(in srgb,var(--accent) 45%,var(--line)); }
-.pcard.active .pcard-art{ border-color:var(--accent); box-shadow:0 0 0 1px var(--accent), 0 12px 28px -18px rgba(0,0,0,.7); }
-.pcard-txt{ display:flex; flex-direction:column; gap:3px; }
-.pcard-t{ font-size:14.5px; font-weight:600; line-height:1.25; }
-.pcard-sub{ font-size:12.5px; font-weight:500; color:var(--muted); line-height:1.2; }
-/* card de projeto com arte vertical (telas 9:16): ancora no topo p/ mostrar personagens/logo */
-.pcard--portrait .pcard-art{ background-position:center top; }
-/* card de logo: exibe a arte inteira (sem corte) sobre a cor da marca */
-.pcard--contain .pcard-art{ background-size:contain; background-repeat:no-repeat; background-position:center; }
-/* timer discreto que esgota na base da thumb ativa */
-.pcard-bar{ position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(0,0,0,.5); opacity:0; transition:opacity .2s; }
-.pcard.active .pcard-bar{ opacity:1; }
-.pcard-fill{ display:block; height:100%; width:100%; transform-origin:left; will-change:transform;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2)); }
-/* overlay central: play (jogável) ou cadeado "em breve" — aparece no hover */
-.pcard-play{ position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; opacity:0; background:rgba(8,9,11,.42); transition:opacity .18s; }
-.pcard:hover .pcard-play{ opacity:1; }
-.pcard-play-btn{ width:52px; height:52px; border-radius:50%; display:grid; place-items:center;
-  background:color-mix(in srgb, var(--accent) 90%, transparent); border:2px solid var(--accent); color:var(--accent-ink); }
-.pcard-play-btn svg{ width:20px; height:20px; margin-left:2px; }
-/* variante "em breve": bolinha neutra + cadeado (só comunica, não joga) */
-.pcard-play--lock .pcard-play-btn{ background:rgba(8,9,11,.55); border-color:rgba(255,255,255,.3); color:#fff; }
-.pcard-play--lock .pcard-play-btn svg{ margin-left:0; }
-.pcard-soon{ font-size:12px; font-weight:700; letter-spacing:.02em; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.5); }
-
-/* ===== Ficha do jogo (modal central flutuante) ===== */
-body.sheet-lock{ overflow:hidden; }
-.sheet{ position:fixed; inset:0; z-index:220; opacity:0; visibility:hidden; transition:opacity .22s ease, visibility .22s; }
-.sheet.open{ opacity:1; visibility:visible; }
-.sheet-backdrop{ position:absolute; inset:0; background:rgba(8,9,11,.72); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
-.sheet-panel{ position:absolute; left:50%; top:50%; transform:translate(-50%,-46%); width:min(560px,calc(100% - 32px)); max-height:90svh; overflow:auto;
-  background:#111317; border:1px solid var(--line); border-radius:20px; box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
-  opacity:0; transition:transform .26s cubic-bezier(.2,.7,.2,1), opacity .22s; }
-.sheet.open .sheet-panel{ transform:translate(-50%,-50%); opacity:1; }
-.sheet-close{ position:absolute; right:12px; top:12px; width:36px; height:36px; border-radius:999px; border:1px solid var(--line); background:rgba(8,9,11,.5); color:#fff; font-size:18px; line-height:1; display:grid; place-items:center; cursor:pointer; z-index:2; }
-.sheet-art{ position:relative; margin:16px 16px 0; aspect-ratio:16/10; border-radius:14px; overflow:hidden; border:1px solid var(--line); background-size:cover; background-position:center; transition:background-image .2s; }
-/* setas de navegação (slide) sobre a foto maior */
-.sheet-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:2; width:38px; height:38px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(8,9,11,.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); color:#fff; font-size:22px; line-height:1; display:grid; place-items:center; cursor:pointer; transition:background .15s, opacity .15s; }
-.sheet-arrow:hover{ background:rgba(8,9,11,.8); }
-.sheet-arrow--prev{ left:10px; } .sheet-arrow--next{ right:10px; }
-.sheet-arrow[hidden]{ display:none; }
-/* contador "n / total" — reforça que há várias fotos */
-.sheet-count{ position:absolute; right:10px; bottom:10px; z-index:2; padding:3px 9px; border-radius:999px; background:rgba(8,9,11,.6); color:#fff; font-size:12px; font-weight:700; letter-spacing:.02em; }
-.sheet-count[hidden]{ display:none; }
-.sheet-body{ padding:16px 20px 24px; }
-.sheet-title{ margin:0; font-size:22px; font-weight:800; letter-spacing:-.01em; color:#fff; }
-/* ficha técnica (igual aos cases: dt/dd) */
-.sheet-spec{ display:flex; flex-wrap:wrap; gap:14px 24px; margin:14px 0 0; }
-.sheet-spec dt{ color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; }
-.sheet-spec dd{ margin:3px 0 0; font-size:14px; font-weight:600; color:#e7e9ee; }
-.sheet-desc{ margin:16px 0 0; font-size:15px; line-height:1.55; color:#d6d9e0; }
-/* galeria do projeto = fileira de miniaturas logo abaixo da foto maior (slide) */
-.sheet-gallery{ display:flex; gap:8px; margin:10px 16px 0; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
-.sheet-gallery::-webkit-scrollbar{ display:none; }
-.sheet-thumb{ flex:none; width:72px; aspect-ratio:16/10; scroll-snap-align:start; border-radius:8px; border:1px solid var(--line); background-size:cover; background-position:center; cursor:pointer; opacity:.5; transition:opacity .15s, border-color .15s; }
-.sheet-thumb:hover{ opacity:.85; }
-.sheet-thumb.active{ opacity:1; border-color:var(--accent); }
-/* modo retrato: telas verticais (9:16) — foto maior "contain" e miniaturas verticais */
-.sheet-portrait .sheet-art{ aspect-ratio:auto; height:min(58svh,540px); background-size:contain; background-repeat:no-repeat; background-color:#0b0d10; }
-.sheet-portrait .sheet-thumb{ aspect-ratio:9/16; width:44px; }
-.sheet-actions{ margin-top:20px; }
-.sheet-actions .gbtn{ width:100%; justify-content:center; }
-@media(prefers-reduced-motion:reduce){ .sheet, .sheet-panel{ transition:none; } }
-
-/* mobile: hero como CAPA ROTATIVA tocável (abre a ficha) + catálogo em grade. */
-@media(max-width:720px){
-  /* hero compacto p/ caber banner + 3 jogos na 1ª dobra */
-  .ghero{ min-height:40svh; cursor:pointer; }
-  .ghero-inner{ padding-top:26px; padding-bottom:30px; }
-  /* no mobile o hero é capa rotativa: dots + arrastar */
-  .ghero-dots{ display:flex; position:absolute; left:0; right:0; bottom:10px; z-index:3;
-    justify-content:center; flex-wrap:wrap; gap:9px; padding:0 20px; }
-  .ghero-title{ font-size:clamp(32px,9vw,52px); max-width:16ch; }
-  .ghero-meta{ margin-top:14px; }
-  .ghero-desc{ margin-top:12px; font-size:14px; line-height:1.45;
-    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  .ghero-hint{ margin-top:10px; font-size:12.5px; }
-  .ghero-actions{ display:none; }
-  /* catálogo normal: grade de 3 por linha, thumb 3:4 + nome embaixo, sem destaque de "ativo" */
-  .pop{ padding-top:12px; padding-bottom:28px; }
-  .pop-head{ margin-bottom:0; }
-  .pop-nav{ display:none; }
-  .pop-row, .pop--more .pop-row{ grid-auto-flow:row; grid-template-columns:repeat(3,1fr); grid-auto-columns:auto; gap:16px 10px; overflow:visible; padding:0; }
-  .pcard-art{ aspect-ratio:3/4; background-image:var(--imgm, var(--img)); }
-  .pcard-bar{ display:none; }
-  .pcard.active .pcard-art{ border-color:var(--line); box-shadow:none; }
-  .pcard-t{ font-size:12.5px; }
-  .pcard-sub{ font-size:11px; }
-}
-@media(prefers-reduced-motion:reduce){
-  .ghero-media,.ghero-fade,.gdot,.pcard-art{ transition:none; }
-}
-
-/* ===== Overlay (modal do jogo / demo) ===== */
-body.ov-lock{ overflow:hidden; }
-.ov{ position:fixed; inset:0; z-index:200; display:grid; grid-template-rows:auto 1fr; opacity:0; visibility:hidden; transition:opacity .22s ease, visibility .22s; }
-.ov.open{ opacity:1; visibility:visible; }
-.ov-backdrop{ position:absolute; inset:0; background:rgba(8,9,11,.93); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
-.ov-bar{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:16px 20px; }
-.ov-title{ font-size:14px; color:var(--muted); }
-.ov-close{ width:40px; height:40px; border-radius:999px; border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 80%,transparent); color:var(--fg); font-size:20px; line-height:1; display:grid; place-items:center; cursor:pointer; }
-.ov-close:hover{ border-color:var(--accent); color:var(--accent); }
-.ov-stage{ position:relative; z-index:1; overflow:auto; display:flex; justify-content:center; padding:0 clamp(12px,5vw,60px) 40px; }
-.ov-stage iframe{ width:min(100%,520px); height:min(80vh,820px); border:1px solid var(--line); border-radius:14px; background:#0a0b0d; }
-@media(prefers-reduced-motion:reduce){ .ov{ transition:none; } }
+<style>:root{ --accent:#eea25c; }</style>
+<style>
+.fold{min-height:auto}
+.grid .card .thumb.type{display:flex;flex-direction:column;justify-content:flex-end;padding:18px;background:radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--accent) 28%,transparent),transparent 60%),var(--panel)}
+.thumb.type b{font-size:30px;letter-spacing:-.02em;color:var(--fg);line-height:1.05}
+.thumb.type span{font-size:12.5px;color:var(--muted);margin-top:6px}
+.card .kicker{display:block;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:4px}
+.mech{width:100%;border-collapse:collapse;margin-top:16px;font-size:14.5px}
+.mech th,.mech td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.mech th{color:var(--muted);font-weight:500;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.mech td:first-child{font-weight:600;color:var(--fg)}
+.mech td{color:var(--muted)}
+.tablewrap{overflow-x:auto}
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "CreativeWork",
-      "name": "Gamificação",
-      "url": "https://cleytonbraga.com/cases/game-design/",
-      "creator": {
-        "@id": "https://cleytonbraga.com/#cleyton"
-      },
-      "inLanguage": "pt-BR",
-      "image": "https://cleytonbraga.com/assets/og-cover.jpg"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Início",
-          "item": "https://cleytonbraga.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Cases",
-          "item": "https://cleytonbraga.com/cases/cases-de-sucesso/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Gamificação"
-        }
-      ]
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -241,382 +43,63 @@ body.ov-lock{ overflow:hidden; }
   <span class="brand">
     <a class="name" href="../../index.html">Cleyton Braga</a>
     <span class="dash">|</span>
-    <span class="role">UX/UI &amp; Product Designer</span>
+    <span class="role">UX/UI Designer</span>
   </span>
   <nav>
     <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
-    <a class="btn-cv" href="../../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Currículo ↓</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download>Currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
   <a class="crumb-back" href="../../index.html" onclick="if(history.length>1){history.back();return false;}" aria-label="Voltar" title="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <ol class="crumb-trail">
     <li><a href="../../index.html">Início</a></li>
-    <li aria-current="page">Gamificação</li>
+    <li aria-current="page">Game design</li>
   </ol>
 </div></nav>
 
-<main class="gscreen">
-<section class="ghero" id="ghero" aria-label="Jogo em destaque">
-  <div class="ghero-media ghero-media--ph show" id="hmediaA"></div>
-  <div class="ghero-media ghero-media--ph" id="hmediaB"></div>
-  <div class="ghero-veil"></div>
-  <div class="ghero-inner wrap">
-    <span class="eyebrow">03 · Gamificação</span>
-    <h1 class="vh">Gamificação — jogos e ativações de marca com mecânica de jogo</h1>
-    <div class="ghero-fade" id="hFade">
-      <p class="ghero-title" id="hTitle">&nbsp;</p>
-      <div class="ghero-meta">
-        <span class="ghero-dot"></span>
-        <span id="hPos"></span>
-        <span class="ghero-sep">·</span>
-        <span class="ghero-tag" id="hTag"></span>
-      </div>
-      <p class="ghero-desc" id="hDesc"></p>
-      <div class="ghero-actions" id="hActions"></div>
-    </div>
-    <p class="ghero-hint">Ative e jogue direto no navegador · sem download</p>
+<section class="fold">
+  <div class="fold-inner wrap">
+    <span class="eyebrow">03 · Game design</span>
+    <h1>Game design</h1>
+    <p class="fold-sub">Jogos curtos para ativação de marca e mecânicas de jogo dentro de produto.</p>
+    <dl class="fold-info"><div><dt>Formatos</dt><dd>Totem touch · Web mobile · App</dd></div><div><dt>Mecânicas</dt><dd>Memória · Sorte · Runner · Missões</dd></div><div><dt>Formação</dt><dd>Game Design, Unifacisa (2018)</dd></div></dl>
   </div>
-  <div class="ghero-dots" id="hDots" role="tablist" aria-label="Escolher jogo em destaque"></div>
 </section>
 
-<section class="pop wrap">
-  <div class="pop-head" style="justify-content:flex-end">
-    <div class="pop-nav">
-      <button class="pop-arrow" type="button" data-dir="-1" aria-label="Rolar para a esquerda">‹</button>
-      <button class="pop-arrow" type="button" data-dir="1" aria-label="Rolar para a direita">›</button>
-    </div>
+<main class="wrap">
+<section>
+  <p class="muted">Cada jogo aqui tem uma regra só e termina em algo que a marca quer: cadastro, foto ou ranking. O trabalho de design está em escolher essa regra e fazer ela caber na atenção curta de quem passa por um evento.</p>
+  <div class="grid">
+    <a class="card" href="../sao-braz/index.html"><div class="thumb" style="background-image:url(../sao-braz/assets/screens/capa.png)"></div>
+      <div class="body"><span class="kicker">Memória · totem</span><h3>Desafio da Memória, São Braz</h3><p>Os pares são os produtos da marca, e o jogo termina com uma foto do participante. Tem demo jogável.</p></div></a>
+    <a class="card" href="../sao-braz/index.html#pippos"><div class="thumb" style="background-image:url(../sao-braz/assets/screens/pippos-site.png)"></div>
+      <div class="body"><span class="kicker">Runner · web</span><h3>Pippo’s Doggo Dash</h3><p>Runner no navegador com ranking de prêmios, para a campanha de São João.</p></div></a>
+    <a class="card" href="../sao-joao-2k25/index.html#missoes"><div class="thumb" style="background-image:url(../sao-joao-2k25/assets/missoes.jpg)"></div>
+      <div class="body"><span class="kicker">Missões · app</span><h3>Missões no App São João 2K25</h3><p>Visitar locais do evento, tirar foto e ganhar selo no perfil, com conquistas bloqueadas em cinza.</p></div></a>
   </div>
-  <div class="pop-row" id="popRow"></div>
+</section>
+<section>
+  <h2>As mecânicas</h2>
+  <p class="muted">O que cada jogo pede do jogador e como ele termina.</p>
+  <div class="tablewrap"><table class="mech">
+    <thead><tr><th>Jogo</th><th>Mecânica</th><th>Regra</th><th>Como termina</th></tr></thead>
+    <tbody>
+      <tr><td>Desafio da Memória</td><td>Memória</td><td>Encontrar 6 pares de produtos São Braz</td><td>Foto do participante no totem</td></tr>
+      <tr><td>Pippo’s Doggo Dash</td><td>Runner</td><td>Jogo no navegador, dentro do site da campanha</td><td>Ranking de prêmios</td></tr>
+      <tr><td>Missões SJ 2K25</td><td>Missões e conquistas</td><td>Visitar 3 locais indicados no mapa e tirar foto</td><td>Selo no perfil</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:14px">A Roleta Digital da São Braz e o jogo da Maizena ainda não têm case publicado.</p>
+  <!-- REVISAR (Cleyton): regra e fim da Roleta e da Maizena para entrarem na tabela; se souber, tempo médio de partida e número de participantes. -->
+</section>
+<section>
+  <p class="muted">Mecânica de jogo também aparece no meu trabalho de produto web, em componentes de gamificação como missões e torneios. <!-- REVISAR: link para um case de gamificação quando existir --></p>
 </section>
 </main>
-
-<section class="pop pop--more wrap">
-  <div class="pop-head"><h2 class="pop-h">Outros projetos</h2></div>
-  <div class="pop-row" id="projRow"></div>
-</section>
 
 <footer><div class="wrap">
   Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
 </div></footer>
-
-<script>
-/* Showcase estilo loja de jogos: o card em evidência embaixo (.pcard) vira o hero (.ghero).
-   Auto-avanço com um timer discreto que ESGOTA na base da thumb ativa; pausa no hover do hero
-   ou da fileira, e com o modal aberto. "Jogar demo" abre modal; jogo sem demo = cadeado. */
-(function () {
-  var DURATION = 5000;  // ms por jogo
-  var FALLBACK = 'assets/hero.webp';  // fundo do hero p/ jogo sem arte própria
-  var LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
-  var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-
-  /* demo = URL jogável -> "Jogar demo". demo:null -> cadeado "Em breve". img:null -> placeholder.
-     TODO prototipar (viram "Jogar"): cobrinha, pegue-pippos, maizena, forro-hero, redbull. */
-  var GAMES = [
-    { key:'memoria', title:'Desafio da Memória', brand:'São Braz', tag:'São Braz · Totem · Memória',
-      desc:'Encontre seis pares de produtos da marca. A partida termina com uma foto do participante no totem. Desenvolvido em 2025 para a ativação da São Braz no maior São João do mundo.',
-      img:'assets/memoria.webp', mimg:'assets/memoria-mobile.webp', mthumb:'assets/memoria.webp', demo:'../sao-braz/demo/index.html' },
-    { key:'cobrinha', title:'DOGGO DASH', brand:'São Braz', tag:"São Braz · Campanha Pippo's · Web · Snake",
-      desc:'Releitura do clássico da cobrinha: guie o caramelo e devore os Pippo’s para crescer. Desenvolvido em parceria com a Dilis para a campanha da Pippo’s Vitaminado, um dos grandes produtos da São Braz.',
-      img:'assets/doggo.webp', mimg:'assets/doggo-mobile.webp', demo:'../sao-braz/cobrinha/index.html' },
-    { key:'maizena', title:'Maizena Caça', brand:'Maizena', tag:'Maizena · Web · Caça-níquel',
-      desc:'Caça-níquel de ativação: gire os reels e acerte os ingredientes das receitas feitas com Maizena. Desenvolvido em 2025 em parceria com a Dilis para a ativação da marca no São João.',
-      img:'assets/maizena.webp', mimg:'assets/maizena-mobile.webp',
-      thumb:'assets/maizena-thumb.webp', mthumb:'assets/maizena-thumb-mobile.webp', demo:'../maizena/demo/index.html' },
-    { key:'forro-hero', title:'Forró Hero', brand:'Caixa', tag:'Caixa · Web · Ritmo',
-      desc:'Guitar Hero de São João: acerte as notas no ritmo do forró, com duas músicas originais (xote no fácil, baião no difícil). Desenvolvido para a ativação da Caixa no maior São João do mundo — a ativação usava uma sanfona real como controle.',
-      img:'assets/forro-hero.webp', mimg:'assets/forro-hero-mobile.webp', demo:'../forro-hero/index.html' },
-    { key:'pegue-pippos', title:"Pegue o Pippo's", brand:'São Braz', tag:"São Braz · Campanha Pippo's · Web · Arcade",
-      desc:'Estique o braço do caramelo, desvie das bombas e pegue todos os Pippo’s no menor tempo. Desenvolvido em parceria com a Dilis para a campanha da Pippo’s Vitaminado, um dos grandes produtos da São Braz.',
-      img:'assets/pegue-pippos.webp', mimg:'assets/pegue-pippos-mobile.webp', demo:'../sao-braz/pegue-pippos/index.html' },
-    { key:'redbull', title:'Teste suas Asas', brand:'Red Bull', tag:'Red Bull · Web · Agilidade',
-      desc:'Pegue as latas Red Bull antes que sumam: a velocidade aumenta e 3 erros encerram. Tem modo P1 vs P2 na mesma tela. Desenvolvido para o lançamento de um novo produto da Red Bull em 2025.',
-      img:'assets/redbull.webp', mimg:'assets/redbull-mobile.webp', demo:'../redbull-asas/index.html' },
-    { key:'pravaler', title:'Pravaler Runner', brand:'Pravaler', tag:'Pravaler · Totem · Runner',
-      desc:'Jogo estilo run para ativação da marca em um evento escolar, feito para captar leads de estudantes interessados em cursos superiores. Tem ranking que premia os participantes na hora, e toda a experiência foi desenhada para totem/tela touch.',
-      img:'assets/pravaler-00.webp', thumb:'assets/pravaler-thumb.webp', demo:null, proj:true, portrait:true,
-      shots:['assets/pravaler-00.webp','assets/pravaler-01.webp','assets/pravaler-02.webp','assets/pravaler-03.webp','assets/pravaler-04.webp','assets/pravaler-05.webp','assets/pravaler-06.webp','assets/pravaler-07.webp'] },
-    { key:'h2oh', title:'H2OH!', brand:'Case de estudo', tag:'H2OH · Web · Quiz',
-      desc:'Quiz de consumo consciente de água: perguntas cronometradas que enchem a garrafa e revelam seu título de guardião da água.',
-      img:'assets/h2oh-01.webp', thumb:'assets/h2oh-thumb.webp', bg:'#6dcd4f', contain:true, demo:null, proj:true, portrait:true,
-      shots:['assets/h2oh-01.webp','assets/h2oh-02.webp','assets/h2oh-03.webp','assets/h2oh-05.webp','assets/h2oh-06.webp','assets/h2oh-07.webp','assets/h2oh-08.webp','assets/h2oh-09.webp'] },
-    { key:'defensores', title:'Defensores da Natureza', brand:'Sesc', tag:'Sesc · Eco · 3 fases',
-      desc:'Jogo desenvolvido para o Sesc em parceria com a Dilis: três fases para conscientizar crianças de 7 a 13 anos sobre a importância de preservar o meio ambiente — a terceira e última fase inteiramente em VA. Meu papel foi desenvolver a UI do jogo e apresentar o fluxo de forma visual.',
-      img:'assets/defensores-01.webp', demo:null, proj:true,
-      shots:['assets/defensores-02.webp','assets/defensores-03.webp','assets/defensores-04.webp','assets/defensores-05.webp'] }
-  ];
-  var PROTOS = GAMES.filter(function (g) { return !g.proj; });  // jogos (hero + "Protótipos jogáveis")
-  var PROJS  = GAMES.filter(function (g) { return g.proj; });   // "Outros projetos" (sem gameplay)
-
-  /* ficha técnica (estilo cases: rótulo/valor). shots = fotos da galeria (adicionar em assets/). */
-  var SPEC = {
-    memoria:      [['Cliente','Dilis (São Braz)'], ['Ano','2025'], ['Formato','Totem touch'], ['Mecânica','Memória']],
-    cobrinha:     [['Cliente','Dilis (São Braz)'], ['Campanha',"Pippo's Vitaminado"], ['Formato','Web'], ['Mecânica','Snake']],
-    maizena:      [['Cliente','Dilis (Maizena)'], ['Ano','2025'], ['Formato','Web'], ['Mecânica','Caça-níquel']],
-    'forro-hero': [['Cliente','Dilis (Caixa)'], ['Ano','2025'], ['Formato','Web'], ['Mecânica','Ritmo / Arcade']],
-    'pegue-pippos':[['Cliente','Dilis (São Braz)'], ['Campanha',"Pippo's Vitaminado"], ['Formato','Web'], ['Mecânica','Arcade']],
-    redbull:      [['Cliente','Dilis (Red Bull)'], ['Ano','2025'], ['Formato','Web'], ['Mecânica','Arcade']],
-    pravaler:     [['Cliente','Dilis (Pravaler)'], ['Formato','Totem touch'], ['Mecânica','Runner'], ['Objetivo','Captação de leads']],
-    h2oh:         [['Projeto','Case de estudo'], ['Formato','Web'], ['Mecânica','Quiz cronometrado']],
-    defensores:   [['Cliente','Dilis (Sesc)'], ['Público','Crianças 7–13'], ['Formato','3 fases'], ['Meu papel','UI + fluxo visual']]
-  };
-  GAMES.forEach(function (g) { g.spec = SPEC[g.key] || []; g.shots = g.shots || []; });
-
-  var $ = function (id) { return document.getElementById(id); };
-  var hTitle = $('hTitle'), hPos = $('hPos'), hTag = $('hTag'), hDesc = $('hDesc'),
-      hActions = $('hActions'), hFade = $('hFade'), hDots = $('hDots'), popRow = $('popRow'), projRow = $('projRow');
-  var layers = [$('hmediaA'), $('hmediaB')], front = 0;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function mob() { return window.matchMedia('(max-width: 720px)').matches; }
-
-  function paintMedia(layer, g) {
-    layer.classList.remove('ghero-media--ph');
-    layer.style.backgroundImage = 'url(' + (g.img || FALLBACK) + ')';
-  }
-
-  // ---- dots (um por protótipo)
-  PROTOS.forEach(function (g, i) {
-    var d = document.createElement('button');
-    d.className = 'gdot' + (i === 0 ? ' active' : ''); d.type = 'button';
-    d.setAttribute('role', 'tab'); d.setAttribute('aria-label', g.title);
-    d.addEventListener('click', function (e) { e.stopPropagation(); go(i); });
-    hDots.appendChild(d);
-  });
-  var dots = Array.prototype.slice.call(hDots.children);
-
-  // título + subtítulo (marca) do card — igual nos dois grids
-  function cardTxt(g) {
-    return '<span class="pcard-txt"><span class="pcard-t">' + g.title + '</span>' +
-      (g.brand ? '<span class="pcard-sub">' + g.brand + '</span>' : '') + '</span>';
-  }
-
-  // ---- Protótipos jogáveis (alimentam o hero)
-  PROTOS.forEach(function (g, i) {
-    var c = document.createElement('button');
-    c.className = 'pcard' + (i === 0 ? ' active' : ''); c.type = 'button';
-    c.setAttribute('role', 'tab');
-    c.innerHTML =
-      '<span class="pcard-art' + (g.img ? '' : ' pcard-art--ph') + '"' +
-        // thumb/mthumb (opcionais) trocam só a arte do card; o hero continua usando img
-        (g.img ? ' style="--img:url(' + (g.thumb || g.img) + ')' + ((g.mthumb || g.mimg) ? ';--imgm:url(' + (g.mthumb || g.mimg) + ')' : '') + '"' : '') + '>' +
-        '<span class="pcard-bar"><i class="pcard-fill"></i></span>' +
-        (g.demo
-          ? '<span class="pcard-play"><i class="pcard-play-btn">' + PLAY + '</i></span>'
-          : '<span class="pcard-play pcard-play--lock"><i class="pcard-play-btn">' + LOCK + '</i><span class="pcard-soon">Em breve</span></span>') +
-      '</span>' + cardTxt(g);
-    c.addEventListener('click', function () { openSheet(g); });
-    popRow.appendChild(c);
-  });
-  var cards = Array.prototype.slice.call(popRow.children);
-
-  // ---- Outros projetos (sem gameplay): grade estática, clicar/tocar abre a ficha
-  PROJS.forEach(function (g) {
-    var c = document.createElement('button');
-    c.className = 'pcard' + (g.portrait && !g.thumb ? ' pcard--portrait' : '') + (g.contain ? ' pcard--contain' : ''); c.type = 'button';
-    c.innerHTML =
-      '<span class="pcard-art' + (g.img ? '' : ' pcard-art--ph') + '"' +
-        (g.img ? ' style="background-image:url(' + (g.thumb || g.img) + ')' + (g.bg ? ';background-color:' + g.bg : '') + '"' : '') + '></span>' +
-      cardTxt(g);
-    c.addEventListener('click', function () { openSheet(g); });
-    projRow.appendChild(c);
-  });
-
-  function setFeatured(g, i) {
-    hFade.style.opacity = 0;
-    setTimeout(function () {
-      hTitle.textContent = g.title;
-      hPos.textContent = 'Jogo nº ' + (i + 1) + ' do portfólio';
-      hTag.textContent = g.tag;
-      hDesc.textContent = g.desc;
-      if (g.demo) {
-        hActions.innerHTML = '<button type="button" class="gbtn gbtn-play">' + PLAY + ' Jogar demo</button>';
-        hActions.firstChild.addEventListener('click', function () { openDemo(g); });
-      } else {
-        hActions.innerHTML = '<span class="gbtn gbtn-lock">' + LOCK + ' Em breve</span>';
-      }
-      hFade.style.opacity = 1;
-    }, reduce ? 0 : 170);
-    // cross-fade do fundo entre as 2 camadas
-    var back = layers[1 - front];
-    paintMedia(back, g);
-    void back.offsetWidth;
-    back.classList.add('show');
-    layers[front].classList.remove('show');
-    front = 1 - front;
-  }
-
-  function setActive(i) {
-    dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
-    cards.forEach(function (c, k) {
-      c.classList.toggle('active', k === i);
-      if (k !== i) { var f = c.querySelector('.pcard-fill'); if (f) f.style.transform = 'scaleX(1)'; }
-    });
-  }
-
-  // ---- auto-avanço: barra esgota na base da thumb ativa (rAF)
-  var idx = 0, elapsed = 0, lastT = null, paused = false, rafId = null;
-  function setProg(p) {
-    var f = cards[idx].querySelector('.pcard-fill');
-    if (f) f.style.transform = 'scaleX(' + (1 - p) + ')';   // cheia -> vazia
-  }
-  function go(i) {
-    idx = ((i % PROTOS.length) + PROTOS.length) % PROTOS.length;
-    elapsed = 0; lastT = null;
-    setActive(idx); setProg(0); setFeatured(PROTOS[idx], idx);
-  }
-  function tick(t) {
-    if (lastT == null) lastT = t;
-    var dt = t - lastT; lastT = t;
-    if (!paused) {
-      elapsed += dt;
-      var p = Math.min(1, elapsed / DURATION);
-      setProg(p);
-      if (p >= 1) { go(idx + 1); }
-    }
-    rafId = window.requestAnimationFrame(tick);
-  }
-
-  // estado inicial
-  setFeatured(PROTOS[0], 0);
-  if (!reduce) {
-    if (mob()) {
-      // mobile: o hero é uma CAPA que passa os jogos sozinha (cross-fade, sem timer, decoplado do catálogo).
-      // go() mantém os dots em sincronia; a barra fica oculta no mobile via CSS.
-      setInterval(function () { if (!paused) go(idx + 1); }, DURATION);
-    } else {
-      // desktop: carrossel com timer que esgota na thumb ativa
-      rafId = window.requestAnimationFrame(tick);
-    }
-  }
-
-  // desktop: pausa no hover. mobile: tocar abre a ficha; arrastar (swipe) passa os jogos.
-  (function () {
-    var el = $('ghero'), sx = 0, sy = 0, moved = false;
-    el.addEventListener('mouseenter', function () { if (!mob()) paused = true; });
-    el.addEventListener('mouseleave', function () { if (!mob()) { paused = false; lastT = null; } });
-    el.addEventListener('click', function () { if (mob() && !moved) openSheet(PROTOS[idx]); });
-    el.addEventListener('touchstart', function (e) { var t = e.touches[0]; sx = t.clientX; sy = t.clientY; moved = false; }, { passive: true });
-    el.addEventListener('touchmove', function (e) { var t = e.touches[0]; if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) moved = true; }, { passive: true });
-    el.addEventListener('touchend', function (e) {
-      var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
-      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? idx + 1 : idx - 1);  // ← esquerda = próximo
-    });
-  })();
-
-  // ---- modal (demo)
-  var ov = document.createElement('div');
-  ov.className = 'ov'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
-  ov.innerHTML = '<div class="ov-backdrop"></div><div class="ov-bar"><span class="ov-title"></span><button class="ov-close" type="button" aria-label="Fechar">✕</button></div><div class="ov-stage"></div>';
-  document.body.appendChild(ov);
-  var stage = ov.querySelector('.ov-stage'), ovTitle = ov.querySelector('.ov-title'), last = null;
-  function openDemo(g) {
-    last = document.activeElement; paused = true;
-    ovTitle.textContent = g.title;
-    stage.innerHTML = '<iframe src="' + g.demo + '" title="' + g.title + '" loading="lazy"></iframe>';
-    ov.classList.add('open'); document.body.classList.add('ov-lock');
-    ov.querySelector('.ov-close').focus();
-  }
-  function closeOv() { ov.classList.remove('open'); document.body.classList.remove('ov-lock'); stage.innerHTML = ''; paused = false; lastT = null; if (last && last.focus) last.focus(); }
-  ov.querySelector('.ov-close').addEventListener('click', closeOv);
-  ov.querySelector('.ov-backdrop').addEventListener('click', closeOv);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('open')) closeOv(); });
-
-  // ---- ficha do jogo (modal central) — toque no card/hero (mobile) ou clique em "Outros projetos"
-  var sheet = document.createElement('div');
-  sheet.className = 'sheet'; sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'true');
-  sheet.innerHTML =
-    '<div class="sheet-backdrop"></div>' +
-    '<div class="sheet-panel">' +
-      '<button class="sheet-close" type="button" aria-label="Fechar">✕</button>' +
-      '<div class="sheet-art" id="sheetArt">' +
-        '<button class="sheet-arrow sheet-arrow--prev" id="sheetPrev" type="button" aria-label="Foto anterior">‹</button>' +
-        '<button class="sheet-arrow sheet-arrow--next" id="sheetNext" type="button" aria-label="Próxima foto">›</button>' +
-        '<span class="sheet-count" id="sheetCount"></span>' +
-      '</div>' +
-      '<div class="sheet-gallery" id="sheetGallery"></div>' +
-      '<div class="sheet-body">' +
-        '<h3 class="sheet-title" id="sheetTitle"></h3>' +
-        '<dl class="sheet-spec" id="sheetSpec"></dl>' +
-        '<p class="sheet-desc" id="sheetDesc"></p>' +
-        '<div class="sheet-actions" id="sheetActions"></div>' +
-      '</div>' +
-    '</div>';
-  document.body.appendChild(sheet);
-  var shArt = $('sheetArt'), shTitle = $('sheetTitle'), shSpec = $('sheetSpec'), shGallery = $('sheetGallery'),
-      shDesc = $('sheetDesc'), shActions = $('sheetActions'), shLast = null;
-  var shPrev = $('sheetPrev'), shNext = $('sheetNext'), shCount = $('sheetCount');
-  var galImgs = [], galIdx = 0;
-  function galShow(i) {
-    if (!galImgs.length) return;
-    galIdx = (i + galImgs.length) % galImgs.length;
-    shArt.style.backgroundImage = 'url(' + galImgs[galIdx] + ')';
-    Array.prototype.forEach.call(shGallery.children, function (x, k) {
-      x.classList.toggle('active', k === galIdx);
-      if (k === galIdx && x.scrollIntoView) x.scrollIntoView({ inline: 'nearest', block: 'nearest' });
-    });
-    shCount.textContent = (galIdx + 1) + ' / ' + galImgs.length;
-  }
-  shPrev.addEventListener('click', function () { galShow(galIdx - 1); });
-  shNext.addEventListener('click', function () { galShow(galIdx + 1); });
-  (function () { // swipe na foto maior
-    var x0 = null;
-    shArt.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-    shArt.addEventListener('touchend', function (e) {
-      if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) galShow(galIdx + (dx < 0 ? 1 : -1));
-    });
-  })();
-
-  function openSheet(g) {
-    shLast = document.activeElement; paused = true;
-    shTitle.textContent = g.title; shDesc.textContent = g.desc;
-    // ficha técnica (rótulo/valor)
-    shSpec.innerHTML = (g.spec || []).map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
-    // galeria (slide): capa + fotos (g.shots). foto maior passa por setas/swipe/thumbs.
-    // portrait: telas verticais; a capa (landscape) fica só no card, galeria = só as telas.
-    sheet.classList.toggle('sheet-portrait', !!g.portrait);
-    galImgs = []; if (g.img && !g.portrait) galImgs.push(g.img); if (g.shots) galImgs = galImgs.concat(g.shots);
-    var multi = galImgs.length > 1;
-    shArt.classList.toggle('pcard-art--ph', !galImgs.length);
-    shPrev.hidden = shNext.hidden = shCount.hidden = !multi;
-    if (multi) {
-      shGallery.hidden = false;
-      shGallery.innerHTML = galImgs.map(function (src, k) { return '<button type="button" class="sheet-thumb' + (k === 0 ? ' active' : '') + '" style="background-image:url(' + src + ')"></button>'; }).join('');
-      Array.prototype.forEach.call(shGallery.children, function (t, k) { t.addEventListener('click', function () { galShow(k); }); });
-      galShow(0);
-    } else {
-      shGallery.hidden = true; shGallery.innerHTML = '';
-      shArt.style.backgroundImage = galImgs.length ? 'url(' + galImgs[0] + ')' : '';
-    }
-    if (g.demo) {
-      shActions.innerHTML = '<button type="button" class="gbtn gbtn-play">' + PLAY + ' Jogar</button>';
-      shActions.firstChild.addEventListener('click', function () { closeSheet(); openDemo(g); });
-    } else {
-      shActions.innerHTML = '';  // sem gameplay: só a ficha (arte + descrição), sem botão
-    }
-    sheet.classList.add('open'); document.body.classList.add('sheet-lock');
-    sheet.querySelector('.sheet-close').focus();
-  }
-  function closeSheet() { sheet.classList.remove('open'); document.body.classList.remove('sheet-lock'); paused = false; lastT = null; if (shLast && shLast.focus) shLast.focus(); }
-  sheet.querySelector('.sheet-close').addEventListener('click', closeSheet);
-  sheet.querySelector('.sheet-backdrop').addEventListener('click', closeSheet);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
-
-  // ---- arrows de scroll da fileira de protótipos (desktop)
-  (function () {
-    var nav = document.querySelector('.pop-nav'); if (!nav) return;
-    var prev = nav.children[0], next = nav.children[1];
-    function amt() { return Math.max(popRow.clientWidth * 0.8, 240); }
-    prev.addEventListener('click', function () { popRow.scrollBy({ left: -amt(), behavior: 'smooth' }); });
-    next.addEventListener('click', function () { popRow.scrollBy({ left: amt(), behavior: 'smooth' }); });
-    function upd() {
-      var max = popRow.scrollWidth - popRow.clientWidth - 2;
-      prev.disabled = popRow.scrollLeft <= 0;
-      next.disabled = popRow.scrollLeft >= max;
-    }
-    popRow.addEventListener('scroll', upd); window.addEventListener('resize', upd); upd();
-  })();
-})();
-</script>
 </body>
 </html>
