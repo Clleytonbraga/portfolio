@@ -651,3 +651,6 @@ body.home .topbar .role { color: var(--muted); font-size: 13px; letter-spacing: 
   .gallery figure { aspect-ratio: 16 / 9; }
   footer { text-align: center; }
 }
+
+/* EN ocultado temporariamente (idioma em breve) — remover esta linha pra reexibir */
+.btn-lang{display:none !important}
