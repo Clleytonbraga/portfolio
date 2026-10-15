@@ -204,7 +204,7 @@ addEventListener('click', function (e) {
     var btn = form.querySelector('.fsend');
     var err = form.querySelector('.ferr');
     if (err) err.hidden = true;
-    btn.disabled = true; btn.textContent = 'Enviando…';
+    btn.disabled = true; btn.textContent = 'Enviando mensagem…';
     fetch(CONTACT_ENDPOINT, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) })
       .then(function (r) { if (!r.ok) throw 0; show(3); form.reset(); })
       .catch(function () { btn.disabled = false; btn.textContent = 'Enviar mensagem →'; if (err) err.hidden = false; });

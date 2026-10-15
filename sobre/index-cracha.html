@@ -128,7 +128,7 @@ main section > p.muted{ max-width:none; }
   </span>
   <nav>
     <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
-    <a class="btn-cv" href="../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Currículo ↓</a>
+    <a class="btn-cv" href="../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Baixar currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
@@ -261,9 +261,9 @@ main section > p.muted{ max-width:none; }
 
   <form class="cta-form" novalidate>
     <div class="fstep" data-step="1">
-      <label>Seu email</label>
+      <label>Seu e-mail</label>
       <input type="email" name="email" placeholder="voce@email.com" required autocomplete="email">
-      <button type="button" class="fnext">Continuar →</button>
+      <button type="button" class="fnext">Escrever mensagem →</button>
     </div>
     <div class="fstep" data-step="2" hidden>
       <label>Mensagem</label>
@@ -271,9 +271,9 @@ main section > p.muted{ max-width:none; }
       <button type="submit" class="fsend">Enviar mensagem →</button>
     </div>
     <div class="fstep fdone" data-step="3" hidden>
-      <p class="col-cta">✓ Mensagem enviada! Respondo em breve.</p>
+      <p class="col-cta">✓ Mensagem enviada. Obrigado pelo contato!</p>
     </div>
-    <p class="ferr" hidden>Não consegui enviar agora — tenta de novo ou me chama no WhatsApp.</p>
+    <p class="ferr" hidden>Não foi possível enviar. Tente novamente ou fale comigo pelo WhatsApp.</p>
   </form>
 
   <div class="contact-socials">
@@ -290,7 +290,7 @@ main section > p.muted{ max-width:none; }
 </div></div></section>
 
 <footer><div class="wrap">
-  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+  Portfólio de <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
 </div></footer>
 
 <script>
@@ -311,7 +311,7 @@ main section > p.muted{ max-width:none; }
     if (!form.msg.value.trim()) { form.msg.reportValidity(); return; }
     var btn = form.querySelector('.fsend'), err = form.querySelector('.ferr');
     if (err) err.hidden = true;
-    btn.disabled = true; btn.textContent = 'Enviando…';
+    btn.disabled = true; btn.textContent = 'Enviando mensagem…';
     fetch(CONTACT_ENDPOINT, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) })
       .then(function (r) { if (!r.ok) throw 0; show(3); form.reset(); })
       .catch(function () { btn.disabled = false; btn.textContent = 'Enviar mensagem →'; if (err) err.hidden = false; });

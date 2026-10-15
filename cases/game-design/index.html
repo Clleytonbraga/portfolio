@@ -245,7 +245,7 @@ body.ov-lock{ overflow:hidden; }
   </span>
   <nav>
     <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
-    <a class="btn-cv" href="../../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Currículo ↓</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Baixar currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
@@ -297,7 +297,7 @@ body.ov-lock{ overflow:hidden; }
 </section>
 
 <footer><div class="wrap">
-  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+  Portfólio de <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
 </div></footer>
 
 <script>
@@ -350,15 +350,15 @@ body.ov-lock{ overflow:hidden; }
 
   /* ficha técnica (estilo cases: rótulo/valor). shots = fotos da galeria (adicionar em assets/). */
   var SPEC = {
-    memoria:      [['Cliente','Dilis (São Braz)'], ['Ano','2025'], ['Formato','Totem touch'], ['Mecânica','Memória']],
-    cobrinha:     [['Cliente','Dilis (São Braz)'], ['Campanha',"Pippo's Vitaminado"], ['Formato','Web'], ['Mecânica','Snake']],
-    maizena:      [['Cliente','Dilis (Maizena)'], ['Ano','2025'], ['Formato','Web'], ['Mecânica','Caça-níquel']],
-    'forro-hero': [['Cliente','Dilis (Caixa)'], ['Ano','2025'], ['Formato','Web'], ['Mecânica','Ritmo / Arcade']],
-    'pegue-pippos':[['Cliente','Dilis (São Braz)'], ['Campanha',"Pippo's Vitaminado"], ['Formato','Web'], ['Mecânica','Arcade']],
-    redbull:      [['Cliente','Dilis (Red Bull)'], ['Ano','2025'], ['Formato','Web'], ['Mecânica','Arcade']],
-    pravaler:     [['Cliente','Dilis (Pravaler)'], ['Formato','Totem touch'], ['Mecânica','Runner'], ['Objetivo','Captação de leads']],
-    h2oh:         [['Projeto','Case de estudo'], ['Formato','Web'], ['Mecânica','Quiz cronometrado']],
-    defensores:   [['Cliente','Dilis (Sesc)'], ['Público','Crianças 7–13'], ['Formato','3 fases'], ['Meu papel','UI + fluxo visual']]
+    memoria:      [['Cliente','Dilis (São Braz)'], ['Ano','2025'], ['Plataforma','Totem touch'], ['Mecânica','Memória']],
+    cobrinha:     [['Cliente','Dilis (São Braz)'], ['Campanha',"Pippo's Vitaminado"], ['Plataforma','Web'], ['Mecânica','Snake']],
+    maizena:      [['Cliente','Dilis (Maizena)'], ['Ano','2025'], ['Plataforma','Web'], ['Mecânica','Caça-níquel']],
+    'forro-hero': [['Cliente','Dilis (Caixa)'], ['Ano','2025'], ['Plataforma','Web'], ['Mecânica','Ritmo / Arcade']],
+    'pegue-pippos':[['Cliente','Dilis (São Braz)'], ['Campanha',"Pippo's Vitaminado"], ['Plataforma','Web'], ['Mecânica','Arcade']],
+    redbull:      [['Cliente','Dilis (Red Bull)'], ['Ano','2025'], ['Plataforma','Web'], ['Mecânica','Arcade']],
+    pravaler:     [['Cliente','Dilis (Pravaler)'], ['Plataforma','Totem touch'], ['Mecânica','Runner'], ['Objetivo','Captação de leads']],
+    h2oh:         [['Projeto','Case de estudo'], ['Plataforma','Web'], ['Mecânica','Quiz cronometrado']],
+    defensores:   [['Cliente','Dilis (Sesc)'], ['Público','Crianças 7–13'], ['Plataforma','3 fases'], ['Meu papel','UI + fluxo visual']]
   };
   GAMES.forEach(function (g) { g.spec = SPEC[g.key] || []; g.shots = g.shots || []; });
 
@@ -589,7 +589,7 @@ body.ov-lock{ overflow:hidden; }
       shArt.style.backgroundImage = galImgs.length ? 'url(' + galImgs[0] + ')' : '';
     }
     if (g.demo) {
-      shActions.innerHTML = '<button type="button" class="gbtn gbtn-play">' + PLAY + ' Jogar</button>';
+      shActions.innerHTML = '<button type="button" class="gbtn gbtn-play">' + PLAY + ' Jogar demo</button>';
       shActions.firstChild.addEventListener('click', function () { closeSheet(); openDemo(g); });
     } else {
       shActions.innerHTML = '';  // sem gameplay: só a ficha (arte + descrição), sem botão

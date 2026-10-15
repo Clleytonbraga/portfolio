@@ -152,7 +152,7 @@ body.lb-lock{ overflow:hidden; }
   </span>
   <nav>
     <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
-    <a class="btn-cv" href="../../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Currículo ↓</a>
+    <a class="btn-cv" href="../../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Baixar currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
@@ -167,7 +167,7 @@ body.lb-lock{ overflow:hidden; }
   <div class="fold-inner wrap">
     <span class="eyebrow">04 · SaaS e apps · SaaS B2B</span>
     <h1>Feedback ORG</h1>
-    <p class="fold-sub">Dashboards para donos de empresa e RH lerem pesquisas de clima sem abrir planilha.</p>
+    <p class="fold-sub">Pesquisas de clima e dashboards para ajudar gestores de RH a interpretar os resultados.</p>
     <dl class="fold-info">
       <div><dt>Meu papel</dt><dd>Planejamento e design do produto</dd></div>
       <div><dt>Escopo</dt><dd>UX · UI · Pesquisas gamificadas · Marca</dd></div>
@@ -182,13 +182,12 @@ body.lb-lock{ overflow:hidden; }
   <!-- RESUMO -->
   <div class="resumo">
     <div class="resumo-label">RESUMO</div>
-    <p>A Dilis atende empresas de vários setores e percebeu que muitos clientes tinham dados sobre os funcionários, mas não conseguiam lê-los nem agir a partir deles. Planejei e desenhei os dashboards: mostrar a donos e gestores de RH como está a organização, sem um analista no meio. O produto saiu em duas etapas — o MVP <strong>Feedback XP</strong> (atendimento em lojas) e o <strong>Feedback ORG</strong> (clima interno), sobre a mesma base.</p>
+    <p>Planejei e desenhei as interfaces de um produto voltado à leitura de pesquisas organizacionais. O trabalho evoluiu em duas etapas: <strong>Feedback XP</strong>, voltado ao atendimento em lojas, e <strong>Feedback ORG</strong>, voltado ao clima interno das empresas.</p>
   </div>
 
   <section>
-    <h2>O problema</h2>
-    <p class="muted">Era muito dado, e o gestor de RH precisava entender a situação olhando a tela uma vez. A decisão de clima costumava ser reativa — só chegava quando a pessoa já estava pedindo demissão.</p>
-    <p class="muted">Algumas decisões que saíram disso: o NPS interno fica em destaque e o resto aparece ao entrar na pesquisa; a navegação desce sempre na mesma ordem (empresa → unidade → pesquisa → pergunta → colaborador) com o filtro fixo no topo; os comentários abertos viram nuvem de palavras e sentimento; e casos que pedem atenção, como sinais de burnout, aparecem como alerta. A IA sugere o que olhar, mas quem decide é o gestor.</p>
+    <h2>O desafio</h2>
+    <p class="muted">Organizar diferentes tipos de pesquisa em uma interface que permitisse consultar resultados gerais e investigar respostas em diferentes níveis de detalhe.</p>
   </section>
 
   <section>
@@ -200,7 +199,7 @@ body.lb-lock{ overflow:hidden; }
   </section>
 
   <section>
-    <h2>Como funciona</h2>
+    <h2>Decisões de design</h2>
     <div class="pipe">
       <div class="pipe-visual">
         <figure class="pipe-final shot" style="margin:0">
@@ -209,10 +208,10 @@ body.lb-lock{ overflow:hidden; }
         <p class="pipe-cap">Dashboard: NPS interno, barômetro, ranking de pesquisas e satisfação dos colaboradores.</p>
       </div>
       <ol class="steps">
-        <li><span class="step-n">1</span><div class="step-b"><b>Pesquisa</b><span>Clima, pulso, onboarding, desligamento e desempenho.</span></div></li>
-        <li><span class="step-n">2</span><div class="step-b"><b>Análise</b><span>As respostas viram NPS interno e sentimento.</span></div></li>
-        <li><span class="step-n">3</span><div class="step-b"><b>Plano de ação</b><span>A IA sugere, o gestor decide.</span></div></li>
-        <li><span class="step-n">4</span><div class="step-b"><b>Evolução</b><span>Nova rodada para ver se melhorou.</span></div></li>
+        <li><span class="step-n">1</span><div class="step-b"><b>Indicador principal em destaque</b><span>A visão geral apresenta o indicador de clima, com acesso aos demais resultados.</span></div></li>
+        <li><span class="step-n">2</span><div class="step-b"><b>Navegação por níveis</b><span>O gestor pode avançar de empresa para unidade, pesquisa e perguntas, mantendo o contexto da análise.</span></div></li>
+        <li><span class="step-n">3</span><div class="step-b"><b>Análise de comentários</b><span>As respostas abertas são organizadas para facilitar a identificação de temas recorrentes.</span></div></li>
+        <li><span class="step-n">4</span><div class="step-b"><b>Pontos de atenção</b><span>O produto prevê a apresentação de indicadores de risco e sugestões de ações, sem substituir a avaliação dos profissionais responsáveis.</span></div></li>
       </ol>
     </div>
     <div class="pipe-tools">
@@ -225,20 +224,20 @@ body.lb-lock{ overflow:hidden; }
 
   <section>
     <h2>Telas</h2>
-    <p class="muted">As telas do Feedback ORG — do dashboard ao relatório de clima. Clique para ampliar.</p>
+    <p class="muted">As telas do Feedback ORG — do dashboard ao relatório de clima. Selecione uma imagem para ampliar.</p>
     <figure class="shot"><img src="assets/fborg-dashboard.webp" alt="Dashboard de clima do Feedback ORG" loading="lazy"><figcaption>Dashboard — NPS interno, barômetro e engajamento.</figcaption></figure>
     <figure class="shot"><img src="assets/fborg-relatorio.webp" alt="Relatório de pesquisa do Feedback ORG" loading="lazy"><figcaption>Relatório — distribuição das respostas e pontos de alerta.</figcaption></figure>
     <figure class="shot"><img src="assets/fborg-modal-colaborador.webp" alt="Visão por colaborador do Feedback ORG" loading="lazy"><figcaption>Colaborador — histórico individual de respostas.</figcaption></figure>
   </section>
 
   <section>
-    <h2>Resultado</h2>
+    <h2>Resultado e estágio atual</h2>
     <div class="stats">
-      <div class="stat"><b>2 <span class="g">produtos</span></b><span>Feedback XP (MVP) e Feedback ORG, sobre a mesma base</span></div>
-      <div class="stat"><b>Em <span class="g">comercialização</span></b><span>em busca dos primeiros clientes</span></div>
+      <div class="stat"><b>2 <span class="g">produtos</span></b><span>Feedback XP e Feedback ORG, desenhados sobre a mesma base</span></div>
+      <div class="stat"><b>Em <span class="g">comercialização</span></b><span>Feedback ORG em fase de comercialização</span></div>
       <div class="stat"><b>NR-01 <span class="g">coberta</span></b><span>riscos psicossociais que a norma passou a exigir</span></div>
     </div>
-    <p class="muted" style="margin-top:18px">Ainda não há dados de uso, então este case mostra o design e as decisões. Começar pelo MVP no atendimento ajudou: a lógica de pesquisa curta com um indicador claro já estava testada quando chegou ao RH. O que eu faria diferente: o projeto começou quando IA e análise de dados ainda engatinhavam — hoje eu usaria modelos melhores para ler os comentários e sugerir os planos de ação.</p>
+    <p class="muted" style="margin-top:18px">O Feedback ORG está em fase de comercialização. Ainda não há dados consolidados de uso ou resultados de clientes. Este case apresenta as decisões de design e a estrutura do produto.</p>
   </section>
 
   <section>
@@ -262,7 +261,7 @@ body.lb-lock{ overflow:hidden; }
 </main>
 
 <footer><div class="wrap">
-  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+  Portfólio de <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
 </div></footer>
 
 <script>
@@ -281,9 +280,9 @@ body.lb-lock{ overflow:hidden; }
     '<div class="lb-dialog">' +
       '<div class="lb-bar"><span class="lb-count"></span><button class="lb-close" type="button" aria-label="Fechar">✕</button></div>' +
       '<div class="lb-stage">' +
-        '<button class="lb-arrow lb-prev" type="button" aria-label="Anterior">‹</button>' +
+        '<button class="lb-arrow lb-prev" type="button" aria-label="Tela anterior">‹</button>' +
         '<img class="lb-img" alt="" draggable="false" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">' +
-        '<button class="lb-arrow lb-next" type="button" aria-label="Próxima">›</button>' +
+        '<button class="lb-arrow lb-next" type="button" aria-label="Próxima tela">›</button>' +
       '</div>' +
       '<div class="lb-cap"></div>' +
       '<div class="lb-thumbs"></div>' +

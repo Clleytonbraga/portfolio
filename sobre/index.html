@@ -161,7 +161,7 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
   </span>
   <nav>
     <button class="btn-lang" type="button" aria-label="Translate to English" title="English (em breve)">EN</button>
-    <a class="btn-cv" href="../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Currículo ↓</a>
+    <a class="btn-cv" href="../assets/curriculo.pdf" download="Cleyton_Braga_CV_2026.pdf">Baixar currículo ↓</a>
   </nav>
 </div></header>
 <nav class="crumbs" aria-label="Você está em"><div class="wrap">
@@ -177,8 +177,8 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
     <figure class="hero-photo"><img loading="lazy" src="../assets/cleyton.jpg" alt="Cleyton Braga" width="1254" height="1254"></figure>
     <div class="hero-text">
       <h1>Cleyton Braga</h1>
-      <p class="hero-role">UX/UI &amp; Product Designer · produto web e game design</p>
-      <p class="hero-lede">Desenho jornadas de conversão, mecânicas de engajamento e ferramentas internas. Quando um processo trava o time, uso IA para tirar o gargalo.</p>
+      <p class="hero-role">Product Designer · UX/UI e produtos digitais</p>
+      <p class="hero-lede">Trabalho com interfaces para web e mobile, de ferramentas internas a produtos voltados ao público. Também desenvolvo projetos de gamificação, unindo regras de jogo e design de interface. Quando um processo trava o time, uso IA para tirar o gargalo.</p>
       <dl class="hero-info">
         <div><dt>Experiência</dt><dd>8+ anos em design digital</dd></div>
         <div><dt>Local</dt><dd>Campina Grande, PB · remoto</dd></div>
@@ -192,19 +192,19 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
 
   <section>
     <h2>O que andei criando</h2>
-    <p class="muted">Trabalhei na BPX Group atendendo várias marcas do grupo, em especial a Vaidebet e a Betpix365: jornadas de conversão, automações para o time de criação e a solução de gargalos operacionais entre os times de desenvolvimento e CRM.</p>
+    <p class="muted">Na BPX Group, trabalhei com produtos para marcas de apostas, principalmente Vaidebet e Betpix365. Participei de projetos de conversão e gamificação e desenvolvi soluções para reduzir tarefas manuais e a dependência entre equipes de CRM, criação e desenvolvimento.</p>
     <div class="cards3">
       <a class="card" href="../cases/hub-promocoes/index.html">
         <div class="thumb" style="background-image:url(../cases/hub-promocoes/assets/hero.webp)"></div>
-        <div class="body"><h3>Hub de Promoções →</h3><p>Apostas · apps, UI e design system</p><p class="ver-case">Ver case →</p></div>
+        <div class="body"><h3>Hub de Promoções →</h3><p>CMS e painel de dados para o time de CRM</p><p class="ver-case">Ver case →</p></div>
       </a>
       <a class="card" href="../cases/feedback-org/index.html">
         <div class="thumb" style="background-image:url(../cases/feedback-org/assets/feedback-hero.webp)"></div>
-        <div class="body"><h3>Feedback ORG →</h3><p>Pesquisa de clima organizacional</p><p class="ver-case">Ver case →</p></div>
+        <div class="body"><h3>Feedback ORG →</h3><p>Pesquisas de clima e dashboards de RH</p><p class="ver-case">Ver case →</p></div>
       </a>
       <a class="card" href="../cases/sao-joao-2k25/index.html">
         <div class="thumb" style="background-image:url(../cases/sao-joao-2k25/assets/hero.webp)"></div>
-        <div class="body"><h3>App São João 2K25 →</h3><p>App de evento — programação e mapa</p><p class="ver-case">Ver case →</p></div>
+        <div class="body"><h3>App São João 2K25 →</h3><p>Aplicativo oficial com programação, mapa e missões</p><p class="ver-case">Ver case →</p></div>
       </a>
     </div>
   </section>
@@ -261,8 +261,8 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
 
   <section>
     <h2>Gamificação</h2>
-    <p class="muted">Estudei Game Design e Jogos Digitais na Unifacisa em 2018. Desde então levo mecânica de jogo para dentro de produto: missões, conquistas e ranking em apps, e jogos curtos para ativação de marca, como o Desafio da Memória da São Braz, que tem demo jogável aqui no site.</p>
-    <div class="cta-row"><a href="../cases/game-design/index.html">Ver Gamificação →</a></div>
+    <p class="muted">Estudei Game Design e Jogos Digitais na Unifacisa em 2018. Desde então, também trabalho com mecânicas de jogo em produtos e ativações de marca. Entre os projetos estão missões, rankings, jogos de memória e experiências para eventos. Algumas demos podem ser jogadas aqui no portfólio.</p>
+    <div class="cta-row"><a href="../cases/game-design/index.html">Ver jogos e ativações →</a></div>
   </section>
 
   <section>
@@ -283,19 +283,19 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
 
   <form class="cta-form" novalidate>
     <div class="fstep" data-step="1">
-      <label>Seu email</label>
-      <input type="email" name="email" placeholder="voce@email.com" required autocomplete="email">
-      <button type="button" class="fnext">Continuar →</button>
+      <label for="cta-email">Seu e-mail</label>
+      <input id="cta-email" type="email" name="email" placeholder="voce@email.com" required autocomplete="email">
+      <button type="button" class="fnext">Escrever mensagem →</button>
     </div>
     <div class="fstep" data-step="2" hidden>
-      <label>Mensagem</label>
-      <textarea name="msg" rows="3" placeholder="Sobre o que você quer falar?" required></textarea>
+      <label for="cta-msg">Mensagem</label>
+      <textarea id="cta-msg" name="msg" rows="3" placeholder="Sobre o que você quer falar?" required></textarea>
       <button type="submit" class="fsend">Enviar mensagem →</button>
     </div>
     <div class="fstep fdone" data-step="3" hidden>
-      <p class="col-cta">✓ Mensagem enviada! Respondo em breve.</p>
+      <p class="col-cta">✓ Mensagem enviada. Obrigado pelo contato!</p>
     </div>
-    <p class="ferr" hidden>Não consegui enviar agora — tenta de novo ou me chama no WhatsApp.</p>
+    <p class="ferr" hidden>Não foi possível enviar. Tente novamente ou fale comigo pelo WhatsApp.</p>
   </form>
 
   <div class="contact-socials">
@@ -312,7 +312,7 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
 </div></div></section>
 
 <footer><div class="wrap">
-  Design by <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
+  Portfólio de <a href="https://www.linkedin.com/in/clleytonbraga/" target="_blank" rel="noopener">Cleyton Braga</a> | 2026
 </div></footer>
 
 <script>
@@ -333,7 +333,7 @@ main section:last-of-type{ padding-bottom:8px; }          /* "Marcas atendidas" 
     if (!form.msg.value.trim()) { form.msg.reportValidity(); return; }
     var btn = form.querySelector('.fsend'), err = form.querySelector('.ferr');
     if (err) err.hidden = true;
-    btn.disabled = true; btn.textContent = 'Enviando…';
+    btn.disabled = true; btn.textContent = 'Enviando mensagem…';
     fetch(CONTACT_ENDPOINT, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) })
       .then(function (r) { if (!r.ok) throw 0; show(3); form.reset(); })
       .catch(function () { btn.disabled = false; btn.textContent = 'Enviar mensagem →'; if (err) err.hidden = false; });
