@@ -14,7 +14,7 @@
    "Marcas atendidas" saiu da home → agora é a faixa no /sobre (Dilis incluída). */
 window.SECTIONS = [
   { num: '01', accent: '#e3b341', keywords: [],
-    title: 'Quem sou eu', href: 'sobre/index.html', img: null, body: 'tpl-about', fixed: true },
+    title: 'Quem sou eu', href: 'sobre/', img: null, body: 'tpl-about', fixed: true },
 
   { num: '02', accent: '#5fd49a', keywords: ['Estratégia', 'Design', 'Resultados'],
     title: 'Produto web', href: null, /* lista inline dos cases no painel (tpl-produto) */
